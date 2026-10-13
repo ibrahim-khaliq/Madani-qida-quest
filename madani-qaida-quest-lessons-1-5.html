@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#126b50">
+<title>Madani Qaida Quest</title>
+<style>
+:root{--green:#126b50;--deep:#094735;--gold:#ffd166;--cream:#fff9e9;--ink:#17352d;--pink:#ffdfeb;--blue:#dff2ff}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(150deg,#dff7eb,#fff8e4 55%,#fbe5ef);color:var(--ink);min-height:100vh}
+header{background:linear-gradient(135deg,var(--deep),#16805d);color:white;padding:24px 16px 30px;border-radius:0 0 28px 28px;text-align:center;position:relative;overflow:hidden}
+header:before,header:after{content:"✦";position:absolute;color:#ffffff30;font-size:76px}header:before{left:8%;top:0}header:after{right:8%;bottom:-8px}
+.logo{font-size:42px}h1{margin:5px 0;font-size:clamp(26px,6vw,38px)}header p{margin:7px auto 0;max-width:540px;color:#e0fff0}
+.wrap{max-width:850px;margin:auto;padding:16px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:-18px;position:relative}
+.stat{background:white;border-radius:16px;padding:12px 8px;text-align:center;box-shadow:0 5px 15px #124b3215}.stat strong{display:block;font-size:22px;color:var(--green)}.stat span{font-size:12px}
+.panel{background:#ffffffed;border:2px solid #ffffff;border-radius:22px;padding:18px;margin:16px 0;box-shadow:0 8px 24px #124b3210}
+h2{margin:0 0 8px;font-size:22px} .muted{color:#547067;font-size:14px;line-height:1.5}
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-top:15px}
+.lesson{border:2px solid #dceee5;background:#fafffc;border-radius:18px;padding:15px;text-align:left;cursor:pointer;color:var(--ink);min-height:150px;transition:.15s}
+.lesson:hover,.lesson:focus{transform:translateY(-2px);border-color:var(--green)}.lesson .emoji{font-size:31px}.lesson strong{display:block;margin:6px 0}.lesson small{color:#557267;line-height:1.4;display:block}.lesson.locked{opacity:.55;cursor:not-allowed;background:#f4f4f4}
+button{font:inherit}.primary,.secondary,.answer{border:0;border-radius:14px;padding:13px 16px;font-weight:750;cursor:pointer}
+.primary{background:var(--green);color:white}.secondary{background:#e4f5ec;color:var(--deep)}button:focus-visible{outline:3px solid #f3b700;outline-offset:2px}
+.hidden{display:none!important}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.topline{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.pill{background:#fff0bc;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
+.progress{height:10px;background:#e4eee8;border-radius:99px;overflow:hidden;margin:12px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,#28a879,#ffd166);transition:width .25s}
+.rule{background:#f2fbf6;border-left:5px solid #2b9d72;padding:12px 14px;border-radius:12px;line-height:1.55;margin:12px 0}
+.arabic{font-family:"Noto Naskh Arabic","Amiri","Times New Roman",serif;font-size:clamp(42px,11vw,72px);line-height:1.5;text-align:center;padding:15px;color:#113f30;direction:rtl}
+.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}.answer{background:#f0f7ff;border:2px solid #d7e9fa;color:#173b55;font-size:23px;min-height:62px}.answer:hover{border-color:#2b8bc4}.answer.correct{background:#d8f8df;border-color:#2c9d55}.answer.wrong{background:#ffe2e2;border-color:#d95b5b}
+.feedback{padding:12px;border-radius:12px;margin-top:12px;font-weight:700}.good{background:#dff8e6;color:#155b32}.try{background:#fff0d6;color:#754b00}
+footer{text-align:center;color:#567168;font-size:12px;padding:10px 15px 28px}.tiny{font-size:12px}.badge{display:inline-block;background:#fff0bc;border-radius:10px;padding:5px 9px;font-size:12px;font-weight:800}
+@media(min-width:650px){.panel{padding:24px}.answers{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header><div class="logo" aria-hidden="true">🌙 ⭐</div><h1>Madani Qaida Quest</h1><p>Learn a little, practise a lot, and celebrate every step!</p></header>
+<main class="wrap">
+<section class="stats" aria-label="Your progress">
+<div class="stat"><strong id="stars">⭐ 0</strong><span>Stars earned</span></div>
+<div class="stat"><strong id="completed">0/5</strong><span>Lessons completed</span></div>
+<div class="stat"><strong id="best">0</strong><span>Best score</span></div>
+</section>
+<section id="home" class="panel">
+<h2>🗺️ Choose your adventure</h2><p class="muted">Start with Lesson 1. Complete a lesson quiz to earn stars and open the next lesson. Ask a qualified Qur’an teacher to help you practise the correct sounds.</p>
+<div id="lessons" class="lesson-grid"></div>
+</section>
+<section id="learn" class="panel hidden">
+<div class="topline"><button class="secondary" id="back">← Lessons</button><span class="pill" id="lessonPill">LESSON 1</span></div>
+<h2 id="lessonTitle"></h2><p class="muted" id="lessonIntro"></p>
+<div class="rule" id="ruleBox"></div>
+<div id="learnExamples"></div>
+<div class="row" style="margin-top:16px"><button class="primary" id="startQuiz">🎯 Start challenge</button></div>
+</section>
+<section id="quiz" class="panel hidden">
+<div class="topline"><button class="secondary" id="quitQuiz">← Exit</button><span class="pill" id="qCounter">QUESTION 1</span></div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<h2 id="question"></h2><div id="prompt" class="arabic"></div><div id="answers" class="answers"></div><div id="feedback" class="feedback hidden" aria-live="polite"></div>
+<div class="row" style="margin-top:15px"><button id="next" class="primary hidden">Next question →</button></div>
+</section>
+<section id="result" class="panel hidden" style="text-align:center">
+<div style="font-size:56px" id="resultEmoji">🏆</div><h2 id="resultTitle">Challenge complete!</h2><p id="resultText"></p><div class="row" style="justify-content:center"><button class="primary" id="retry">🔁 Try again</button><button class="secondary" id="resultHome">Lessons map</button></div>
+</section>
+<section class="panel"><h2>🌟 A little reminder</h2><p class="muted">Mistakes are part of learning. Take your time, listen carefully, and practise with your teacher. This game supports learning; it does not replace listening to and reciting to a qualified teacher.</p><p class="tiny muted">Learning content is an original practice aid inspired by beginner Qaida topics. Check lesson order, examples and pronunciation with your Madani Qaida and teacher.</p></section>
+</main>
+<footer>Made for young learners • Keep practising with kindness and patience 🌱</footer>
+<script>
+const lessonData = [
+ {title:"Meet the letters",icon:"🔤",short:"Recognise individual Arabic letters.",intro:"Every reading journey starts by recognising the letters.",rule:"Learn to recognise each letter by its shape and dots. Some letters look similar, so look carefully at the dots and practise their names with your teacher.",examples:[["ا","Alif"],["ب","Baa"],["ت","Taa"],["ث","Thaa"]],questions:[
+ {q:"Find Alif.",p:"ا",opts:["ا","ب","ت","ث"],a:"ا",why:"This is Alif."},
+ {q:"Find Baa.",p:"ب",opts:["ت","ث","ب","ا"],a:"ب",why:"This is Baa. Notice the dot below."},
+ {q:"Which letter has two dots above?",p:"",opts:["ب","ت","ا","ث"],a:"ت",why:"Taa has two dots above."},
+ {q:"Which letter has three dots above?",p:"",opts:["ث","ب","ا","ت"],a:"ث",why:"Thaa has three dots above."},
+ {q:"Find the letter with one dot below.",p:"",opts:["ب","ت","ث","ا"],a:"ب",why:"Baa has one dot below."}
+ ]},
+ {title:"Letters together",icon:"🧩",short:"Look carefully at letters in groups.",intro:"Letters can appear beside one another in reading practice.",rule:"Look at each letter's shape and dots, even when letters are shown together. This activity uses simple letter recognition; follow the exact joining examples in your Qaida with your teacher.",examples:[["ب ت","Baa and Taa"],["ت ب","Taa and Baa"],["ب ث","Baa and Thaa"]],questions:[
+ {q:"Which group starts with Baa?",p:"",opts:["ب ت","ت ب","ث ت","ا ت"],a:"ب ت",why:"The first letter in this group is Baa."},
+ {q:"Tap the group that starts with Taa.",p:"",opts:["ب ث","ث ب","ت ب","ا ب"],a:"ت ب",why:"This group starts with Taa."},
+ {q:"Which letter has three dots above?",p:"ث",opts:["ث","ب","ا","ت"],a:"ث",why:"Thaa has three dots above."},
+ {q:"Find the group that begins with Alif.",p:"",opts:["ب ت","ت ب","ا ب","ث ب"],a:"ا ب",why:"The first letter is Alif."},
+ {q:"Which group begins with Thaa?",p:"",opts:["ب ت","ث ت","ت ب","ا ب"],a:"ث ت",why:"Thaa has three dots above."}
+ ]},
+ {title:"Short vowel marks",icon:"🎵",short:"Meet Zabar, Zer and Pesh.",intro:"Small marks above or below a letter change its sound.",rule:"Zabar (fatḥah) is above the letter, Zer (kasrah) is below, and Pesh (ḍammah) is above and looks like a small و. Listen to your teacher for the correct sound; transliterations are only a guide.",examples:[["بَ","Baa with Zabar"],["بِ","Baa with Zer"],["بُ","Baa with Pesh"]],questions:[
+ {q:"Which has Zabar (a mark above)?",p:"",opts:["بَ","بِ","بُ","ب"],a:"بَ",why:"Zabar is the short mark above the letter."},
+ {q:"Which has Zer (a mark below)?",p:"",opts:["بَ","بِ","بُ","ب"],a:"بِ",why:"Zer is the short mark below the letter."},
+ {q:"Which has Pesh?",p:"",opts:["بَ","بِ","بُ","ب"],a:"بُ",why:"Pesh is the small curl-like mark above."},
+ {q:"Which mark is below the letter?",p:"",opts:["Zabar","Zer","Pesh","None"],a:"Zer",why:"Zer is written below the letter."},
+ {q:"Which mark is written above the letter?",p:"",opts:["Zer","Zabar","Both are below","None"],a:"Zabar",why:"Zabar is written above the letter."}
+ ]},
+ {title:"Spot the dots",icon:"🔎",short:"Practise telling similar letters apart.",intro:"Dots help us tell some Arabic letters apart.",rule:"Do not guess from the overall shape alone. Count and locate the dots carefully. Correct pronunciation must be learned by listening and repeating with a qualified teacher.",examples:[["ب","one dot below"],["ت","two dots above"],["ث","three dots above"],["ن","one dot above"]],questions:[
+ {q:"Which letter has one dot above?",p:"",opts:["ب","ن","ت","ث"],a:"ن",why:"Noon has one dot above."},
+ {q:"Which letter has one dot below?",p:"",opts:["ب","ن","ت","ث"],a:"ب",why:"Baa has one dot below."},
+ {q:"Which has two dots above?",p:"",opts:["ث","ت","ب","ن"],a:"ت",why:"Taa has two dots above."},
+ {q:"Which has three dots above?",p:"",opts:["ن","ث","ب","ت"],a:"ث",why:"Thaa has three dots above."},
+ {q:"Which letter has no dots?",p:"",opts:["ا","ب","ت","ث"],a:"ا",why:"Alif has no dots."}
+ ]},
+ {title:"Meet Tanween",icon:"✨",short:"Recognise the three double-vowel marks.",intro:"Tanween uses a pair of vowel marks.",rule:"The three common tanween marks are fathatayn (ً), kasratayn (ٍ) and dammatayn (ٌ). This quiz checks mark recognition only; learn how to read each example and any related rules from your Qaida with your teacher.",examples:[["ً","Fathatayn"],["ٍ","Kasratayn"],["ٌ","Dammatayn"]],questions:[
+ {q:"Find fathatayn (double Zabar).",p:"",opts:["ً","ٍ","ٌ","َ"],a:"ً",why:"Fathatayn looks like two Zabar marks."},
+ {q:"Find kasratayn (double Zer).",p:"",opts:["ً","ٍ","ٌ","ِ"],a:"ٍ",why:"Kasratayn looks like two Zer marks."},
+ {q:"Find dammatayn (double Pesh).",p:"",opts:["ً","ٍ","ٌ","ُ"],a:"ٌ",why:"Dammatayn looks like two Pesh marks."},
+ {q:"Which mark is double Zer?",p:"",opts:["ً","ٍ","ٌ","َ"],a:"ٍ",why:"Kasratayn is the double Zer mark."},
+ {q:"Which one is double Pesh?",p:"",opts:["ً","ٍ","ٌ","ٌ"],a:"ٌ",why:"Dammatayn is the double Pesh mark."}
+ ]}
+];
+let state={stars:0,completed:[],best:0};try{const s=JSON.parse(localStorage.getItem("mqQuestProgress")||"{}");state={...state,...s}}catch(e){}
+let currentLesson=0,qIndex=0,score=0,answered=false;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem("mqQuestProgress",JSON.stringify(state))}catch(e){}}
+function stats(){$("stars").textContent="⭐ "+state.stars;$("completed").textContent=state.completed.length+"/5";$("best").textContent=state.best}
+function show(id){["home","learn","quiz","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0,behavior:"smooth"})}
+function drawLessons(){$("lessons").innerHTML="";lessonData.forEach((l,i)=>{let unlocked=i===0||state.completed.includes(i-1);let done=state.completed.includes(i);let b=document.createElement("button");b.className="lesson"+(!unlocked?" locked":"");b.disabled=!unlocked;b.innerHTML=`<span class="emoji">${done?"🏅":l.icon}</span><strong>Lesson ${i+1}: ${l.title}</strong><small>${l.short}</small><br><span class="badge">${done?"✓ Completed":unlocked?"Tap to learn":"🔒 Complete the previous lesson"}</span>`;b.onclick=()=>openLesson(i);$("lessons").appendChild(b)})}
+function openLesson(i){currentLesson=i;let l=lessonData[i];$("lessonPill").textContent="LESSON "+(i+1);$("lessonTitle").textContent=l.icon+" "+l.title;$("lessonIntro").textContent=l.intro;$("ruleBox").textContent=l.rule;$("learnExamples").innerHTML='<h3>👀 Look and learn</h3><div class="lesson-grid">'+l.examples.map(e=>`<div class="lesson" style="cursor:default;text-align:center;min-height:100px"><div class="arabic" style="padding:0">${e[0]}</div><small>${e[1]}</small></div>`).join("")+'</div>';show("learn")}
+function startQuiz(){qIndex=0;score=0;renderQuestion();show("quiz")}
+function renderQuestion(){answered=false;let qs=lessonData[currentLesson].questions,q=qs[qIndex];$("qCounter").textContent=`QUESTION ${qIndex+1} OF ${qs.length}`;$("bar").style.width=(qIndex/qs.length*100)+"%";$("question").textContent=q.q;$("prompt").textContent=q.p||"🌟";$("feedback").className="feedback hidden";$("next").classList.add("hidden");$("answers").innerHTML="";q.opts.forEach(opt=>{let b=document.createElement("button");b.className="answer";b.textContent=opt;b.onclick=()=>choose(b,opt,q);$("answers").appendChild(b)})}
+function choose(btn,opt,q){if(answered)return;answered=true;let correct=opt===q.a;if(correct)score++;document.querySelectorAll(".answer").forEach(b=>{b.disabled=true;if(b.textContent===q.a)b.classList.add("correct")});if(!correct)btn.classList.add("wrong");$("feedback").className="feedback "+(correct?"good":"try");$("feedback").textContent=(correct?"🌟 Well done! ":"Good try! ")+q.why;$("bar").style.width=((qIndex+1)/lessonData[currentLesson].questions.length*100)+"%";$("next").classList.remove("hidden");$("next").textContent=qIndex===lessonData[currentLesson].questions.length-1?"See my stars 🏆":"Next question →"}
+function finish(){let total=lessonData[currentLesson].questions.length,stars=score>=4?3:score>=3?2:1;state.stars+=stars;state.best=Math.max(state.best,score);if(!state.completed.includes(currentLesson)&&score>=3)state.completed.push(currentLesson);save();stats();drawLessons();$("resultEmoji").textContent=score===total?"🏆":score>=3?"🌟":"💪";$("resultTitle").textContent=score>=3?"Amazing effort!":"Keep practising!";$("resultText").textContent=`You scored ${score} out of ${total} and earned ${stars} star${stars===1?"":"s"}. ${score>=3?"Lesson progress saved!":"You need 3 correct answers to complete this lesson. Try again when you're ready."}`;$("retry").textContent=score>=3&&currentLesson<4?"Practise again 🔁":"Try again 🔁";show("result")}
+$("back").onclick=()=>{drawLessons();show("home")};$("quitQuiz").onclick=()=>show("learn");$("startQuiz").onclick=startQuiz;$("next").onclick=()=>{if(qIndex<lessonData[currentLesson].questions.length-1){qIndex++;renderQuestion()}else finish()};$("retry").onclick=startQuiz;$("resultHome").onclick=()=>{drawLessons();show("home")};
+stats();drawLessons();
+</script>
+</body>
+</html>
