@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Madani Qaida Quest — 21 Lessons v6</title>
+<style>
+:root{--green:#10583f;--green2:#1b8a61;--gold:#ffd166;--ink:#18382e;--muted:#5b7167;--bg:#f1f8f3;--white:#fff;--line:#dcebe1;--red:#a62b2b}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#e0f7e9,#fff6dc,#f7e7f2);font-family:system-ui,-apple-system,sans-serif;color:var(--ink)}
+header{background:linear-gradient(135deg,#094532,#1b8a61);color:white;text-align:center;padding:25px 15px 30px;border-radius:0 0 28px 28px}
+header h1{margin:6px 0;font-size:clamp(26px,6vw,40px)}header p{margin:5px auto;max-width:650px;line-height:1.5}
+main{max-width:1000px;margin:auto;padding:15px}.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:16px;margin:14px 0;box-shadow:0 6px 20px #174b3210}
+h2{margin:0 0 8px;font-size:22px}.muted{color:var(--muted);line-height:1.55;font-size:14px}.notice{background:#fff5d8;border:1px solid #f2d68c;border-radius:12px;padding:12px;line-height:1.5}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:14px}
+.lesson{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:left;cursor:pointer;min-height:92px;color:var(--ink);font:inherit}
+.lesson:hover,.lesson:focus{border-color:var(--green2);outline:2px solid #b7e7cc}.lesson strong{display:block;color:var(--green);font-size:16px}.lesson small{display:block;margin-top:6px;color:var(--muted);line-height:1.35}
+.lesson.active{border:2px solid var(--green2);background:#effaf2}.tag{display:inline-block;font-size:11px;padding:3px 7px;border-radius:99px;background:#e4f5e9;color:#14573e;margin-top:7px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}button{font:inherit;border:0;border-radius:11px;padding:11px 15px;cursor:pointer;font-weight:650;background:var(--green);color:white}button.secondary{background:#e8f4eb;color:var(--green)}button:disabled{opacity:.5;cursor:not-allowed}
+.question{font-size:19px;font-weight:700;line-height:1.45;margin:12px 0}.arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:clamp(42px,10vw,70px);text-align:center;direction:rtl;margin:14px 0;color:#102f25}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px}.choice{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:white;min-height:48px}.choice input{width:19px;height:19px;accent-color:var(--green)}.choice.correct{border-color:#25965c;background:#e9f8ee}.choice.wrong{border-color:#cc6767;background:#fff0f0}
+.feedback{padding:12px;border-radius:12px;margin-top:12px;line-height:1.5}.good{background:#e5f7eb;border:1px solid #b7e5c5}.bad{background:#fff0f0;border:1px solid #f0c4c4}.hidden{display:none!important}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.pill{background:#e8f4eb;border-radius:99px;padding:6px 10px;color:var(--green);font-weight:650;font-size:13px}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
+@media(max-width:500px){.stats{grid-template-columns:1fr 1fr}.panel{padding:13px}}
+</style>
+</head>
+<body>
+<header><div>📗 IBRAHIM TALKS PRESENTS</div><h1>Madani Qaida Quest</h1><p>Explore the 21-lesson learning path, practise what you know, and build confidence one step at a time.</p></header>
+<main>
+<section class="panel">
+ <div class="row"><div><h2>Choose a lesson</h2><div class="muted">One test page for the whole learning path.</div></div><span class="pill">21 lessons</span></div>
+ <div class="notice" style="margin-top:12px"><strong>Content accuracy note:</strong> Lesson 1 has a starter practice bank. Lessons 2–21 are listed here, but their question banks are marked “content to verify” until their examples and rules have been checked against the official Madani Qa’idah. This avoids teaching guessed material.</div>
+ <div class="lessons" id="lessonGrid" aria-label="Lesson list"></div>
+</section>
+<section class="panel" id="lessonPanel">
+ <div class="row"><div><h2 id="lessonTitle">Lesson 1 — Letter recognition</h2><div class="muted" id="lessonSubtitle">Starter practice bank</div></div><span class="pill" id="progress">Question 1 of 5</span></div>
+ <div id="verifiedNotice" class="notice" style="margin-top:12px">Starter questions are for prototype testing. We will verify the final teaching content against the official book before release.</div>
+ <div id="quiz">
+  <div class="question" id="questionText">Which Arabic letter is shown?</div>
+  <div class="arabic" id="arabicLetter" lang="ar">خ</div>
+  <div class="choices" id="choices"></div>
+  <div id="feedback" class="feedback hidden" role="status"></div>
+  <div class="actions"><button id="checkBtn">Check answer</button><button id="nextBtn" class="secondary hidden">Next question</button><button id="restartBtn" class="secondary">Practise again</button></div>
+ </div>
+ <div id="pending" class="hidden">
+  <p class="question">This lesson's question bank is not ready yet.</p>
+  <p class="muted">We can keep the full 21-lesson structure in place now, then add lesson-specific questions, Arabic examples and rules only after checking the relevant pages in the official book.</p>
+  <div class="actions"><button class="secondary" id="backToOne">Try Lesson 1</button></div>
+ </div>
+</section>
+<section class="panel">
+ <h2>Identify the Rules — starter activity</h2>
+ <p class="muted">Choose every group that applies to the letter. If none of the listed groups applies, choose “None of these groups”. This activity covers only the groups shown here, not every possible Tajweed characteristic.</p>
+ <div class="arabic" id="ruleLetter" lang="ar">ح</div>
+ <div class="choices" id="ruleChoices"></div>
+ <div id="ruleFeedback" class="feedback hidden" role="status"></div>
+ <div class="actions"><button id="ruleCheck">Check rules</button><button id="ruleNext" class="secondary">Next letter</button></div>
+</section>
+</main>
+<footer>Madani Qaida Quest · Test build v6 · Keep the original homepage unchanged while testing.</footer>
+<script>
+"use strict";
+const lessons = Array.from({length:21},(_,i)=>({n:i+1,title:i===0?"Letter recognition":"Lesson "+(i+1),ready:i===0}));
+const grid=document.getElementById("lessonGrid");
+const lessonTitle=document.getElementById("lessonTitle"), lessonSubtitle=document.getElementById("lessonSubtitle");
+let selectedLesson=1;
+function drawLessons(){
+ grid.innerHTML="";
+ lessons.forEach(l=>{
+  const b=document.createElement("button"); b.className="lesson"+(l.n===selectedLesson?" active":"");
+  b.innerHTML=`<strong>Lesson ${l.n}</strong><small>${l.ready?"Starter question bank":"Content to verify"}</small><span class="tag">${l.ready?"Testable":"In preparation"}</span>`;
+  b.addEventListener("click",()=>selectLesson(l.n));grid.appendChild(b);
+ });
+}
+function selectLesson(n){
+ selectedLesson=n;drawLessons();
+ const ready=lessons[n-1].ready;
+ lessonTitle.textContent=ready?"Lesson 1 — Letter recognition":"Lesson "+n+" — Content review";
+ lessonSubtitle.textContent=ready?"Starter practice bank":"Question bank not yet verified";
+ document.getElementById("quiz").classList.toggle("hidden",!ready);
+ document.getElementById("pending").classList.toggle("hidden",ready);
+ document.getElementById("verifiedNotice").classList.toggle("hidden",!ready);
+ if(ready)startRound();
+}
+const bank=[
+ {letter:"خ",q:"Which Arabic letter is shown?",options:["خ","ح","ج","ع"],answer:"خ",why:"This is Khaa (خ). Look for the dot above the letter."},
+ {letter:"ص",q:"Which Arabic letter is shown?",options:["ض","ص","ط","س"],answer:"ص",why:"This is Saad (ص), with no dot."},
+ {letter:"ض",q:"Which Arabic letter is shown?",options:["ص","د","ض","ظ"],answer:"ض",why:"This is Daad (ض), with a dot above."},
+ {letter:"ط",q:"Which Arabic letter is shown?",options:["ت","ظ","ط","ب"],answer:"ط",why:"This is Taa (ط), the emphatic letter."},
+ {letter:"ظ",q:"Which Arabic letter is shown?",options:["ذ","ظ","ط","ز"],answer:"ظ",why:"This is Zhaa (ظ), with a dot above."},
+ {letter:"غ",q:"Which Arabic letter is shown?",options:["ع","غ","ق","ف"],answer:"غ",why:"This is Ghayn (غ), with a dot above."},
+ {letter:"ق",q:"Which Arabic letter is shown?",options:["ف","ك","ق","غ"],answer:"ق",why:"This is Qaaf (ق), with two dots above."},
+ {letter:"ب",q:"Which Arabic letter is shown?",options:["ن","ب","ت","ي"],answer:"ب",why:"This is Baa (ب), with one dot below."},
+ {letter:"ف",q:"Which Arabic letter is shown?",options:["ق","ف","و","ن"],answer:"ف",why:"This is Faa (ف), with a dot above."},
+ {letter:"م",q:"Which Arabic letter is shown?",options:["ه","م","ح","ع"],answer:"م",why:"This is Meem (م)."},
+ {letter:"و",q:"Which Arabic letter is shown?",options:["ر","ز","و","د"],answer:"و",why:"This is Waaw (و)."},
+ {letter:"س",q:"Which Arabic letter is shown?",options:["ش","س","ص","ث"],answer:"س",why:"This is Seen (س), with three teeth and no dots."}
+];
+let round=[],index=0,score=0,answered=false;
+const $=id=>document.getElementById(id);
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function startRound(){round=shuffle(bank).slice(0,5);index=0;score=0;renderQuestion()}
+function renderQuestion(){
+ answered=false;const q=round[index];$("arabicLetter").textContent=q.letter;$("questionText").textContent=q.q;$("progress").textContent=`Question ${index+1} of ${round.length}`;
+ $("feedback").className="feedback hidden";$("feedback").textContent="";$("checkBtn").classList.remove("hidden");$("nextBtn").classList.add("hidden");
+ $("choices").innerHTML="";
+ shuffle(q.options).forEach(opt=>{const label=document.createElement("label");label.className="choice";const radio=document.createElement("input");radio.type="radio";radio.name="lessonAnswer";radio.value=opt;label.append(radio,document.createTextNode(opt));$("choices").appendChild(label)});
+}
+$("checkBtn").addEventListener("click",()=>{
+ if(answered)return;const q=round[index],chosen=$('choices').querySelector('input:checked');
+ if(!chosen){$("feedback").className="feedback bad";$("feedback").textContent="Choose an answer first, then check it.";return}
+ answered=true;const ok=chosen.value===q.answer;if(ok)score++;
+ [...$("choices").children].forEach(l=>{const inp=l.querySelector("input");if(inp.value===q.answer)l.classList.add("correct");else if(inp.checked)l.classList.add("wrong")});
+ $("feedback").className="feedback "+(ok?"good":"bad");$("feedback").textContent=(ok?"Correct! ":"Not quite. ")+q.why;
+ $("checkBtn").classList.add("hidden");$("nextBtn").classList.remove("hidden");$("nextBtn").textContent=index===round.length-1?`Finish round (${score}/${round.length})`:"Next question";
+});
+$("nextBtn").addEventListener("click",()=>{if(index<round.length-1){index++;renderQuestion()}else{$("questionText").textContent=`Round complete — ${score} out of ${round.length}`;$("arabicLetter").textContent="ممتاز";$("choices").innerHTML="";$("feedback").className="feedback good";$("feedback").textContent="Well done! Start another round to get a new selection of questions.";$("checkBtn").classList.add("hidden");$("nextBtn").classList.add("hidden");$("progress").textContent="Round complete"}});
+$("restartBtn").addEventListener("click",startRound);$("backToOne").addEventListener("click",()=>selectLesson(1));
+const GROUPS={"Musta’liyah":["خ","ص","ض","ط","ظ","غ","ق"],"Safeeriyah":["ص","س","ز"],"Lip letters":["ب","ف","م","و"]};
+const NONE="None of these groups";let currentRule="ح";
+function ruleAnswer(letter){return Object.keys(GROUPS).filter(g=>GROUPS[g].includes(letter))}
+function renderRule(){
+ $("ruleLetter").textContent=currentRule;$("ruleFeedback").className="feedback hidden";$("ruleChoices").innerHTML="";
+ const labels=[...Object.keys(GROUPS),NONE];
+ shuffle(labels).forEach(name=>{const lab=document.createElement("label");lab.className="choice";const cb=document.createElement("input");cb.type="checkbox";cb.value=name;cb.addEventListener("change",()=>{const all=[...$("ruleChoices").querySelectorAll("input")];if(cb.checked&&name===NONE)all.forEach(x=>{if(x!==cb)x.checked=false});else if(cb.checked){const none=all.find(x=>x.value===NONE);if(none)none.checked=false}});lab.append(cb,document.createTextNode(name));$("ruleChoices").appendChild(lab)});
+}
+$("ruleCheck").addEventListener("click",()=>{
+ const selected=[...$("ruleChoices").querySelectorAll("input:checked")].map(x=>x.value).sort();
+ const correct=ruleAnswer(currentRule);const expected=(correct.length?correct:[NONE]).sort();
+ const ok=selected.length===expected.length&&selected.every((x,i)=>x===expected[i]);
+ [...$("ruleChoices").children].forEach(l=>{const v=l.querySelector("input").value;if((correct.includes(v))||(!correct.length&&v===NONE))l.classList.add("correct");else if(l.querySelector("input").checked)l.classList.add("wrong")});
+ $("ruleFeedback").className="feedback "+(ok?"good":"bad");$("ruleFeedback").textContent=ok?"Correct! "+(correct.length?correct.join(", "):"None of these groups applies."):"Not quite. Correct choice(s): "+(correct.length?correct.join(", "):NONE)+".";
+});
+$("ruleNext").addEventListener("click",()=>{const letters=["خ","ص","ض","ط","ظ","غ","ق","ب","ف","م","و","س","ح","ج","د","ن","ه","ي"];currentRule=letters[(letters.indexOf(currentRule)+1+Math.floor(Math.random()*(letters.length-1)))%letters.length];renderRule()});
+drawLessons();renderQuestion();renderRule();
+</script>
+</body>
+</html>
