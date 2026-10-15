@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madani Qaida Quest — Mini-games</title>
+<style>
+:root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d;--green:#16804a;--red:#b93838}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf5ff,#fff9e9);color:var(--ink);min-height:100vh}
+.top{position:sticky;top:0;z-index:5;background:#fff;border-bottom:2px solid #d6e8f8;padding:12px max(16px,calc((100vw - 960px)/2));display:flex;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 3px 12px #123b7010}
+.brand{font-weight:800;color:var(--navy)}button{font:inherit;cursor:pointer;border:0;border-radius:14px;padding:12px 16px;font-weight:750;transition:transform .12s,filter .12s}button:active{transform:scale(.98)}
+.home{background:var(--navy);color:white}.wrap{max-width:900px;margin:0 auto;padding:24px 16px 40px}
+.hero{text-align:center;padding:12px 8px 20px}.hero .mascot{font-size:50px}.hero h1{margin:4px 0;color:var(--navy);font-size:clamp(28px,5vw,42px)}.hero p{margin:8px auto;max-width:600px;line-height:1.5}
+.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 24px}
+.mode{background:white;border:2px solid #d9eaf8;border-radius:20px;padding:18px;text-align:left;box-shadow:0 8px 20px #123b700b}.mode .emoji{font-size:30px}.mode h2{margin:8px 0 5px;font-size:20px;color:var(--navy)}.mode p{margin:0 0 14px;line-height:1.45;color:#4c6175}.play{background:var(--gold);color:#332700;width:100%}
+.game{display:none;background:white;border:2px solid #d9eaf8;border-radius:24px;padding:clamp(18px,4vw,30px);box-shadow:0 12px 28px #123b7010;text-align:center}.game.active{display:block}.game h2{margin:0 0 8px;color:var(--navy)}.progress{height:9px;background:#e7eff6;border-radius:99px;overflow:hidden;margin:18px 0}.bar{height:100%;width:0;background:var(--green);transition:width .2s}.prompt{font-size:18px;font-weight:700;margin:14px 0}.big-letter{font-size:clamp(72px,15vw,110px);line-height:1.2;color:var(--navy);font-family:serif;margin:10px 0 18px}
+.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:560px;margin:0 auto}.answer{background:#f0f7ff;border:2px solid #d1e5f7;color:var(--navy);font-size:clamp(20px,4vw,27px);min-height:65px}.answer:focus-visible,button:focus-visible{outline:3px solid #e7a900;outline-offset:3px}.answer.correct{background:#e4f8eb;border-color:#72c894;color:#125e32}.answer.wrong{background:#fff0f0;border-color:#e8a0a0;color:#922d2d}
+.feedback{min-height:32px;font-weight:750;margin:14px 0 4px}.feedback.good{color:var(--green)}.feedback.bad{color:var(--red)}.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.secondary{background:#e8f2fb;color:var(--navy)}.score{font-weight:800;color:var(--navy);margin:10px 0}.note{font-size:13px;color:#61758a;margin-top:22px;text-align:center}
+@media(max-width:420px){.top{align-items:flex-start}.brand{max-width:155px}.answers{gap:9px}.answer{padding:10px 8px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">📘 Madani Qaida Quest</div>
+  <button class="home" onclick="goHome()">← Return to Home Menu</button>
+</header>
+<main class="wrap">
+  <section class="hero" id="intro">
+    <div class="mascot" aria-hidden="true">🧒🏻✨</div>
+    <h1>Mini-games</h1>
+    <p>Ready for a quick challenge? Practise recognising Arabic letters in short games. Take your time and have fun!</p>
+  </section>
+  <section class="mode-grid" id="modes" aria-label="Choose a mini-game">
+    <article class="mode"><div class="emoji">🔎</div><h2>Find the Letter</h2><p>Look at a letter and choose the matching one.</p><button class="play" onclick="startGame('find')">Play Find the Letter</button></article>
+    <article class="mode"><div class="emoji">🧠</div><h2>Letter Name Quiz</h2><p>Choose the letter named in the question.</p><button class="play" onclick="startGame('name')">Play Letter Name Quiz</button></article>
+    <article class="mode"><div class="emoji">🌟</div><h2>Odd One Out</h2><p>Spot the different letter among the choices.</p><button class="play" onclick="startGame('odd')">Play Odd One Out</button></article>
+  </section>
+  <section class="game" id="game" aria-live="polite">
+    <div class="score" id="score">Question 1 of 10 · Stars: 0</div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <h2 id="gameTitle">Find the Letter</h2>
+    <p class="prompt" id="prompt">Choose the matching letter</p>
+    <div class="big-letter" id="bigLetter">ب</div>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="controls">
+      <button class="secondary" onclick="backToGames()">← All Mini-games</button>
+      <button class="play" id="nextBtn" onclick="nextQuestion()" disabled>Next Question →</button>
+    </div>
+  </section>
+  <section class="game" id="finished">
+    <div style="font-size:54px" aria-hidden="true">🏆</div>
+    <h2>Challenge complete!</h2>
+    <p id="finalMessage"></p>
+    <div class="controls"><button class="play" onclick="replay()">Play Again</button><button class="secondary" onclick="backToGames()">Choose Another Game</button></div>
+  </section>
+  <p class="note">Practice game: letter names and pronunciation can vary by lesson. Follow your teacher's guidance.</p>
+</main>
+<script>
+const letters = [
+  {char:"ا",name:"Alif"},{char:"ب",name:"Baa"},{char:"ت",name:"Taa"},{char:"ث",name:"Thaa"},
+  {char:"ج",name:"Jeem"},{char:"ح",name:"Haa"},{char:"خ",name:"Khaa"},{char:"د",name:"Daal"},
+  {char:"ذ",name:"Dhaal"},{char:"ر",name:"Raa"},{char:"ز",name:"Zaay"},{char:"س",name:"Seen"},
+  {char:"ش",name:"Sheen"},{char:"ص",name:"Saad"},{char:"ض",name:"Daad"},{char:"ط",name:"Taa"},
+  {char:"ظ",name:"Zhaa"},{char:"ع",name:"Ayn"},{char:"غ",name:"Ghayn"},{char:"ف",name:"Faa"},
+  {char:"ق",name:"Qaaf"},{char:"ك",name:"Kaaf"},{char:"ل",name:"Laam"},{char:"م",name:"Meem"},
+  {char:"ن",name:"Noon"},{char:"ه",name:"Haa"},{char:"و",name:"Waaw"},{char:"ي",name:"Yaa"}
+];
+let mode="find",round=0,stars=0,target=null,locked=false,oddTarget=null,previousMode="find";
+const $=id=>document.getElementById(id);
+function goHome(){window.location.href="https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-blue-turban-theme-v12-progress.html";}
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function showOnly(id){$("intro").style.display=id==="modes"?"block":"none";$("modes").style.display=id==="modes"?"grid":"none";$("game").classList.toggle("active",id==="game");$("finished").classList.toggle("active",id==="finished")}
+function startGame(which){mode=which;previousMode=which;round=0;stars=0;showOnly("game");nextQuestion(true)}
+function backToGames(){showOnly("modes")}
+function nextQuestion(first=false){
+ if(!first && round>=9){$("finalMessage").textContent=`You earned ${stars} out of 10 stars. Great effort — keep practising!`;showOnly("finished");return}
+ if(!first)round++;
+ locked=false;$("feedback").textContent="";$("feedback").className="feedback";$("nextBtn").disabled=true;
+ $("score").textContent=`Question ${round+1} of 10 · Stars: ${stars}`;
+ $("bar").style.width=`${round/10*100}%`;
+ const pool=shuffle(letters);target=pool[0];oddTarget=pool[0];
+ let choices;
+ if(mode==="odd"){
+   const common=pool[1];choices=[common,common,common,oddTarget];choices=shuffle(choices);
+   $("gameTitle").textContent="Odd One Out";$("prompt").textContent="Tap the letter that is different.";
+   $("bigLetter").textContent="🔍";
+ }else{
+   choices=shuffle([target,...pool.slice(1,4)]);
+   $("gameTitle").textContent=mode==="find"?"Find the Letter":"Letter Name Quiz";
+   $("prompt").textContent=mode==="find"?"Choose the letter that matches the big letter.":`Which letter is called ${target.name}?`;
+   $("bigLetter").textContent=mode==="find"?target.char:target.name;
+ }
+ const answers=$("answers");answers.innerHTML="";
+ choices.forEach(letter=>{
+   const b=document.createElement("button");b.className="answer";b.textContent=letter.char;
+   b.setAttribute("aria-label",letter.name);
+   b.onclick=()=>chooseAnswer(b,letter);
+   answers.appendChild(b);
+ });
+}
+function chooseAnswer(button,letter){
+ if(locked)return;locked=true;
+ const correct=mode==="odd"?letter.char===oddTarget.char:letter.char===target.char;
+ [...$("answers").children].forEach(b=>{b.disabled=true;if((mode==="odd"&&b.textContent===oddTarget.char)||(mode!=="odd"&&b.textContent===target.char))b.classList.add("correct")});
+ if(correct){stars++;$("feedback").textContent="Correct! ⭐ Well done."; $("feedback").className="feedback good"}
+ else{$("feedback").textContent=mode==="odd"?`The different letter was ${oddTarget.char}. Keep going!`:`The correct answer is ${target.char} (${target.name}). Keep going!`;$("feedback").className="feedback bad";button.classList.add("wrong")}
+ $("score").textContent=`Question ${round+1} of 10 · Stars: ${stars}`;
+ $("bar").style.width=`${(round+1)/10*100}%`;
+ $("nextBtn").disabled=false;$("nextBtn").textContent=round===9?"See Results →":"Next Question →";
+}
+function replay(){startGame(previousMode)}
+</script>
+</body>
+</html>
