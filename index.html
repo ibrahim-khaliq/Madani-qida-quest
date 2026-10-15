@@ -3,53 +3,142 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123b70">
-<title>Madani Qaida Quest | Ibrahim Talks</title>
+<title>Madani Qaida Quest — Letter Practice</title>
 <style>
-:root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,#eaf5ff,#fff9e9)}
-header{padding:18px 16px;text-align:center;background:var(--navy);color:white;border-bottom:5px solid var(--gold)}
-.logo{font-size:clamp(42px,10vw,68px);line-height:1.2}h1{margin:8px 0;font-size:clamp(26px,6vw,42px)}header p{margin:6px auto;max-width:560px;line-height:1.5}
-main{width:min(960px,100%);margin:auto;padding:24px 16px 40px}
-.welcome{background:white;border:2px solid #d6e8f8;border-radius:22px;padding:22px;text-align:center;box-shadow:0 8px 0 #123b7010}
-.welcome h2{margin:0 0 8px;color:var(--navy)}.welcome p{margin:0;line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px;margin-top:20px}
-.card{display:flex;flex-direction:column;align-items:stretch;background:white;border:2px solid #d6e8f8;border-radius:22px;padding:20px;box-shadow:0 8px 0 #123b7010}
-.icon{font-size:42px;text-align:center}.card h2{text-align:center;color:var(--navy);margin:10px 0 6px}.card p{text-align:center;line-height:1.5;flex:1;margin:0 0 18px}
-a.btn{display:block;text-align:center;text-decoration:none;background:var(--gold);color:#332700;font-weight:800;padding:14px 12px;border-radius:14px;box-shadow:0 4px 0 #c99b2c}
-a.btn:focus-visible{outline:4px solid var(--blue);outline-offset:3px}a.btn:hover{filter:brightness(.97)}footer{text-align:center;padding:10px 16px 26px;font-size:14px;color:#52677d}
+  :root { --navy:#17324d; --teal:#168c80; --gold:#f4c95d; --cream:#fffaf0; --pink:#ffe3e8; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--navy); background:linear-gradient(135deg,#e7f8f2,#fff6dc); min-height:100vh; }
+  .wrap { max-width:760px; margin:auto; padding:20px; }
+  header { text-align:center; padding:18px 8px 10px; }
+  .moon { font-size:2rem; }
+  h1 { margin:6px 0; font-size:clamp(1.7rem,5vw,2.5rem); }
+  .subtitle { margin:0 auto; max-width:520px; line-height:1.5; }
+  .panel { background:white; border:3px solid #d9eee6; border-radius:24px; padding:clamp(18px,4vw,30px); margin:18px 0; box-shadow:0 8px 0 #cce5dc; }
+  .topline { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-weight:700; }
+  .progress { height:12px; background:#edf2f5; border-radius:99px; overflow:hidden; margin:12px 0 22px; }
+  .bar { height:100%; width:0; background:var(--teal); transition:width .25s; }
+  .prompt { text-align:center; font-size:1.2rem; font-weight:750; margin:10px 0; }
+  .letter { text-align:center; font-family:"Noto Naskh Arabic","Amiri","Times New Roman",serif; font-size:clamp(5rem,22vw,8rem); line-height:1.3; margin:8px 0 20px; direction:rtl; }
+  .choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  button { font:inherit; cursor:pointer; border:0; border-radius:16px; padding:15px 12px; font-weight:750; }
+  .choice { background:#f0f7ff; border:2px solid #d4e5f8; font-size:1.1rem; min-height:62px; }
+  .choice:hover { background:#e4f2ff; }
+  button:focus-visible { outline:4px solid #f0b429; outline-offset:3px; }
+  .choice:disabled { cursor:default; opacity:1; }
+  .correct { background:#d9f7e7!important; border-color:#39a66c!important; }
+  .wrong { background:#ffe3e8!important; border-color:#d65c73!important; }
+  .feedback { min-height:30px; text-align:center; font-weight:750; margin:16px 0 4px; }
+  .primary { display:block; margin:18px auto 0; background:var(--teal); color:white; min-width:180px; box-shadow:0 4px 0 #0d655d; }
+  .secondary { background:#f1f4f6; color:var(--navy); }
+  .actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .note { font-size:.9rem; line-height:1.5; color:#43576b; }
+  .hidden { display:none; }
+  footer { text-align:center; font-size:.85rem; padding:10px 0 24px; }
+  @media (max-width:420px) { .wrap{padding:12px}.choices{gap:8px}.choice{padding:12px 6px} }
 </style>
 </head>
 <body>
-<header>
-  <div class="logo" aria-hidden="true">🧒🏻💙</div>
-  <h1>Madani Qaida Quest</h1>
-  <p>Learn, practise and earn stars — one step at a time!</p>
-</header>
-<main>
-  <section class="welcome">
-    <h2>Assalamu Alaikum! 🌙</h2>
-    <p>Welcome to your learning adventure. Choose what you would like to do below.</p>
+<div class="wrap">
+  <header>
+    <div class="moon" aria-hidden="true">🌙 ⭐</div>
+    <h1>Madani Qaida Quest</h1>
+    <p class="subtitle">A little practice, one letter at a time. Choose the Arabic letter you see.</p>
+  </header>
+
+  <main class="panel" aria-live="polite">
+    <div class="topline"><span id="roundLabel">Question 1 of 8</span><span>⭐ Stars: <span id="score">0</span></span></div>
+    <div class="progress" aria-label="Quiz progress"><div class="bar" id="bar"></div></div>
+    <section id="quiz">
+      <p class="prompt">Which letter is this?</p>
+      <div class="letter" id="target" lang="ar" aria-label="Arabic letter">ا</div>
+      <div class="choices" id="choices"></div>
+      <p class="feedback" id="feedback" role="status"></p>
+      <button class="primary hidden" id="nextBtn">Next question →</button>
+    </section>
+    <section id="result" class="hidden">
+      <h2 style="text-align:center">Well done! 🌟</h2>
+      <p id="resultText" style="text-align:center;font-size:1.15rem"></p>
+      <p style="text-align:center">Keep practising gently. A teacher can help you check pronunciation and reading.</p>
+      <button class="primary" id="restartBtn">Play again</button>
+    </section>
+  </main>
+
+  <section class="panel">
+    <h2 style="margin-top:0">Learning note for grown-ups</h2>
+    <p class="note">This is a small practice-game prototype using a few Arabic letters. It is not an official Dawat-e-Islami resource and does not replace a teacher. Please have a qualified Madani Qaida teacher verify lesson order, letter names, pronunciation and future exercises before using it for teaching.</p>
   </section>
-  <section class="grid" aria-label="Main menu">
-    <article class="card">
-      <div class="icon" aria-hidden="true">📚</div><h2>Lessons</h2>
-      <p>Continue learning Arabic letters and practising your Madani Qaida.</p>
-      <a class="btn" href="madani-qaida-quest-lessons-with-home-menu-v9-persistent-navigation.html">Open Lessons →</a>
-    </article>
-    <article class="card">
-      <div class="icon" aria-hidden="true">🎮</div><h2>Mini-Games</h2>
-      <p>Play quick letter challenges and test what you have learned.</p>
-      <a class="btn" href="madani-qaida-quest-mini-games-v6.html">Play Mini-Games →</a>
-    </article>
-    <article class="card">
-      <div class="icon" aria-hidden="true">🏆</div><h2>Rewards</h2>
-      <p>Visit the rewards area and celebrate your learning progress.</p>
-      <a class="btn" href="madani-qaida-quest-blue-turban-theme-v11-rewards.html">View Rewards →</a>
-    </article>
-  </section>
-</main>
-<footer>Made with care by Ibrahim Talks • Keep practising and do your best ⭐</footer>
+  <footer>Made for learning • No account or personal information needed</footer>
+</div>
+<script>
+const questions = [
+  {letter:"ا", answer:"Alif", options:["Alif","Baa","Taa","Thaa"]},
+  {letter:"ب", answer:"Baa", options:["Taa","Baa","Thaa","Alif"]},
+  {letter:"ت", answer:"Taa", options:["Baa","Alif","Taa","Thaa"]},
+  {letter:"ث", answer:"Thaa", options:["Thaa","Taa","Baa","Alif"]},
+  {letter:"ب", answer:"Baa", options:["Alif","Thaa","Baa","Taa"]},
+  {letter:"ا", answer:"Alif", options:["Taa","Alif","Baa","Thaa"]},
+  {letter:"ث", answer:"Thaa", options:["Baa","Taa","Alif","Thaa"]},
+  {letter:"ت", answer:"Taa", options:["Thaa","Baa","Taa","Alif"]}
+];
+let index = 0, score = 0, answered = false;
+const target = document.getElementById("target");
+const choices = document.getElementById("choices");
+const feedback = document.getElementById("feedback");
+const nextBtn = document.getElementById("nextBtn");
+function renderQuestion() {
+  answered = false;
+  const q = questions[index];
+  document.getElementById("roundLabel").textContent = `Question ${index+1} of ${questions.length}`;
+  document.getElementById("score").textContent = score;
+  document.getElementById("bar").style.width = `${index/questions.length*100}%`;
+  target.textContent = q.letter;
+  feedback.textContent = "";
+  choices.innerHTML = "";
+  nextBtn.classList.add("hidden");
+  q.options.forEach(option => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.textContent = option;
+    btn.addEventListener("click", () => chooseAnswer(btn, option, q.answer));
+    choices.appendChild(btn);
+  });
+}
+function chooseAnswer(btn, option, answer) {
+  if (answered) return;
+  answered = true;
+  const buttons = [...choices.querySelectorAll("button")];
+  buttons.forEach(b => { b.disabled = true; if (b.textContent === answer) b.classList.add("correct"); });
+  if (option === answer) {
+    score++;
+    feedback.textContent = "Correct! Great work! ⭐";
+  } else {
+    btn.classList.add("wrong");
+    feedback.textContent = `Good try! The answer is ${answer}.`;
+  }
+  document.getElementById("score").textContent = score;
+  document.getElementById("bar").style.width = `${(index+1)/questions.length*100}%`;
+  nextBtn.textContent = index === questions.length-1 ? "See my stars →" : "Next question →";
+  nextBtn.classList.remove("hidden");
+}
+nextBtn.addEventListener("click", () => {
+  index++;
+  if (index >= questions.length) showResult();
+  else renderQuestion();
+});
+function showResult() {
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+  document.getElementById("resultText").textContent = `You earned ${score} out of ${questions.length} stars!`;
+  document.getElementById("bar").style.width = "100%";
+  document.getElementById("roundLabel").textContent = "Practice complete";
+}
+document.getElementById("restartBtn").addEventListener("click", () => {
+  index = 0; score = 0;
+  document.getElementById("quiz").classList.remove("hidden");
+  document.getElementById("result").classList.add("hidden");
+  renderQuestion();
+});
+renderQuestion();
+</script>
 </body>
 </html>
