@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Madani Qaida Quest — Rewards & Progress</title>
+<style>
+:root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d;--green:#16804a;--line:#d6e6f5;--muted:#60758b;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:linear-gradient(#8bdcff,#eef9ff 48%,#d8f4d0);min-height:100vh}
+header{background:#fffef2;border-bottom:3px solid #b6e8bd;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.brand{font-weight:1000;color:#07543f;font-size:clamp(16px,3vw,22px)}button,select,input,textarea{font:inherit}button{border:0;border-radius:13px;padding:11px 15px;font-weight:900;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #e0a900;outline-offset:2px}
+.home{background:#07865e;color:white;box-shadow:0 4px 0 #07543f}.wrap{width:min(1000px,100% - 24px);margin:20px auto 36px}
+.hero,.panel,.stat,.student,.notice{background:#ffffffed;border:1px solid #d6e6f5;border-radius:20px;box-shadow:0 6px 0 #123b7010}
+.hero{padding:22px;display:flex;gap:16px;align-items:center;margin-bottom:16px}.avatar{width:80px;height:80px;flex-shrink:0;border-radius:20px;background:#eaf5ff;display:grid;place-items:center;font-size:44px}
+h1{margin:0 0 5px;font-size:clamp(24px,4vw,34px);color:#123b70}h2{font-size:19px;margin:0 0 12px;color:#123b70}p{margin:5px 0;line-height:1.45}.muted{color:var(--muted);font-size:14px}.pill{display:inline-block;background:#fff1c9;color:#805700;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:900;margin-top:7px}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.modebar button{background:#ffffffcf;color:#123b70;border:2px solid #c8deef}.modebar button.active{background:#123b70;color:white;border-color:#123b70}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}.stat{padding:16px}.stat .emoji{font-size:25px}.num{font-size:30px;font-weight:1000;color:#123b70;margin:4px 0}.panel{padding:18px;margin:14px 0}.bar{height:12px;border-radius:999px;background:#dceaf5;overflow:hidden}.bar span{height:100%;display:block;background:#168b6b;border-radius:999px;width:0}
+.achievements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.achievement{border:1px solid var(--line);border-radius:15px;padding:12px;display:flex;gap:10px;align-items:center}.medal{font-size:27px;background:#fff1c9;border-radius:12px;padding:8px}.locked{filter:grayscale(1);opacity:.65}
+.feedback{border-left:5px solid #f5c451;background:#fff8e6;border-radius:12px;padding:13px;margin:9px 0}.target{border-left-color:#168b6b;background:#eefaf4}
+.field{display:grid;gap:6px;margin:10px 0}.field label{font-weight:900;font-size:14px}input,select,textarea{width:100%;border:1px solid #c6d9eb;border-radius:11px;padding:11px;background:white;color:var(--ink)}textarea{min-height:86px;resize:vertical}.primary{background:#1769aa;color:white}.green{background:#16804a;color:white}.gold{background:#f5c451;color:#4a3700}.danger{background:#fee2e2;color:#9b1c1c}
+.student-list{display:grid;gap:9px}.student{padding:13px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;text-align:left;width:100%;color:var(--ink)}.student.selected{outline:3px solid #1769aa}.student small{display:block;color:var(--muted);margin-top:3px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.note{background:#fff8e6;border:1px solid #f4d98a;border-radius:13px;padding:12px;font-size:13px;line-height:1.45}.success{color:#146c43;font-weight:900}.hidden{display:none!important}footer{text-align:center;color:#426482;font-size:12px;padding:10px 16px 25px}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.achievements{grid-template-columns:1fr}.hero{align-items:flex-start;padding:16px}.avatar{width:62px;height:62px;font-size:34px}.wrap{width:calc(100% - 16px);margin-top:12px}.panel{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="brand">📚 Madani Qaida Quest</div><button class="home" onclick="location.href='https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-blue-turban-theme-v12-progress.html'">← Home Menu</button></header>
+<main class="wrap">
+  <section class="hero"><div class="avatar">⭐</div><div><h1>Rewards &amp; Progress</h1><p>Every little step is progress. Keep learning!</p><span class="pill">DEMO PREVIEW — SAMPLE DATA</span></div></section>
+  <div class="modebar" role="tablist" aria-label="Preview mode">
+    <button id="studentTab" class="active" onclick="showMode('student')">🎒 Student view</button>
+    <button id="staffTab" onclick="showMode('staff')">🧑‍🏫 Staff dashboard</button>
+  </div>
+  <section id="studentView">
+    <div class="grid">
+      <div class="stat"><div class="emoji">📚</div><div class="num" id="lessonCount">0 / 21</div><div class="muted">Lessons completed</div></div>
+      <div class="stat"><div class="emoji">⭐</div><div class="num" id="starCount">0</div><div class="muted">Stars earned</div></div>
+      <div class="stat"><div class="emoji">🎮</div><div class="num">5</div><div class="muted">Games completed</div></div>
+      <div class="stat"><div class="emoji">🏅</div><div class="num">2</div><div class="muted">Achievements</div></div>
+    </div>
+    <section class="panel"><div class="row" style="justify-content:space-between"><h2>🗺️ Your learning journey</h2><button class="primary" onclick="refreshProgress()">Refresh progress</button></div><div class="row" style="justify-content:space-between;margin-bottom:8px"><strong id="progressText">38% complete</strong><span class="muted">21 lessons</span></div><div class="bar"><span id="progressBar" style="width:38%"></span></div><p class="muted" style="margin-top:9px">Progress is read from completed lesson rounds saved in this browser on this device.</p></section>
+    <section class="panel"><h2>🏆 Achievements</h2><div class="achievements">
+      <div class="achievement"><div class="medal">🌟</div><div><strong>First Steps</strong><p class="muted">Complete your first lesson</p><span id="firstStepsStatus" class="muted">Not yet unlocked</span></div></div>
+      <div class="achievement"><div class="medal">🎯</div><div><strong>Quiz Explorer</strong><p class="muted">Finish a lesson round</p><span id="quizExplorerStatus" class="muted">Not yet unlocked</span></div></div>
+      <div class="achievement locked"><div class="medal">🏆</div><div><strong>Qaida Champion</strong><p class="muted">Complete all 21 lessons</p><span id="championStatus" class="muted">Locked</span></div></div>
+      <div class="achievement locked"><div class="medal">💫</div><div><strong>Star Collector</strong><p class="muted">Earn 50 stars</p><span id="starCollectorStatus" class="muted">Locked</span></div></div>
+    </div></section>
+    <section class="panel"><h2>💌 A message from your teacher</h2><div id="studentFeedback" class="feedback"><strong>🌟 Well done!</strong><p>You're making good progress. Keep practising Lesson 4 this week, especially the letters we've been working on. Keep going — you're doing great!</p><p class="muted">From your Madrasah teacher · Example message</p></div><div class="note">This prototype saves lesson progress only in the same browser/device. It is not a secure login, and it does not sync between devices or share real student data with staff.</div></section>
+  </section>
+  <section id="staffView" class="hidden">
+    <div class="note"><strong>Staff dashboard preview.</strong> These are fictional sample students. This page does not authenticate staff or securely store student records. Real staff access will require a secure login and database before use with children.</div>
+    <section class="panel"><h2>🏫 My Madrasah · Sample class</h2><p class="muted">Choose a sample student to preview their progress and add a demo comment.</p><div id="studentList" class="student-list"></div></section>
+    <section class="panel" id="studentDetail"><h2 id="detailTitle">Student A</h2><div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="stat"><div class="num" id="detailLessons">8 / 21</div><div class="muted">Lessons completed</div></div><div class="stat"><div class="num" id="detailStars">24</div><div class="muted">Stars earned</div></div></div>
+      <h2 style="margin-top:18px">✍️ Leave feedback</h2>
+      <div class="field"><label for="comment">Message for this student</label><textarea id="comment" placeholder="E.g. Well done! Keep practising Lesson 4 this week..."></textarea></div>
+      <div class="field"><label for="target">Weekly learning target</label><input id="target" placeholder="E.g. Practise Lesson 4 this week"></div>
+      <div class="row"><button class="green" onclick="saveFeedback()">Save demo feedback</button><button class="gold" onclick="loadExample()">Use example message</button></div>
+      <p id="saveStatus" class="muted" aria-live="polite"></p>
+      <h2 style="margin-top:18px">Previous demo feedback</h2><div id="history"></div>
+    </section>
+  </section>
+</main>
+<footer>Madani Qaida Quest · Prototype preview only · Sample data is not real student information.</footer>
+<script>
+const samples=[
+ {id:"a",name:"Student A",lesson:8,stars:24,comment:"Well done! You're making good progress. Keep practising Lesson 4 this week, especially the letters we've been working on. Keep going — you're doing great!",target:"Practise Lesson 4 this week."},
+ {id:"b",name:"Student B",lesson:12,stars:37,comment:"Excellent effort! You are becoming more confident. Keep reviewing the lessons you have already completed.",target:"Review Lessons 9–12 this week."},
+ {id:"c",name:"Student C",lesson:2,stars:6,comment:"A lovely start! Take your time, practise a little each day, and ask your teacher whenever you need help.",target:"Practise Lesson 2 with your teacher."}
+];
+let selected="a";
+const demoKey="mqq_rewards_demo_feedback_v1";
+function getFeedback(){try{return JSON.parse(localStorage.getItem(demoKey)||"{}")}catch(e){return {}}}
+function setFeedback(data){try{localStorage.setItem(demoKey,JSON.stringify(data));return true}catch(e){return false}}
+function showMode(mode){
+ document.getElementById("studentView").classList.toggle("hidden",mode!=="student");
+ document.getElementById("staffView").classList.toggle("hidden",mode!=="staff");
+ document.getElementById("studentTab").classList.toggle("active",mode==="student");
+ document.getElementById("staffTab").classList.toggle("active",mode==="staff");
+ if(mode==="staff")renderStudents();
+ else 
+const MQQ_PROGRESS_KEY="mqq_lesson_progress_v1";
+function getLessonProgress(){
+ try{return JSON.parse(localStorage.getItem(MQQ_PROGRESS_KEY)||'{"completed":{},"stars":0,"rounds":{}}')}
+ catch(e){return {completed:{},stars:0,rounds:{}}}
+}
+function refreshProgress(){
+ const data=getLessonProgress();
+ const completed=Object.keys(data.completed||{}).filter(k=>data.completed[k]).length;
+ const stars=Number(data.stars)||0;
+ const pct=Math.round(completed/21*100);
+ document.getElementById("lessonCount").textContent=completed+" / 21";
+ document.getElementById("starCount").textContent=stars;
+ document.getElementById("progressText").textContent=pct+"% complete";
+ document.getElementById("progressBar").style.width=pct+"%";
+ document.getElementById("firstStepsStatus").textContent=completed>=1?"Unlocked ✓":"Not yet unlocked";
+ document.getElementById("firstStepsStatus").className=completed>=1?"success":"muted";
+ document.getElementById("quizExplorerStatus").textContent=Object.keys(data.rounds||{}).length>=1?"Unlocked ✓":"Not yet unlocked";
+ document.getElementById("quizExplorerStatus").className=Object.keys(data.rounds||{}).length>=1?"success":"muted";
+ document.getElementById("championStatus").textContent=completed>=21?"Unlocked ✓":"Locked";
+ document.getElementById("championStatus").className=completed>=21?"success":"muted";
+ document.getElementById("starCollectorStatus").textContent=stars>=50?"Unlocked ✓":"Locked";
+ document.getElementById("starCollectorStatus").className=stars>=50?"success":"muted";
+}
+
+refreshProgress();
+renderStudentFeedback();
+}
+function renderStudents(){
+ const list=document.getElementById("studentList");list.innerHTML="";
+ samples.forEach(s=>{
+  const b=document.createElement("button");b.className="student"+(selected===s.id?" selected":"");b.innerHTML=`<span><strong>${s.name}</strong><small>Lesson ${s.lesson} · ${s.lesson>=10?"Doing well":"Building confidence"}</small></span><span>⭐ ${s.stars}　›</span>`;
+  b.onclick=()=>{selected=s.id;renderStudents();renderDetail()};list.appendChild(b);
+ });renderDetail();
+}
+function renderDetail(){
+ const s=samples.find(x=>x.id===selected)||samples[0];
+ document.getElementById("detailTitle").textContent=s.name;
+ document.getElementById("detailLessons").textContent=`${s.lesson} / 21`;
+ document.getElementById("detailStars").textContent=s.stars;
+ const saved=getFeedback()[s.id]||[];
+ const latest=saved[0];
+ document.getElementById("comment").value=latest?latest.comment:"";
+ document.getElementById("target").value=latest?latest.target:"";
+ const h=document.getElementById("history");h.innerHTML="";
+ if(!saved.length){h.innerHTML='<p class="muted">No demo comments saved for this sample student yet.</p>';return}
+ saved.forEach(item=>{const div=document.createElement("div");div.className="feedback";const strong=document.createElement("strong");strong.textContent=item.date+" · Teacher feedback";const p=document.createElement("p");p.textContent=item.comment;div.append(strong,p);if(item.target){const t=document.createElement("p");t.textContent="Weekly target: "+item.target;div.append(t)}h.appendChild(div)});
+}
+function saveFeedback(){
+ const comment=document.getElementById("comment").value.trim();
+ const target=document.getElementById("target").value.trim();
+ if(!comment&&!target){document.getElementById("saveStatus").textContent="Add a comment or weekly target first.";return}
+ const all=getFeedback();all[selected]=all[selected]||[];
+ all[selected].unshift({comment,target,date:new Date().toLocaleDateString()});
+ const ok=setFeedback(all);
+ document.getElementById("saveStatus").textContent=ok?"Demo feedback saved in this browser only.":"This browser could not save the demo feedback.";
+ renderDetail();
+}
+function loadExample(){
+ const s=samples.find(x=>x.id===selected)||samples[0];
+ document.getElementById("comment").value=s.comment;
+ document.getElementById("target").value=s.target;
+ document.getElementById("saveStatus").textContent="Example message loaded. Tap Save demo feedback to keep it in this browser.";
+}
+function renderStudentFeedback(){
+ const saved=getFeedback()[selected]||[];const area=document.getElementById("studentFeedback");
+ if(saved.length){area.innerHTML="";saved.slice(0,3).forEach(item=>{const wrap=document.createElement("div");wrap.className="feedback";const strong=document.createElement("strong");strong.textContent="💌 Teacher feedback";const p=document.createElement("p");p.textContent=item.comment;wrap.append(strong,p);if(item.target){const t=document.createElement("p");t.textContent="Weekly target: "+item.target;wrap.append(t)}const small=document.createElement("p");small.className="muted";small.textContent="Saved demo message · "+item.date;wrap.append(small);area.append(wrap)})}
+}
+renderStudentFeedback();
+</script>
+</body></html>
