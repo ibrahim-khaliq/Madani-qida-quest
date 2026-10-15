@@ -69,7 +69,7 @@ const letters = [
 ];
 let mode="find",round=0,stars=0,target=null,locked=false,oddTarget=null,previousMode="find";
 const $=id=>document.getElementById(id);
-function goHome(){window.location.href="https://ibrahim-khaliq.github.io/Madani-qida-quest/";}
+function goHome(){window.location.href="https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-blue-turban-theme-v13-progress-fix.html";}
 function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
 function showOnly(id){$("intro").style.display=id==="modes"?"block":"none";$("modes").style.display=id==="modes"?"grid":"none";$("game").classList.toggle("active",id==="game");$("finished").classList.toggle("active",id==="finished")}
 function startGame(which){mode=which;previousMode=which;round=0;stars=0;showOnly("game");nextQuestion(true)}
