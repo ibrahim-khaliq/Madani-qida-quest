@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b70">
+<title>Madani Qaida Quest — Settings v2</title>
+<style>
+:root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d;--green:#16804a;--line:#d6e8f8;--card:#fff;--muted:#526b83}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#eaf8ff,#fff9e9);min-height:100vh;transition:background .15s,color .15s}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:16px}
+.topbar{max-width:800px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-size:clamp(18px,4vw,25px);font-weight:900}
+main{max-width:800px;margin:0 auto;padding:20px 14px 40px}
+.guide,.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 5px 0 #123b7010}
+.guide{display:flex;align-items:center;gap:14px}
+.guide img{width:86px;height:96px;object-fit:contain;background:#eef8ff;border-radius:12px}
+h1{margin:0 0 6px;font-size:clamp(25px,5vw,34px)}h2{margin:0 0 8px}
+p{line-height:1.5;margin:6px 0}
+.setting{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
+.setting:last-of-type{border-bottom:0}
+.setting-copy{flex:1}.setting-copy strong{display:block}.muted{color:var(--muted);font-size:.93em}
+button,a.button{font:inherit;font-weight:800;border:0;border-radius:13px;padding:12px 16px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+button:focus-visible,a:focus-visible{outline:3px solid #f0ad00;outline-offset:3px}
+.primary{background:var(--gold);color:#4a3b11;box-shadow:0 4px 0 #d6ad3d}
+.secondary{background:#eef5fb;color:var(--navy);border:2px solid var(--line)}
+.toggle{min-width:84px;background:#e5f5e9;color:#12613a;border:2px solid #9fd7b1}
+.toggle[aria-pressed="false"]{background:#f3f5f7;color:#536273;border-color:#d8e0e7}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.status{min-height:24px;color:var(--green);font-weight:700}
+body.large-text{font-size:1.18rem}
+body.high-contrast{--ink:#071827;--muted:#263b4c;--line:#6b849a;--card:#fff;background:#fff}
+body.high-contrast .secondary{background:#fff;border-color:#38536a}
+body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+@media(max-width:480px){main{padding:14px 10px 30px}.guide{padding:12px}.guide img{width:68px;height:78px}.setting{align-items:flex-start}.toggle{min-width:75px;padding:10px}}
+</style>
+</head>
+<body>
+<header><div class="topbar"><div class="brand">📘 Madani Qaida Quest</div><a class="button secondary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html">← Main Menu</a></div></header>
+<main>
+<section class="guide">
+<img src="a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim">
+<div><h1>Settings</h1><p>Assalamu Alaikum! Make your learning experience more comfortable.</p></div>
+</section>
+<section class="panel" aria-label="Accessibility and game preferences">
+<h2>Learning preferences</h2>
+<div class="setting"><div class="setting-copy"><strong>🔊 Sound effects</strong><p class="muted">Save your sound preference on this device.</p></div><button id="soundToggle" class="toggle" type="button" aria-pressed="true">On</button></div>
+<div class="setting"><div class="setting-copy"><strong>🔠 Larger text</strong><p class="muted">Make this page easier to read. The preference is saved on this device.</p></div><button id="textToggle" class="toggle" type="button" aria-pressed="false">Off</button></div>
+<div class="setting"><div class="setting-copy"><strong>◐ High contrast</strong><p class="muted">Increase contrast to make text and controls clearer.</p></div><button id="contrastToggle" class="toggle" type="button" aria-pressed="false">Off</button></div>
+<div class="setting"><div class="setting-copy"><strong>✨ Reduce animations</strong><p class="muted">Reduce movement and transitions on this page.</p></div><button id="motionToggle" class="toggle" type="button" aria-pressed="false">Off</button></div>
+<p id="status" class="status" role="status" aria-live="polite">Settings loaded.</p>
+</section>
+<section class="panel">
+<h2>Navigation</h2><p>Return to the welcome screen or go back to the previous page.</p>
+<div class="actions"><a class="button primary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html">🏠 Back to Main Menu</a><button id="backButton" class="secondary" type="button">↩ Back</button></div>
+</section>
+<p class="muted">Settings v2 is a separate test page. It does not change lesson content, lesson progress, or the existing 21-lesson game file. Some preferences are saved for future integration into the full game.</p>
+</main>
+<footer style="text-align:center;padding:0 10px 24px;color:var(--muted);font-size:.9em">Madani Qaida Quest • Ibrahim Talks</footer>
+<script>
+(function(){
+ const status=document.getElementById('status');
+ const settings=[
+  {id:'soundToggle',key:'mqq_settings_sound_on',fallback:true,cls:null,label:'Sound setting'},
+  {id:'textToggle',key:'mqq_settings_large_text',fallback:false,cls:'large-text',label:'Text preference'},
+  {id:'contrastToggle',key:'mqq_settings_high_contrast',fallback:false,cls:'high-contrast',label:'High contrast preference'},
+  {id:'motionToggle',key:'mqq_settings_reduce_motion',fallback:false,cls:'reduce-motion',label:'Reduced motion preference'}
+ ];
+ function read(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:v==='true'}catch(e){return fallback}}
+ function write(key,value){try{localStorage.setItem(key,String(value));return true}catch(e){return false}}
+ function setToggle(button,on){button.textContent=on?'On':'Off';button.setAttribute('aria-pressed',String(on))}
+ settings.forEach(item=>{
+  let value=read(item.key,item.fallback);
+  const button=document.getElementById(item.id);
+  setToggle(button,value);
+  if(item.cls)document.body.classList.toggle(item.cls,value);
+  button.addEventListener('click',function(){
+   value=!value;setToggle(button,value);
+   if(item.cls)document.body.classList.toggle(item.cls,value);
+   const ok=write(item.key,value);
+   status.textContent=ok?item.label+' saved on this device.':'Changed for this visit, but this browser could not save the preference.';
+  });
+ });
+ document.getElementById('backButton').addEventListener('click',function(){
+  if(history.length>1)history.back();
+  else location.href='madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html';
+ });
+})();
+</script>
+</body>
+</html>
