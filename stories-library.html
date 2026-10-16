@@ -16,7 +16,7 @@ header{position:sticky;top:0;z-index:4;background:#fff;border-bottom:2px solid v
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.story{padding:15px;display:flex;flex-direction:column;gap:8px;min-height:190px}.story h2{margin:0;color:var(--navy);font-size:18px}.story p{margin:0;line-height:1.4;font-size:14px}.story .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
 button{font:inherit;font-weight:800;border:0;border-radius:11px;padding:10px 12px;cursor:pointer}.read{background:var(--gold);color:#3e3000}.mark{background:#e6f5ec;color:#12623a}.mark.done{background:#16804a;color:white}.disabled{background:#e8eef4;color:#738293;cursor:not-allowed}.missing{border-style:dashed;background:#fffdf6}.status{font-size:12px;font-weight:800;color:var(--green)}.locked-label{font-size:12px;color:#805700;font-weight:800}
 .viewer{position:fixed;inset:0;background:#0c1c2ddd;z-index:10;display:none;align-items:center;justify-content:center;padding:12px}.viewer.open{display:flex}.viewer-card{width:min(1000px,100%);height:min(92vh,900px);padding:12px;display:flex;flex-direction:column;gap:10px}.viewer-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.viewer-head h2{margin:0;color:var(--navy)}.close{background:#fee2e2;color:#8d1b1b}.open-tab{background:#e8f2fb;color:var(--navy);text-decoration:none;border-radius:10px;padding:10px 12px;font-weight:800}.pdf-pages{width:100%;flex:1;min-height:0;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#eef3f8;padding:10px;overscroll-behavior:contain}.pdf-page{max-width:800px;margin:0 auto 14px;background:#fff;box-shadow:0 2px 10px #123b7020}.pdf-page canvas{display:block;width:100%;height:auto}.error{padding:16px;background:#fff0f0;border-radius:12px;color:#8d1b1b;line-height:1.5}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+.character-message{display:flex;align-items:center;gap:16px;margin-top:18px;padding:14px;background:#f0f7ff;border:2px solid #c9e1fa;border-radius:18px}.character-portrait{width:112px;height:140px;object-fit:contain;object-position:center bottom;flex:0 0 auto}.speech-bubble{position:relative;background:#fff;border:2px solid #d5e7f8;border-radius:16px;padding:14px 16px;line-height:1.55;box-shadow:0 3px 10px #123b700d}.speech-bubble strong{color:var(--navy)}.speech-bubble p{margin:0 0 8px}.speech-bubble p:last-child{margin-bottom:0}.open-tab{background:#e8f2fb;color:var(--navy);text-decoration:none;border-radius:10px;padding:10px 12px;font-weight:800}.download-pdf{background:var(--gold);color:#3e3000;text-decoration:none;border-radius:10px;padding:10px 12px;font-weight:900;display:inline-flex;align-items:center}.viewer-head>div{display:flex;gap:8px;flex-wrap:wrap}@media(max-width:520px){.character-message{align-items:flex-start;gap:8px;padding:10px}.character-portrait{width:86px;height:112px}.speech-bubble{padding:11px;font-size:14px}}\nfooter{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 @media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:17px}.story{padding:12px;min-height:210px}}
 @media(max-width:420px){.grid{grid-template-columns:1fr}.story{min-height:0}.summary{align-items:flex-start}}
 </style>
@@ -27,6 +27,14 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <section class="hero">
 <h1>Stories 📖</h1>
 <p>Read the original weekly story PDFs. Your reading progress is saved in this browser on this device.</p>
+<div class="character-message">
+<img class="character-portrait" src="a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim, your Madani Qaida Quest guide">
+<div class="speech-bubble">
+<p><strong>Assalamu Alaikum, friends!</strong> 😊 Enjoy the story and have fun reading!</p>
+<p>📚 New stories unlock every week, so come back and see what’s next.</p>
+<p>📄 To keep and read the full story, tap <strong>Download Full PDF</strong> when you open a story.</p>
+</div>
+</div>
 <div class="note"><strong>Approved content protection:</strong> Story PDFs are displayed as supplied. This page does not rewrite, summarise, correct, or add religious content to the stories. The supplied collection includes Weeks 1–4 and 6–50; Week 5 was not in the uploaded archive.</div>
 <div id="previewNotice" class="note" hidden><strong>Preview mode:</strong> weekly locks are bypassed for testing only.</div>
 </section>
@@ -38,7 +46,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </main>
 <div id="viewer" class="viewer" role="dialog" aria-modal="true" aria-label="Story reader">
 <div class="viewer-card">
-<div class="viewer-head"><h2 id="viewerTitle">Story</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><a id="openTab" class="open-tab" href="#" target="_blank" rel="noopener">Open PDF separately</a><button class="close" id="closeViewer">Close ✕</button></div></div>
+<div class="viewer-head"><h2 id="viewerTitle">Story</h2><div><a id="openTab" class="download-pdf" href="#" download="madani-qaida-story.pdf">Download Full PDF ⬇</a><button class="close" id="closeViewer">Close ✕</button></div></div>
 <div id="viewerError" class="error" hidden></div>
 <div id="pdfPages" class="pdf-pages" aria-label="All pages of the original story PDF"></div>
 </div>
@@ -107,7 +115,7 @@ async function openStory(week){
  const pack=packFor(week);if(!pack)return;
  $("viewerTitle").textContent="Week "+week+" story";
  $("viewerError").hidden=true;$("viewerError").textContent="";
- $("pdfPages").innerHTML="";$("openTab").href="#";$("viewer").classList.add("open");
+ $("pdfPages").innerHTML="";$("openTab").href="#";$("openTab").download="week-"+String(week).padStart(2,"0")+"-story.pdf";$("viewer").classList.add("open");
  try{
   if(!window.pdfjsLib)throw new Error("The PDF reader could not load. Please check your internet connection or use Open PDF separately.");
   pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
@@ -116,7 +124,7 @@ async function openStory(week){
   const bytes=await entry.async("uint8array");
   const blob=new Blob([bytes],{type:"application/pdf"});
   if(activeUrl)URL.revokeObjectURL(activeUrl);
-  activeUrl=URL.createObjectURL(blob);$("openTab").href=activeUrl;
+  activeUrl=URL.createObjectURL(blob);$("openTab").href=activeUrl;$("openTab").download="week-"+String(week).padStart(2,"0")+"-story.pdf";
   const pdf=await pdfjsLib.getDocument({data:bytes}).promise;
   for(let pageNum=1;pageNum<=pdf.numPages;pageNum++){
    const page=await pdf.getPage(pageNum);
