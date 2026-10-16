@@ -45,7 +45,8 @@ body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{an
 </section>
 <section class="panel" aria-label="Accessibility and game preferences">
 <h2>Learning preferences</h2>
-<div class="setting"><div class="setting-copy"><strong>🔊 Sound effects</strong><p class="muted">Save your sound preference on this device.</p></div><button id="soundToggle" class="toggle" type="button" aria-pressed="true">On</button></div>
+<div class="setting"><div class="setting-copy"><strong>🔊 Sound effects</strong><p class="muted">Turn game sound effects on or off. Try the sample sound below.</p></div><button id="soundToggle" class="toggle" type="button" aria-pressed="true">On</button></div>
+<div class="actions" style="margin-top:0;margin-bottom:12px"><button id="testSound" class="primary" type="button">▶ Test sound</button></div>
 <div class="setting"><div class="setting-copy"><strong>🔠 Larger text</strong><p class="muted">Make this page easier to read. The preference is saved on this device.</p></div><button id="textToggle" class="toggle" type="button" aria-pressed="false">Off</button></div>
 <div class="setting"><div class="setting-copy"><strong>◐ High contrast</strong><p class="muted">Increase contrast to make text and controls clearer.</p></div><button id="contrastToggle" class="toggle" type="button" aria-pressed="false">Off</button></div>
 <div class="setting"><div class="setting-copy"><strong>✨ Reduce animations</strong><p class="muted">Reduce movement and transitions on this page.</p></div><button id="motionToggle" class="toggle" type="button" aria-pressed="false">Off</button></div>
@@ -61,15 +62,41 @@ body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{an
 <script>
 (function(){
  const status=document.getElementById('status');
+ let audioContext=null;
+ function read(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:v==='true'}catch(e){return fallback}}
+ function write(key,value){try{localStorage.setItem(key,String(value));return true}catch(e){return false}}
+ function setToggle(button,on){button.textContent=on?'On':'Off';button.setAttribute('aria-pressed',String(on))}
+ function soundEnabled(){return read('mqq_settings_sound_on',true)}
+ function playTone(frequency,start,duration,volume){
+  if(!soundEnabled())return false;
+  try{
+   const AudioCtx=window.AudioContext||window.webkitAudioContext;
+   if(!AudioCtx){status.textContent='This browser does not support the sound test.';return false}
+   if(!audioContext)audioContext=new AudioCtx();
+   if(audioContext.state==='suspended')audioContext.resume();
+   const oscillator=audioContext.createOscillator();
+   const gain=audioContext.createGain();
+   oscillator.type='sine';oscillator.frequency.setValueAtTime(frequency,audioContext.currentTime+start);
+   gain.gain.setValueAtTime(0.0001,audioContext.currentTime+start);
+   gain.gain.exponentialRampToValueAtTime(volume,audioContext.currentTime+start+0.02);
+   gain.gain.exponentialRampToValueAtTime(0.0001,audioContext.currentTime+start+duration);
+   oscillator.connect(gain);gain.connect(audioContext.destination);
+   oscillator.start(audioContext.currentTime+start);oscillator.stop(audioContext.currentTime+start+duration+0.03);
+   return true;
+  }catch(e){status.textContent='Could not play sound. Check your device volume and silent mode.';return false}
+ }
+ function playSample(){
+  if(!soundEnabled()){status.textContent='Sound is switched off. Turn it on to hear the sample.';return}
+  const ok=playTone(523.25,0,0.16,0.12);
+  playTone(659.25,0.17,0.16,0.12);playTone(783.99,0.34,0.22,0.12);
+  if(ok)status.textContent='Playing sample sound. Make sure your device volume is turned up.';
+ }
  const settings=[
   {id:'soundToggle',key:'mqq_settings_sound_on',fallback:true,cls:null,label:'Sound setting'},
   {id:'textToggle',key:'mqq_settings_large_text',fallback:false,cls:'large-text',label:'Text preference'},
   {id:'contrastToggle',key:'mqq_settings_high_contrast',fallback:false,cls:'high-contrast',label:'High contrast preference'},
   {id:'motionToggle',key:'mqq_settings_reduce_motion',fallback:false,cls:'reduce-motion',label:'Reduced motion preference'}
  ];
- function read(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:v==='true'}catch(e){return fallback}}
- function write(key,value){try{localStorage.setItem(key,String(value));return true}catch(e){return false}}
- function setToggle(button,on){button.textContent=on?'On':'Off';button.setAttribute('aria-pressed',String(on))}
  settings.forEach(item=>{
   let value=read(item.key,item.fallback);
   const button=document.getElementById(item.id);
@@ -80,8 +107,10 @@ body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{an
    if(item.cls)document.body.classList.toggle(item.cls,value);
    const ok=write(item.key,value);
    status.textContent=ok?item.label+' saved on this device.':'Changed for this visit, but this browser could not save the preference.';
+   if(item.id==='soundToggle'&&value)playSample();
   });
  });
+ document.getElementById('testSound').addEventListener('click',playSample);
  document.getElementById('backButton').addEventListener('click',function(){
   if(history.length>1)history.back();
   else location.href='madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html';
