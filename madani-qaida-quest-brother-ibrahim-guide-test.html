@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Madani Qaida Quest — Brother Ibrahim Guide Test</title>
+<style>
+:root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d;--green:#16804a;--line:#d6e6f5;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#eaf8ff,#f7fbff)}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;background:#fff;border-bottom:3px solid #c6e3fa;box-shadow:0 4px 14px #123b7012}
+.brand{font-weight:900;color:var(--navy);font-size:clamp(16px,3vw,22px)}
+button{font:inherit;cursor:pointer}
+.home{border:0;border-radius:14px;padding:11px 15px;background:var(--green);color:#fff;font-weight:850;box-shadow:0 4px 0 #0b5932}
+main{max-width:1400px;margin:auto;padding:16px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:2px solid #b7d8f3;background:#fff;color:var(--navy);font-weight:800;border-radius:13px;padding:10px 13px}
+.tab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.coach{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:center;background:#fff;border:2px solid #c8e5fb;border-radius:20px;padding:14px;margin-bottom:14px;box-shadow:0 7px 20px #123b700c}
+.avatar{width:120px;height:120px;object-fit:contain;border-radius:16px;background:#eef8ff}
+h1{font-size:clamp(20px,3vw,28px);margin:0 0 6px;color:var(--navy)}
+.coach p{margin:5px 0;line-height:1.5}
+.tip{display:inline-block;background:#fff4ce;border:1px solid #f4d477;border-radius:10px;padding:6px 9px;font-weight:700;margin-top:5px}
+.gamebox{height:min(67vh,760px);min-height:430px;background:white;border:2px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px #123b7010}
+iframe{width:100%;height:100%;border:0;background:#fff}
+.note{font-size:13px;color:#526b83;margin:10px 2px}
+@media(max-width:600px){main{padding:10px}.coach{grid-template-columns:84px 1fr;gap:10px;padding:10px}.avatar{width:80px;height:100px}.gamebox{height:62vh;min-height:360px}.home{padding:10px 12px}.tab{padding:9px 10px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">📘 Madani Qaida Quest — Guide Test</div>
+  <button class="home" onclick="window.location.href='https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-blue-turban-theme-v13-progress-fix.html'">← Return to Welcome Page</button>
+</header>
+<main>
+  <nav class="tabs" aria-label="Game pages">
+    <button class="tab" data-page="welcome" aria-selected="true">🏠 Welcome</button>
+    <button class="tab" data-page="lessons" aria-selected="false">📚 Lessons</button>
+    <button class="tab" data-page="games" aria-selected="false">🎮 Mini-Games</button>
+    <button class="tab" data-page="rewards" aria-selected="false">🏆 Rewards</button>
+  </nav>
+  <section class="coach" aria-live="polite">
+    <img class="avatar" src="https://ibrahim-khaliq.github.io/Madani-qida-quest/a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim, your Madani Qaida Quest guide">
+    <div>
+      <h1 id="coach-title">Assalamu Alaikum! I'm Brother Ibrahim.</h1>
+      <p id="coach-message">Welcome to Madani Qaida Quest! Choose a section above and I'll explain what to do and how to complete it.</p>
+      <p class="tip" id="coach-tip">Tip: take your time and enjoy learning.</p>
+    </div>
+  </section>
+  <section class="gamebox" aria-label="Game page preview">
+    <iframe id="game-frame" title="Madani Qaida Quest page preview" src="https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-blue-turban-theme-v13-progress-fix.html" allow="fullscreen"></iframe>
+  </section>
+  <p class="note">This is a separate test page. Your existing game files have not been replaced. Use the tabs to preview the guide on each main section.</p>
+</main>
+<script>
+const pages={
+ welcome:{title:"Assalamu Alaikum! I'm Brother Ibrahim.",message:"Welcome to Madani Qaida Quest! Use the welcome menu to choose Lessons, Mini-Games or Rewards. I'll help you understand each section.",tip:"Tip: start with Lessons if you're new.",url:"madani-qaida-quest-blue-turban-theme-v13-progress-fix.html"},
+ lessons:{title:"Let's learn together!",message:"Open a lesson, listen or read carefully, then complete the activity on the page. Work through the lessons one at a time and use the lesson controls to move forward.",tip:"Tip: practise each sound before moving on.",url:"madani-qaida-quest-lessons-with-home-menu-v7.html"},
+ games:{title:"Ready for a mini-game?",message:"Choose a mini-game and follow its instructions. Read the question, pick your answer or complete the challenge, and try again if you need more practice.",tip:"Tip: accuracy first — speed can come later.",url:"madani-qaida-quest-mini-games-v6.html"},
+ rewards:{title:"Check your progress!",message:"Visit Rewards to see your progress and the rewards you've earned. Keep completing lessons and activities to build your learning streak.",tip:"Tip: every completed activity is progress.",url:"madani-qaida-quest-rewards-progress-v3.html"}
+};
+const frame=document.getElementById("game-frame");
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{
+  const page=pages[btn.dataset.page];
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",String(b===btn)));
+  document.getElementById("coach-title").textContent=page.title;
+  document.getElementById("coach-message").textContent=page.message;
+  document.getElementById("coach-tip").textContent=page.tip;
+  frame.src=page.url;
+}));
+</script>
+</body>
+</html>
