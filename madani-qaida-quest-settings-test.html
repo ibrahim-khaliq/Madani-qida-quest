@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madani Qaida Quest — Settings Test</title>
+<style>
+:root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d;--green:#16804a;--line:#d6e8f8}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#eaf8ff,#fff9e9);min-height:100vh;transition:font-size .15s}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:16px}
+.topbar{max-width:800px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-size:clamp(18px,4vw,25px);font-weight:900}
+main{max-width:800px;margin:0 auto;padding:20px 14px 40px}
+.guide,.panel{background:#fff;border:2px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 5px 0 #123b7010}
+.guide{display:flex;align-items:center;gap:14px}
+.guide img{width:86px;height:96px;object-fit:contain;background:#eef8ff;border-radius:12px}
+h1{margin:0 0 6px;font-size:clamp(25px,5vw,34px)}h2{margin:0 0 8px}
+p{line-height:1.5;margin:6px 0}
+.setting{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid #e3edf6}
+.setting:last-child{border-bottom:0}
+.setting-copy{flex:1}.setting-copy strong{display:block}.muted{color:#526b83;font-size:.93em}
+button,a.button{font:inherit;font-weight:800;border:0;border-radius:13px;padding:12px 16px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.primary{background:var(--gold);color:#4a3b11;box-shadow:0 4px 0 #d6ad3d}
+.secondary{background:#eef5fb;color:var(--navy);border:2px solid #d6e8f8}
+.toggle{min-width:84px;background:#e5f5e9;color:#12613a;border:2px solid #9fd7b1}
+.toggle[aria-pressed="false"]{background:#f3f5f7;color:#536273;border-color:#d8e0e7}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.status{min-height:24px;color:#12613a;font-weight:700}
+footer{text-align:center;padding:0 10px 24px;color:#526b83;font-size:.9em}
+body.large-text{font-size:1.18rem}
+@media(max-width:480px){main{padding:14px 10px 30px}.guide{padding:12px}.guide img{width:68px;height:78px}.setting{align-items:flex-start}.toggle{min-width:75px;padding:10px}}
+</style>
+</head>
+<body>
+<header><div class="topbar"><div class="brand">📘 Madani Qaida Quest</div><a class="button secondary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html">← Main Menu</a></div></header>
+<main>
+<section class="guide">
+<img src="a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim">
+<div><h1>Settings</h1><p>Assalamu Alaikum! Let's make your learning experience comfortable.</p></div>
+</section>
+<section class="panel" aria-label="Game settings">
+<div class="setting">
+<div class="setting-copy"><strong>🔊 Sound effects</strong><p class="muted">Turn game sound effects on or off. This setting is saved on this device.</p></div>
+<button id="soundToggle" class="toggle" type="button" aria-pressed="true">On</button>
+</div>
+<div class="setting">
+<div class="setting-copy"><strong>🔠 Larger text</strong><p class="muted">Make text easier to read throughout this settings page. Saved on this device.</p></div>
+<button id="textToggle" class="toggle" type="button" aria-pressed="false">Off</button>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">Settings loaded.</p>
+</section>
+<section class="panel">
+<h2>Navigation</h2>
+<p>Use these buttons to return to the main menu or go back to the previous screen.</p>
+<div class="actions">
+<a class="button primary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html">🏠 Back to Main Menu</a>
+<button id="backButton" class="secondary" type="button">↩ Back</button>
+</div>
+</section>
+<p class="muted">Settings test page. This is separate from the live game; it does not change lesson progress or replace any existing game files.</p>
+</main>
+<footer>Madani Qaida Quest • Ibrahim Talks</footer>
+<script>
+(function(){
+ const status=document.getElementById('status');
+ const sound=document.getElementById('soundToggle');
+ const text=document.getElementById('textToggle');
+ function read(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:v==='true'}catch(e){return fallback}}
+ function write(key,value){try{localStorage.setItem(key,String(value));return true}catch(e){return false}}
+ function setToggle(button,on){button.textContent=on?'On':'Off';button.setAttribute('aria-pressed',String(on))}
+ let soundOn=read('mqq_settings_sound_on',true);
+ let largeText=read('mqq_settings_large_text',false);
+ setToggle(sound,soundOn);setToggle(text,largeText);document.body.classList.toggle('large-text',largeText);
+ sound.addEventListener('click',function(){soundOn=!soundOn;setToggle(sound,soundOn);const ok=write('mqq_settings_sound_on',soundOn);status.textContent=ok?'Sound setting saved on this device.':'Setting changed, but this browser could not save it.'});
+ text.addEventListener('click',function(){largeText=!largeText;setToggle(text,largeText);document.body.classList.toggle('large-text',largeText);const ok=write('mqq_settings_large_text',largeText);status.textContent=ok?'Text preference saved on this device.':'Setting changed, but this browser could not save it.'});
+ document.getElementById('backButton').addEventListener('click',function(){if(history.length>1){history.back()}else{location.href='madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html'}});
+})();
+</script>
+</body>
+</html>
