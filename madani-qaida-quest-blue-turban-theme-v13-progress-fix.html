@@ -29,7 +29,7 @@ main{max-width:1120px;margin:auto;padding:20px 14px 48px}
 <article class="card"><div class="icon">🎮</div><h2>Mini-games</h2><p>Practise recognising Arabic letters with quick, friendly games.</p><button class="btn gold" onclick="window.location.href='https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-mini-games-v6.html'">Play Mini-games</button></article>
 <article class="card coming-soon"><div class="icon">📖</div><h2>Stories</h2><p>Something special is on the way! New Islamic stories are coming soon.</p><button class="btn gold" type="button" disabled aria-disabled="true">Coming Soon ✨</button></article>
 <article class="card"><div class="icon">⭐</div><h2>Rewards &amp; Progress</h2><p>See your learning journey, stars, achievements and teacher feedback.</p><button class="btn primary" onclick="window.location.href='https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-rewards-progress-v3.html'">View Rewards</button></article>
-<article class="card"><div class="icon">⚙️</div><h2>Settings</h2><p>Manage sound, text size and navigation options.</p><a class="btn gold" href="madani-qaida-quest-settings-test.html" style="display:inline-block;text-decoration:none;text-align:center">Settings</a></article>
+<article class="card"><div class="icon">⚙️</div><h2>Settings</h2><p>Manage sound, text size and navigation options.</p><a class="btn gold" href="madani-qaida-quest-settings-v2.html" style="display:inline-block;text-decoration:none;text-align:center">Settings</a></article>
 </section>
 </main><footer style="background:#fffef0ee;border-top:3px solid #b6e8bd;margin-top:18px;padding:24px 14px">
 <div style="font-size:18px;font-weight:1000;color:#07543f;margin-bottom:6px">Madani Qaida Quest</div>
@@ -46,4 +46,41 @@ main{max-width:1120px;margin:auto;padding:20px 14px 48px}
 <div id="msg" class="message hidden" role="status"></div>
 <script>
 let timer;function notify(t){const m=document.getElementById('msg');m.textContent=t;m.classList.remove('hidden');clearTimeout(timer);timer=setTimeout(()=>m.classList.add('hidden'),3200)}
-</script></body></html>
+</script>
+<script>
+(function(){
+  let audioContext=null;
+  function soundOn(){try{return localStorage.getItem('mqq_settings_sound_on')!=='false'}catch(e){return true}}
+  function tone(frequency,start,duration,volume){
+    if(!soundOn())return;
+    try{
+      const AudioCtx=window.AudioContext||window.webkitAudioContext;
+      if(!AudioCtx)return;
+      if(!audioContext)audioContext=new AudioCtx();
+      if(audioContext.state==='suspended')audioContext.resume();
+      const now=audioContext.currentTime;
+      const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
+      oscillator.type='sine';
+      oscillator.frequency.setValueAtTime(frequency,now+start);
+      gain.gain.setValueAtTime(0.0001,now+start);
+      gain.gain.exponentialRampToValueAtTime(volume,now+start+0.018);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+start+duration);
+      oscillator.connect(gain);gain.connect(audioContext.destination);
+      oscillator.start(now+start);oscillator.stop(now+start+duration+0.025);
+    }catch(e){}
+  }
+  window.mqqPlaySound=function(kind){
+    if(!soundOn())return;
+    if(kind==='correct'){tone(523.25,0,0.13,0.10);tone(659.25,0.14,0.13,0.10);tone(783.99,0.28,0.18,0.10)}
+    else if(kind==='wrong'){tone(246.94,0,0.16,0.075);tone(196,0.17,0.2,0.075)}
+    else tone(659.25,0,0.055,0.045);
+  };
+  document.addEventListener('click',function(event){
+    const target=event.target.closest&&event.target.closest('button,a');
+    if(!target||target.disabled||target.hasAttribute('data-no-sound'))return;
+    if(target.classList.contains('answer')||['checkBtn','ruleCheck','nextBtn','ruleNext','testSound'].includes(target.id))return;
+    window.mqqPlaySound('click');
+  },true);
+})();
+</script>
+</body></html>
