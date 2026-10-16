@@ -90,7 +90,7 @@ function updateIbrahimGameGuide(){
  else text.textContent="Odd One Out: compare the four choices and tap the letter that is different from the others.";
 }
 function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
-function showOnly(id){$("intro").style.display=id==="modes"?"block":"none";$("modes").style.display=id==="modes"?"grid":"none";$("game").classList.toggle("active",id==="game");$("finished").classList.toggle("active",id==="finished")}
+function showOnly(id){$("intro").style.display=id==="modes"?"block":"none";$("modes").style.display=id==="modes"?"grid":"none";const mg=$("ibrahimModeGuide");if(mg)mg.style.display=id==="modes"?"flex":"none";$("game").classList.toggle("active",id==="game");$("finished").classList.toggle("active",id==="finished")}
 function startGame(which){mode=which;previousMode=which;round=0;stars=0;showOnly("game");updateIbrahimGameGuide();nextQuestion(true)}
 function backToGames(){showOnly("modes")}
 function nextQuestion(first=false){
