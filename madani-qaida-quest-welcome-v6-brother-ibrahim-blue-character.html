@@ -77,5 +77,25 @@ body{margin:0;background:#e7f0e2;color:#17452f;font-family:system-ui,-apple-syst
     <p class="note">Student and staff features will unlock in a future update, insha'Allah.</p>
   </footer>
 </main>
+
+<script>
+(function(){
+ let audioContext=null;
+ function soundOn(){try{return localStorage.getItem('mqq_settings_sound_on')!=='false'}catch(e){return true}}
+ function tone(frequency,start,duration,volume){
+  if(!soundOn())return;
+  try{
+   const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
+   if(!audioContext)audioContext=new AudioCtx();if(audioContext.state==='suspended')audioContext.resume();
+   const now=audioContext.currentTime,oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
+   oscillator.type='sine';oscillator.frequency.setValueAtTime(frequency,now+start);
+   gain.gain.setValueAtTime(0.0001,now+start);gain.gain.exponentialRampToValueAtTime(volume,now+start+0.018);gain.gain.exponentialRampToValueAtTime(0.0001,now+start+duration);
+   oscillator.connect(gain);gain.connect(audioContext.destination);oscillator.start(now+start);oscillator.stop(now+start+duration+0.025);
+  }catch(e){}
+ }
+ window.mqqPlaySound=function(kind){if(!soundOn())return;if(kind==='correct'){tone(523.25,0,0.13,0.10);tone(659.25,0.14,0.13,0.10);tone(783.99,0.28,0.18,0.10)}else if(kind==='wrong'){tone(246.94,0,0.16,0.075);tone(196,0.17,0.2,0.075)}else tone(659.25,0,0.055,0.045)};
+ document.addEventListener('click',function(event){const target=event.target.closest&&event.target.closest('a,button');if(!target||target.disabled||target.hasAttribute('data-no-sound'))return;window.mqqPlaySound('click')},true);
+})();
+</script>
 </body>
 </html>
