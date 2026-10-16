@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Madani Qaida Quest — Lessons 1–21 v11</title>
+<title>Madani Qaida Quest — Lessons 1–21 v12</title>
 <style>
 :root{--green:#10583f;--green2:#1b8a61;--gold:#ffd166;--ink:#18382e;--muted:#5b7167;--bg:#f1f8f3;--white:#fff;--line:#dcebe1;--red:#a62b2b}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#e0f7e9,#fff6dc,#f7e7f2);font-family:system-ui,-apple-system,sans-serif;color:var(--ink)}
-header{background:linear-gradient(135deg,#094532,#1b8a61);color:white;text-align:center;padding:25px 15px 30px;border-radius:0 0 28px 28px}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,#094532,#1b8a61);color:white;text-align:center;padding:12px 15px 14px;border-radius:0 0 20px 20px;box-shadow:0 3px 12px #123b7020}
 header .brand-logo{display:block;width:min(170px,42vw);max-height:125px;object-fit:contain;margin:0 auto 12px;border-radius:12px;background:#fff;padding:7px}header h1{margin:6px 0;font-size:clamp(26px,6vw,40px)}header p{margin:5px auto;max-width:650px;line-height:1.5}
 main{max-width:1000px;margin:auto;padding:15px}.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:16px;margin:14px 0;box-shadow:0 6px 20px #174b3210}
 h2{margin:0 0 8px;font-size:22px}.muted{color:var(--muted);line-height:1.55;font-size:14px}.notice{background:#fff5d8;border:1px solid #f2d68c;border-radius:12px;padding:12px;line-height:1.5}
@@ -21,6 +21,15 @@ h2{margin:0 0 8px;font-size:22px}.muted{color:var(--muted);line-height:1.55;font
 .feedback{padding:12px;border-radius:12px;margin-top:12px;line-height:1.5}.good{background:#e5f7eb;border:1px solid #b7e5c5}.bad{background:#fff0f0;border:1px solid #f0c4c4}.hidden{display:none!important}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.pill{background:#e8f4eb;border-radius:99px;padding:6px 10px;color:var(--green);font-weight:650;font-size:13px}
 footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 @media(max-width:500px){.stats{grid-template-columns:1fr 1fr}.panel{padding:13px}}
+
+/* Brother Ibrahim contextual guide — isolated test copy */
+.ibrahim-guide{display:flex;align-items:center;gap:12px;padding:12px;margin:12px 0 16px;background:#eef8ff;border:2px solid #c8e5fb;border-radius:18px;color:#18324d}
+.ibrahim-guide img{width:76px;height:86px;object-fit:contain;flex:0 0 auto;border-radius:12px;background:#fff}
+.ibrahim-guide strong{display:block;color:#123b70;margin-bottom:4px}
+.ibrahim-guide p{margin:0;line-height:1.45}
+.ibrahim-home{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#16804a!important;color:#fff!important;border:0;border-radius:12px;padding:10px 14px;font-weight:850;text-decoration:none;box-shadow:0 3px 0 #0b5932}
+@media(max-width:520px){.ibrahim-guide{gap:9px;padding:9px}.ibrahim-guide img{width:62px;height:72px}.ibrahim-guide p{font-size:14px}}
+
 </style>
 </head>
 <body>
@@ -32,6 +41,7 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
  <div class="lessons" id="lessonGrid" aria-label="Lesson list"></div>
 </section>
 <section class="panel" id="lessonPanel">
+ <div class="ibrahim-guide" role="status" aria-live="polite"><img src="https://ibrahim-khaliq.github.io/Madani-qida-quest/a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim"><div><strong id="ibrahimTitle">Brother Ibrahim says</strong><p id="ibrahimText">Choose a lesson from the list above. I'll explain what to do once you select it.</p></div></div>
  <div class="row"><div><h2 id="lessonTitle">Lesson 1 — Huroof Mufridat (Individual Letters)</h2><div class="muted" id="lessonSubtitle">Starter practice bank</div></div><span class="pill" id="progress">Question 1 of 5</span></div>
  <div id="verifiedNotice" class="notice" style="margin-top:12px">Lessons 1–4 now have starter prototype banks based on their broad topics. Exact examples and every answer still need a page-by-page check against the official book before these are used as final teaching material.</div>
  <div id="quiz">
@@ -72,8 +82,22 @@ function drawLessons(){
   b.addEventListener("click",()=>selectLesson(l.n));grid.appendChild(b);
  });
 }
+const ibrahimLessonFocus={"1":"Practise recognising individual Arabic letters and checking their dots and shapes.","2":"Look at the joined letters and read the combination from right to left.","3":"Identify the short vowel mark: Fathah, Kasrah or Dammah.","4":"Read each short sequence carefully, using the vowel marks to guide the sounds.","5":"Identify the Tanween mark and compare its shape with the answer choices.","6":"Read the word carefully and use the Harakaat and Tanween marks to choose the matching reading.","7":"Recognise the letters of Maddah and check which example matches the question.","8":"Look for the vertical vowel marks and choose the matching example.","9":"Focus on the soft letters and compare the example with the options.","10":"Use this revision lesson to review earlier rules and answer each question carefully.","11":"Look for Sukoon (Jazm) and consider the Qalqalah rule being tested.","12":"Read the example and identify whether the question is testing Izhar or Ikhfa.","13":"Look for Tashdeed, which indicates a doubled letter, and choose the matching option.","14":"Read the example carefully and identify whether the rule being tested is Idgham or Iqlab.","15":"Focus on the Meem Saakinah example and select the rule that matches the question.","16":"Focus on the difference between thick (Tafkheem) and light (Tarqeeq) sounds. Compare the example with the choices and pick the option that matches the rule being tested.","17":"Pay attention to the Madd type in the example and choose the option that matches the taught extension rule.","18":"Read the Huroof Muqatta’at as separate letter names and choose the matching description.","19":"Look carefully for the additional Alif and choose the answer that matches the example.","20":"Read the question and example carefully, then choose the option that best matches the rule being tested.","21":"Look at the Waqf sign and choose the option that matches its pausing instruction."};
+function updateIbrahimLessonGuide(stage){
+ const lesson=lessons[selectedLesson-1];
+ const title=lesson?.title||"your lesson";
+ const focus=ibrahimLessonFocus[selectedLesson]||"Read the example and choose the answer that matches the question.";
+ const text=document.getElementById("ibrahimText");
+ if(!text)return;
+ if(stage==="question"){
+  text.textContent="Lesson "+selectedLesson+" — "+title+". "+focus+" Choose your answer, tap Check answer, then read the feedback before moving to the next question.";
+ }else{
+  text.textContent="You've chosen Lesson "+selectedLesson+" — "+title+". "+focus+" Work through the questions one at a time and read the feedback before continuing.";
+ }
+}
 function selectLesson(n){
  selectedLesson=n;drawLessons();
+ updateIbrahimLessonGuide("lesson");
  const ready=lessons[n-1].ready;
  lessonTitle.textContent=ready?`Lesson ${n} — ${lessons[n-1].title}`:`Lesson ${n} — Content review`;
  lessonSubtitle.textContent=ready?"Starter question bank — verify examples with the official book before teaching":"Question bank not yet verified";
@@ -271,7 +295,7 @@ const $=id=>document.getElementById(id);
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 function startRound(){const bank=banks[selectedLesson]||[];round=shuffle(bank).slice(0,Math.min(5,bank.length));index=0;score=0;renderQuestion()}
 function renderQuestion(){
- answered=false;const q=round[index];$("arabicLetter").textContent=q.letter;$("questionText").textContent=q.q;$("progress").textContent=`Question ${index+1} of ${round.length}`;
+ answered=false;const q=round[index];updateIbrahimLessonGuide("question");$("arabicLetter").textContent=q.letter;$("questionText").textContent=q.q;$("progress").textContent=`Question ${index+1} of ${round.length}`;
  $("feedback").className="feedback hidden";$("feedback").textContent="";$("checkBtn").classList.remove("hidden");$("nextBtn").classList.add("hidden");
  $("choices").innerHTML="";
  shuffle(q.options).forEach(opt=>{const label=document.createElement("label");label.className="choice";const radio=document.createElement("input");radio.type="radio";radio.name="lessonAnswer";radio.value=opt;label.append(radio,document.createTextNode(opt));$("choices").appendChild(label)});
