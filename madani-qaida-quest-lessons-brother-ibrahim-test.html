@@ -82,14 +82,17 @@ function drawLessons(){
   b.addEventListener("click",()=>selectLesson(l.n));grid.appendChild(b);
  });
 }
+const ibrahimLessonFocus={"1":"Practise recognising individual Arabic letters and checking their dots and shapes.","2":"Look at the joined letters and read the combination from right to left.","3":"Identify the short vowel mark: Fathah, Kasrah or Dammah.","4":"Read each short sequence carefully, using the vowel marks to guide the sounds.","5":"Identify the Tanween mark and compare its shape with the answer choices.","6":"Read the word carefully and use the Harakaat and Tanween marks to choose the matching reading.","7":"Recognise the letters of Maddah and check which example matches the question.","8":"Look for the vertical vowel marks and choose the matching example.","9":"Focus on the soft letters and compare the example with the options.","10":"Use this revision lesson to review earlier rules and answer each question carefully.","11":"Look for Sukoon (Jazm) and consider the Qalqalah rule being tested.","12":"Read the example and identify whether the question is testing Izhar or Ikhfa.","13":"Look for Tashdeed, which indicates a doubled letter, and choose the matching option.","14":"Read the example carefully and identify whether the rule being tested is Idgham or Iqlab.","15":"Focus on the Meem Saakinah example and select the rule that matches the question.","16":"Focus on the difference between thick (Tafkheem) and light (Tarqeeq) sounds. Compare the example with the choices and pick the option that matches the rule being tested.","17":"Pay attention to the Madd type in the example and choose the option that matches the taught extension rule.","18":"Read the Huroof Muqatta’at as separate letter names and choose the matching description.","19":"Look carefully for the additional Alif and choose the answer that matches the example.","20":"Read the question and example carefully, then choose the option that best matches the rule being tested.","21":"Look at the Waqf sign and choose the option that matches its pausing instruction."};
 function updateIbrahimLessonGuide(stage){
- const title=lessons[selectedLesson-1]?.title||"your lesson";
+ const lesson=lessons[selectedLesson-1];
+ const title=lesson?.title||"your lesson";
+ const focus=ibrahimLessonFocus[selectedLesson]||"Read the example and choose the answer that matches the question.";
  const text=document.getElementById("ibrahimText");
  if(!text)return;
  if(stage==="question"){
-  text.textContent="You're on Lesson "+selectedLesson+": "+title+". Read the question and Arabic example carefully, choose the answer that matches, then tap Check answer. Read the feedback before moving to the next question.";
+  text.textContent="Lesson "+selectedLesson+" — "+title+". "+focus+" Choose your answer, tap Check answer, then read the feedback before moving to the next question.";
  }else{
-  text.textContent="You've chosen Lesson "+selectedLesson+": "+title+". Work through the questions one at a time, choose the best answer, tap Check answer, and read the feedback before continuing.";
+  text.textContent="You've chosen Lesson "+selectedLesson+" — "+title+". "+focus+" Work through the questions one at a time and read the feedback before continuing.";
  }
 }
 function selectLesson(n){
