@@ -33,8 +33,8 @@ h1{margin:0 0 5px;font-size:clamp(24px,4vw,34px);color:#123b70}h2{font-size:19px
     <div class="grid">
       <div class="stat"><div class="emoji">📚</div><div class="num" id="lessonCount">0 / 21</div><div class="muted">Lessons completed</div></div>
       <div class="stat"><div class="emoji">⭐</div><div class="num" id="starCount">0</div><div class="muted">Stars earned</div></div>
-      <div class="stat"><div class="emoji">🎮</div><div class="num">5</div><div class="muted">Games completed</div></div>
-      <div class="stat"><div class="emoji">🏅</div><div class="num">2</div><div class="muted">Achievements</div></div>
+      <div class="stat"><div class="emoji">🎮</div><div class="num" id="roundCount">0</div><div class="muted">Lesson rounds</div></div>
+      <div class="stat"><div class="emoji">🏅</div><div class="num" id="achievementCount">0</div><div class="muted">Achievements unlocked</div></div>
     </div>
     <section class="panel"><div class="row" style="justify-content:space-between"><h2>🗺️ Your learning journey</h2><button class="primary" onclick="refreshProgress()">Refresh progress</button></div><div class="row" style="justify-content:space-between;margin-bottom:8px"><strong id="progressText">0% complete</strong><span class="muted">21 lessons</span></div><div class="bar"><span id="progressBar" style="width:0%"></span></div><p class="muted" style="margin-top:9px">Progress is read from completed lesson rounds saved in this browser on this device.</p></section>
     <section class="panel"><h2>🏆 Achievements</h2><div class="achievements">
@@ -129,6 +129,10 @@ function refreshProgress(){
  const pct=Math.round(completed/21*100);
  document.getElementById("lessonCount").textContent=completed+" / 21";
  document.getElementById("starCount").textContent=stars;
+ const rounds=Object.keys(data.rounds||{}).length;
+ document.getElementById("roundCount").textContent=rounds;
+ const unlocked=(completed>=1?1:0)+(rounds>=1?1:0)+(completed>=21?1:0)+(stars>=50?1:0);
+ document.getElementById("achievementCount").textContent=unlocked;
  document.getElementById("progressText").textContent=pct+"% complete";
  document.getElementById("progressBar").style.width=pct+"%";
  document.getElementById("firstStepsStatus").textContent=completed>=1?"Unlocked ✓":"Not yet unlocked";
