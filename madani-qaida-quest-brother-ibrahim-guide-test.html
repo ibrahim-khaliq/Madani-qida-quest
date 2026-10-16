@@ -1,28 +1,82 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Madani Qaida Quest — Brother Ibrahim Test Home</title>
 <style>
 :root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d;--green:#16804a}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#eaf8ff,#fff9e9);min-height:100vh}
-header{background:linear-gradient(135deg,#123b70,#1769aa);color:white;padding:18px 16px;text-align:center}
-header h1{margin:0;font-size:clamp(25px,5vw,40px)}header p{margin:8px auto 0;max-width:650px;line-height:1.5}
-main{max-width:900px;margin:0 auto;padding:18px 14px 32px}
-.guide{display:flex;align-items:center;gap:14px;background:#fff;border:2px solid #c8e5fb;border-radius:20px;padding:14px;margin-bottom:16px}
-.guide img{width:90px;height:100px;object-fit:contain;background:#eef8ff;border-radius:12px}
-.guide strong{display:block;color:var(--navy);margin-bottom:5px}.guide p{margin:0;line-height:1.5}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#eaf8ff,#fff9e9);min-height:100vh}
+header{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#123b70,#1769aa);color:white;padding:10px 14px;box-shadow:0 3px 12px #123b7020}
+.topbar{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:900;font-size:clamp(18px,3vw,25px)}
+.home-btn{font:inherit;font-weight:850;border:2px solid #fff;background:#fff;color:var(--navy);border-radius:12px;padding:10px 14px;cursor:pointer;white-space:nowrap}
+main{max-width:1000px;margin:0 auto;padding:16px 14px 32px}
+.guide{display:flex;align-items:center;gap:14px;background:#fff;border:2px solid #c8e5fb;border-radius:20px;padding:12px 14px;margin-bottom:16px}
+.guide img{width:82px;height:92px;flex:0 0 auto;object-fit:contain;background:#eef8ff;border-radius:12px}
+.guide strong{display:block;color:var(--navy);margin-bottom:5px}.guide p{margin:0;line-height:1.45}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .card{display:block;background:#fff;border:2px solid #d6e8f8;border-radius:18px;padding:18px;color:var(--ink);text-decoration:none;box-shadow:0 6px 0 #123b7010}
 .card:hover,.card:focus-visible{border-color:#1769aa;transform:translateY(-2px)}
 .card .emoji{font-size:32px}.card h2{color:var(--navy);margin:8px 0}.card p{line-height:1.5;margin:0}
+#activity{display:none;width:100%;height:calc(100vh - 190px);min-height:650px;border:0;border-radius:14px;background:#fff;box-shadow:0 4px 18px #123b7015}
 .note{margin-top:16px;font-size:13px;color:#526b83}
-@media(max-width:480px){main{padding:12px}.guide{gap:9px;padding:10px}.guide img{width:70px;height:82px}}
-</style></head><body>
-<header><h1>📘 Madani Qaida Quest</h1><p>Brother Ibrahim's guide test — choose a section to begin.</p></header>
+@media(max-width:480px){main{padding:10px}.guide{gap:9px;padding:10px}.guide img{width:66px;height:76px}.home-btn{padding:9px 10px;font-size:14px}#activity{height:calc(100vh - 175px);min-height:620px}}
+</style>
+</head>
+<body>
+<header><div class="topbar"><div class="brand">📘 Madani Qaida Quest</div><button class="home-btn" id="homeBtn" type="button">← Return to Welcome</button></div></header>
 <main>
-<section class="guide" role="status"><img src="https://ibrahim-khaliq.github.io/Madani-qida-quest/a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim"><div><strong>Assalamu Alaikum! I'm Brother Ibrahim.</strong><p>Choose a lesson, mini-game or rewards below. When you open an activity, I'll explain what to do for that specific task.</p></div></section>
-<section class="grid" aria-label="Choose a section">
-<a class="card" href="madani-qaida-quest-lessons-brother-ibrahim-test.html"><div class="emoji">📚</div><h2>Lessons</h2><p>Choose from Lessons 1–21 and get guidance for the lesson you select.</p></a>
-<a class="card" href="madani-qaida-quest-mini-games-brother-ibrahim-test.html"><div class="emoji">🎮</div><h2>Mini-Games</h2><p>Play Letter Name Quiz, Find the Letter or Odd One Out with task-specific guidance.</p></a>
-<a class="card" href="madani-qaida-quest-rewards-brother-ibrahim-test.html"><div class="emoji">🏆</div><h2>Rewards & Progress</h2><p>Review the demo progress and rewards views.</p></a>
-</section><p class="note">Separate test build. The original game files are unchanged. Every test section has a Return to Welcome button.</p>
-</main></body></html>
+<section class="guide" role="status" aria-live="polite">
+<img src="https://ibrahim-khaliq.github.io/Madani-qida-quest/a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim">
+<div><strong>Assalamu Alaikum! I'm Brother Ibrahim.</strong><p id="guideText">Choose a lesson, mini-game or rewards below. I'll guide you through the task you select.</p></div>
+</section>
+<section id="menu" class="grid" aria-label="Choose a section">
+<a class="card" href="madani-qaida-quest-lessons-brother-ibrahim-test.html" data-label="Lessons"><div class="emoji">📚</div><h2>Lessons</h2><p>Choose from Lessons 1–21 and get guidance for the lesson you select.</p></a>
+<a class="card" href="madani-qaida-quest-mini-games-brother-ibrahim-test.html" data-label="Mini-Games"><div class="emoji">🎮</div><h2>Mini-Games</h2><p>Play Letter Name Quiz, Find the Letter or Odd One Out with task-specific guidance.</p></a>
+<a class="card" href="madani-qaida-quest-rewards-brother-ibrahim-test.html" data-label="Rewards"><div class="emoji">🏆</div><h2>Rewards & Progress</h2><p>Review the demo progress and rewards views.</p></a>
+</section>
+<iframe id="activity" title="Madani Qaida Quest activity"></iframe>
+<p class="note">Separate test build. The original game files are unchanged. The Welcome button and Brother Ibrahim stay outside the activity, so they remain visible while you move between sections.</p>
+</main>
+<script>
+(function(){
+ const menu=document.getElementById('menu'), frame=document.getElementById('activity'), home=document.getElementById('homeBtn'), guide=document.getElementById('guideText'), note=document.querySelector('.note');
+ const defaultText="Choose a lesson, mini-game or rewards below. I'll guide you through the task you select.";
+ function showHome(){
+   frame.style.display='none'; menu.style.display='grid'; note.style.display='block';
+   guide.textContent=defaultText;
+   window.scrollTo({top:0,behavior:'auto'});
+ }
+ function openActivity(url,label){
+   menu.style.display='none'; note.style.display='none'; frame.style.display='block';
+   guide.textContent=label==='Lessons' ? "Let's learn! Choose a lesson inside the activity. I'll explain what to do for the lesson you select."
+     : label==='Mini-Games' ? "Let's play! Choose a mini-game. I'll explain the rules for the game you pick."
+     : "Let's check your rewards and progress. I'll explain the student and staff views.";
+   frame.src=url;
+   window.scrollTo({top:0,behavior:'auto'});
+ }
+ menu.addEventListener('click',function(e){
+   const a=e.target.closest('a[data-label]'); if(!a)return;
+   e.preventDefault(); openActivity(a.getAttribute('href'),a.dataset.label);
+ });
+ home.addEventListener('click',showHome);
+ frame.addEventListener('load',function(){
+   try{
+     const doc=frame.contentDocument;
+     if(!doc)return;
+     doc.addEventListener('click',function(e){
+       const a=e.target.closest('a');
+       if(!a)return;
+       const href=a.getAttribute('href')||'';
+       if(href.includes('madani-qaida-quest-brother-ibrahim-guide-test.html') || /return to welcome/i.test(a.textContent||'')){
+         e.preventDefault(); e.stopPropagation(); showHome();
+       }
+     },true);
+   }catch(err){ /* Same-origin test pages are expected; persistent outer home button still works. */ }
+ });
+})();
+</script>
+</body>
+</html>
