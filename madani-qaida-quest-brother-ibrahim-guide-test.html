@@ -26,7 +26,7 @@ main{max-width:1000px;margin:0 auto;padding:16px 14px 32px}
 </style>
 </head>
 <body>
-<header><div class="topbar"><div class="brand">📘 Madani Qaida Quest</div><button class="home-btn" id="homeBtn" type="button">← Return to Welcome</button></div></header>
+<header><div class="topbar"><div class="brand">📘 Madani Qaida Quest</div></div></header>
 <main>
 <section class="guide" role="status" aria-live="polite">
 <img src="https://ibrahim-khaliq.github.io/Madani-qida-quest/a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim">
@@ -42,7 +42,7 @@ main{max-width:1000px;margin:0 auto;padding:16px 14px 32px}
 </main>
 <script>
 (function(){
- const menu=document.getElementById('menu'), frame=document.getElementById('activity'), home=document.getElementById('homeBtn'), guide=document.getElementById('guideText'), note=document.querySelector('.note');
+ const menu=document.getElementById('menu'), frame=document.getElementById('activity'), guide=document.getElementById('guideText'), note=document.querySelector('.note');
  const defaultText="Choose a lesson, mini-game or rewards below. I'll guide you through the task you select.";
  function showHome(){
    frame.style.display='none'; menu.style.display='grid'; note.style.display='block';
@@ -61,7 +61,6 @@ main{max-width:1000px;margin:0 auto;padding:16px 14px 32px}
    const a=e.target.closest('a[data-label]'); if(!a)return;
    e.preventDefault(); openActivity(a.getAttribute('href'),a.dataset.label);
  });
- home.addEventListener('click',showHome);
  frame.addEventListener('load',function(){
    try{
      const doc=frame.contentDocument;
