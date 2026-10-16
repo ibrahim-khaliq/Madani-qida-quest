@@ -303,7 +303,7 @@ function renderQuestion(){
 $("checkBtn").addEventListener("click",()=>{
  if(answered)return;const q=round[index],chosen=$('choices').querySelector('input:checked');
  if(!chosen){$("feedback").className="feedback bad";$("feedback").textContent="Choose an answer first, then check it.";return}
- answered=true;const ok=chosen.value===q.answer;if(ok)score++;
+ answered=true;const ok=chosen.value===q.answer;window.mqqPlaySound&&window.mqqPlaySound(ok?"correct":"wrong");if(ok)score++;
  [...$("choices").children].forEach(l=>{const inp=l.querySelector("input");if(inp.value===q.answer)l.classList.add("correct");else if(inp.checked)l.classList.add("wrong")});
  $("feedback").className="feedback "+(ok?"good":"bad");$("feedback").textContent=(ok?"Correct! ":"Not quite. ")+q.why;
  $("checkBtn").classList.add("hidden");$("nextBtn").classList.remove("hidden");$("nextBtn").textContent=index===round.length-1?`Finish round (${score}/${round.length})`:"Next question";
@@ -321,12 +321,49 @@ function renderRule(){
 $("ruleCheck").addEventListener("click",()=>{
  const selected=[...$("ruleChoices").querySelectorAll("input:checked")].map(x=>x.value).sort();
  const correct=ruleAnswer(currentRule);const expected=(correct.length?correct:[NONE]).sort();
- const ok=selected.length===expected.length&&selected.every((x,i)=>x===expected[i]);
+ const ok=selected.length===expected.length&&selected.every((x,i)=>x===expected[i]);window.mqqPlaySound&&window.mqqPlaySound(ok?"correct":"wrong");
  [...$("ruleChoices").children].forEach(l=>{const v=l.querySelector("input").value;if((correct.includes(v))||(!correct.length&&v===NONE))l.classList.add("correct");else if(l.querySelector("input").checked)l.classList.add("wrong")});
  $("ruleFeedback").className="feedback "+(ok?"good":"bad");$("ruleFeedback").textContent=ok?"Correct! "+(correct.length?correct.join(", "):"None of these groups applies."):"Not quite. Correct choice(s): "+(correct.length?correct.join(", "):NONE)+".";
 });
 $("ruleNext").addEventListener("click",()=>{const letters=["خ","ص","ض","ط","ظ","غ","ق","ب","ف","م","و","س","ح","ج","د","ن","ه","ي"];currentRule=letters[(letters.indexOf(currentRule)+1+Math.floor(Math.random()*(letters.length-1)))%letters.length];renderRule()});
 drawLessons();startRound();renderRule();
+</script>
+
+<script>
+(function(){
+  let audioContext=null;
+  function soundOn(){try{return localStorage.getItem('mqq_settings_sound_on')!=='false'}catch(e){return true}}
+  function tone(frequency,start,duration,volume){
+    if(!soundOn())return;
+    try{
+      const AudioCtx=window.AudioContext||window.webkitAudioContext;
+      if(!AudioCtx)return;
+      if(!audioContext)audioContext=new AudioCtx();
+      if(audioContext.state==='suspended')audioContext.resume();
+      const now=audioContext.currentTime;
+      const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
+      oscillator.type='sine';
+      oscillator.frequency.setValueAtTime(frequency,now+start);
+      gain.gain.setValueAtTime(0.0001,now+start);
+      gain.gain.exponentialRampToValueAtTime(volume,now+start+0.018);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+start+duration);
+      oscillator.connect(gain);gain.connect(audioContext.destination);
+      oscillator.start(now+start);oscillator.stop(now+start+duration+0.025);
+    }catch(e){}
+  }
+  window.mqqPlaySound=function(kind){
+    if(!soundOn())return;
+    if(kind==='correct'){tone(523.25,0,0.13,0.10);tone(659.25,0.14,0.13,0.10);tone(783.99,0.28,0.18,0.10)}
+    else if(kind==='wrong'){tone(246.94,0,0.16,0.075);tone(196,0.17,0.2,0.075)}
+    else tone(659.25,0,0.055,0.045);
+  };
+  document.addEventListener('click',function(event){
+    const target=event.target.closest&&event.target.closest('button,a');
+    if(!target||target.disabled||target.hasAttribute('data-no-sound'))return;
+    if(target.classList.contains('answer')||['checkBtn','ruleCheck','nextBtn','ruleNext','testSound'].includes(target.id))return;
+    window.mqqPlaySound('click');
+  },true);
+})();
 </script>
 </body>
 </html>
