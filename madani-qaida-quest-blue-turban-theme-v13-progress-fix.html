@@ -17,6 +17,14 @@ main{max-width:1120px;margin:auto;padding:20px 14px 48px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:16px}.card{background:#fffef0f2;border:3px solid white;border-radius:22px;padding:17px;box-shadow:0 6px 0 #4fbd7840}.icon{width:53px;height:53px;border-radius:17px;display:grid;place-items:center;font-size:28px;background:#dff8e6;box-shadow:inset 0 -4px #b4e5be}.card:nth-child(2) .icon{background:#fff0b4;box-shadow:inset 0 -4px #f2d56c}.card:nth-child(3) .icon{background:#d8f3ff;box-shadow:inset 0 -4px #addfee}.card h2{margin:11px 0 6px;font-size:19px}.card p{margin:0;color:#587566;font-size:13px;line-height:1.5}.card button{margin-top:13px}.message{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);width:max-content;max-width:90vw;background:#07543f;color:white;padding:13px 17px;border-radius:15px;font-weight:900;text-align:center;box-shadow:0 5px 0 #043d2e;z-index:5}.hidden{display:none}footer{text-align:center;padding:22px 12px;color:#315d48;font-size:12px;font-weight:800}
 @media(max-width:760px){.banner img{object-position:center;max-height:none}.grid{grid-template-columns:1fr}.caption{align-items:flex-start}.coins{font-size:12px;padding:8px}}
 .coming-soon{opacity:.88}.coming-soon button:disabled{cursor:not-allowed;opacity:.8;filter:saturate(.65)}
+
+/* Accessibility preferences synced from Settings */
+body.mqq-large-text{font-size:1.18rem!important}
+body.mqq-high-contrast{color:#071827!important;background:#fff!important}
+body.mqq-high-contrast header,body.mqq-high-contrast .card,body.mqq-high-contrast .panel,body.mqq-high-contrast .stat,body.mqq-high-contrast .modal,body.mqq-high-contrast .screen{background:#fff!important;color:#071827!important;border-color:#38536a!important}
+body.mqq-high-contrast button,body.mqq-high-contrast a.btn{outline-color:#071827;color:#071827;border:2px solid #071827}
+body.mqq-high-contrast p,body.mqq-high-contrast h1,body.mqq-high-contrast h2,body.mqq-high-contrast h3,body.mqq-high-contrast label,body.mqq-high-contrast span{color:inherit}
+body.mqq-reduce-motion *,body.mqq-reduce-motion *::before,body.mqq-reduce-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
 </style></head>
 <body>
 <header><div class="brand"><img src="ibrahim-talks-logo.png" alt="Ibrahim Talks logo" style="width:min(190px,38vw);max-height:54px;object-fit:contain;background:#fff;border-radius:10px;padding:4px"><span>Madani Qaida Quest</span></div><div class="coins">⭐ <span id="stars">0</span> Stars</div></header>
@@ -81,6 +89,19 @@ let timer;function notify(t){const m=document.getElementById('msg');m.textConten
     if(target.classList.contains('answer')||['checkBtn','ruleCheck','nextBtn','ruleNext','testSound'].includes(target.id))return;
     window.mqqPlaySound('click');
   },true);
+})();
+</script>
+
+<script id="mqq-accessibility-preferences">
+(function(){
+ const prefs=[['mqq_settings_large_text','mqq-large-text'],['mqq_settings_high_contrast','mqq-high-contrast'],['mqq_settings_reduce_motion','mqq-reduce-motion']];
+ function apply(){
+  let values={};
+  try{prefs.forEach(([key,cls])=>{const on=localStorage.getItem(key)==='true';document.body.classList.toggle(cls,on);values[key]=on;});}catch(e){}
+ }
+ apply();
+ window.addEventListener('pageshow',apply);
+ window.addEventListener('storage',function(e){if(prefs.some(([key])=>key===e.key))apply();});
 })();
 </script>
 </body></html>
