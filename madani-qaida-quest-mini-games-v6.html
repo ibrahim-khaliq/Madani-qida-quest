@@ -124,13 +124,50 @@ function chooseAnswer(button,letter){
  if(locked)return;locked=true;
  const correct=mode==="odd"?letter.char===oddTarget.char:letter.char===target.char;
  [...$("answers").children].forEach(b=>{b.disabled=true;if((mode==="odd"&&b.textContent===oddTarget.char)||(mode!=="odd"&&b.textContent===target.char))b.classList.add("correct")});
- if(correct){stars++;$("feedback").textContent="Correct! ⭐ Well done."; $("feedback").className="feedback good"}
- else{$("feedback").textContent=mode==="odd"?`The different letter was ${oddTarget.char}. Keep going!`:`The correct answer is ${target.char} (${target.name}). Keep going!`;$("feedback").className="feedback bad";button.classList.add("wrong")}
+ if(correct){window.mqqPlaySound&&window.mqqPlaySound("correct");stars++;$("feedback").textContent="Correct! ⭐ Well done."; $("feedback").className="feedback good"}
+ else{window.mqqPlaySound&&window.mqqPlaySound("wrong");$("feedback").textContent=mode==="odd"?`The different letter was ${oddTarget.char}. Keep going!`:`The correct answer is ${target.char} (${target.name}). Keep going!`;$("feedback").className="feedback bad";button.classList.add("wrong")}
  $("score").textContent=`Question ${round+1} of 10 · Stars: ${stars}`;
  $("bar").style.width=`${(round+1)/10*100}%`;
  $("nextBtn").disabled=false;$("nextBtn").textContent=round===9?"See Results →":"Next Question →";
 }
 function replay(){startGame(previousMode)}
+</script>
+
+<script>
+(function(){
+  let audioContext=null;
+  function soundOn(){try{return localStorage.getItem('mqq_settings_sound_on')!=='false'}catch(e){return true}}
+  function tone(frequency,start,duration,volume){
+    if(!soundOn())return;
+    try{
+      const AudioCtx=window.AudioContext||window.webkitAudioContext;
+      if(!AudioCtx)return;
+      if(!audioContext)audioContext=new AudioCtx();
+      if(audioContext.state==='suspended')audioContext.resume();
+      const now=audioContext.currentTime;
+      const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
+      oscillator.type='sine';
+      oscillator.frequency.setValueAtTime(frequency,now+start);
+      gain.gain.setValueAtTime(0.0001,now+start);
+      gain.gain.exponentialRampToValueAtTime(volume,now+start+0.018);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+start+duration);
+      oscillator.connect(gain);gain.connect(audioContext.destination);
+      oscillator.start(now+start);oscillator.stop(now+start+duration+0.025);
+    }catch(e){}
+  }
+  window.mqqPlaySound=function(kind){
+    if(!soundOn())return;
+    if(kind==='correct'){tone(523.25,0,0.13,0.10);tone(659.25,0.14,0.13,0.10);tone(783.99,0.28,0.18,0.10)}
+    else if(kind==='wrong'){tone(246.94,0,0.16,0.075);tone(196,0.17,0.2,0.075)}
+    else tone(659.25,0,0.055,0.045);
+  };
+  document.addEventListener('click',function(event){
+    const target=event.target.closest&&event.target.closest('button,a');
+    if(!target||target.disabled||target.hasAttribute('data-no-sound'))return;
+    if(target.classList.contains('answer')||['checkBtn','ruleCheck','nextBtn','ruleNext','testSound'].includes(target.id))return;
+    window.mqqPlaySound('click');
+  },true);
+})();
 </script>
 </body>
 </html>
