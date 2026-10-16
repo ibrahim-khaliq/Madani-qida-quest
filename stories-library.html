@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b70">
+<title>Madani Qaida Quest — Stories</title>
+<style>
+:root{--navy:#123b70;--blue:#1769aa;--sky:#eaf5ff;--gold:#f5c451;--ink:#18324d;--green:#16804a;--line:#d6e6f5;--muted:#60758b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf5ff,#fff9e9);color:var(--ink);min-height:100vh}
+header{position:sticky;top:0;z-index:4;background:#fff;border-bottom:2px solid var(--line);padding:12px max(16px,calc((100vw - 1000px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:900;color:var(--navy)}.home{display:inline-flex;align-items:center;justify-content:center;background:var(--navy);color:#fff;text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:800;white-space:nowrap}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 16px 44px}.hero,.summary,.story,.viewer-card{background:#fff;border:2px solid var(--line);border-radius:20px;box-shadow:0 6px 20px #123b700b}
+.hero{padding:22px;margin-bottom:14px}.hero h1{margin:0;color:var(--navy);font-size:clamp(28px,5vw,40px)}.hero p{line-height:1.5;margin:8px 0 0}.note{margin:14px 0;padding:12px 14px;background:#fff8e6;border:1px solid #f1d991;border-radius:14px;line-height:1.45;font-size:14px}
+.summary{padding:16px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}.big{font-size:25px;font-weight:900;color:var(--navy)}.muted{color:var(--muted);font-size:13px}.bar{height:10px;background:#e5eef6;border-radius:99px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;width:0;background:var(--green);transition:width .2s}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.story{padding:15px;display:flex;flex-direction:column;gap:8px;min-height:190px}.story h2{margin:0;color:var(--navy);font-size:18px}.story p{margin:0;line-height:1.4;font-size:14px}.story .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+button{font:inherit;font-weight:800;border:0;border-radius:11px;padding:10px 12px;cursor:pointer}.read{background:var(--gold);color:#3e3000}.mark{background:#e6f5ec;color:#12623a}.mark.done{background:#16804a;color:white}.disabled{background:#e8eef4;color:#738293;cursor:not-allowed}.missing{border-style:dashed;background:#fffdf6}.status{font-size:12px;font-weight:800;color:var(--green)}.locked-label{font-size:12px;color:#805700;font-weight:800}
+.viewer{position:fixed;inset:0;background:#0c1c2ddd;z-index:10;display:none;align-items:center;justify-content:center;padding:12px}.viewer.open{display:flex}.viewer-card{width:min(1000px,100%);height:min(92vh,900px);padding:12px;display:flex;flex-direction:column;gap:10px}.viewer-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.viewer-head h2{margin:0;color:var(--navy)}.close{background:#fee2e2;color:#8d1b1b}.open-tab{background:#e8f2fb;color:var(--navy);text-decoration:none;border-radius:10px;padding:10px 12px;font-weight:800}.pdf-frame{width:100%;flex:1;min-height:0;border:1px solid var(--line);border-radius:12px;background:#f6f9fc}.error{padding:16px;background:#fff0f0;border-radius:12px;color:#8d1b1b;line-height:1.5}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:17px}.story{padding:12px;min-height:210px}}
+@media(max-width:420px){.grid{grid-template-columns:1fr}.story{min-height:0}.summary{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header><div class="brand">📚 Madani Qaida Quest · Stories</div><a class="home" href="madani-qaida-quest-blue-turban-theme-v13-progress-fix.html">← Home Menu</a></header>
+<main class="wrap">
+<section class="hero">
+<h1>Stories 📖</h1>
+<p>Read the original weekly story PDFs. Your reading progress is saved in this browser on this device.</p>
+<div class="note"><strong>Approved content protection:</strong> Story PDFs are displayed as supplied. This page does not rewrite, summarise, correct, or add religious content to the stories. The supplied collection includes Weeks 1–4 and 6–50; Week 5 was not in the uploaded archive.</div>
+<div id="previewNotice" class="note" hidden><strong>Preview mode:</strong> weekly locks are bypassed for testing only.</div>
+</section>
+<section class="summary">
+<div><div class="big" id="progressCount">0 / 49 read</div><div class="muted" id="progressLabel">Your reading progress on this device</div><div class="bar"><span id="progressBar"></span></div></div>
+<div class="muted" id="unlockInfo">Week 1 is scheduled to unlock on 19 October 2026.</div>
+</section>
+<section id="storyGrid" class="grid" aria-label="Weekly stories"></section>
+</main>
+<div id="viewer" class="viewer" role="dialog" aria-modal="true" aria-label="Story reader">
+<div class="viewer-card">
+<div class="viewer-head"><h2 id="viewerTitle">Story</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><a id="openTab" class="open-tab" href="#" target="_blank" rel="noopener">Open PDF separately</a><button class="close" id="closeViewer">Close ✕</button></div></div>
+<div id="viewerError" class="error" hidden></div>
+<iframe id="pdfFrame" class="pdf-frame" title="Original story PDF"></iframe>
+</div>
+</div>
+<footer>Madani Qaida Quest · Original story PDFs are preserved unchanged.</footer>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+(function(){
+const START_DATE = new Date(2026, 9, 19); // Monday 19 October 2026, local time
+const previewMode = new URLSearchParams(window.location.search).get("preview") === "1";
+const PACKS = [
+ {first:1,last:12,file:"stories-pack-01.zip"},
+ {first:13,last:24,file:"stories-pack-02.zip"},
+ {first:25,last:34,file:"stories-pack-03.zip"},
+ {first:35,last:38,file:"stories-pack-04.zip"},
+ {first:39,last:50,file:"stories-pack-05.zip"}
+];
+const TOTAL_STORIES=49;
+const PROGRESS_KEY="mqq_story_progress_v1";
+let zipPromises={};
+let activeUrl=null;
+const $=id=>document.getElementById(id);
+if(previewMode) $("previewNotice").hidden=false;
+function readState(){try{return JSON.parse(localStorage.getItem(PROGRESS_KEY)||"{}")}catch(e){return {}}}
+function saveState(state){try{localStorage.setItem(PROGRESS_KEY,JSON.stringify(state));return true}catch(e){return false}}
+function unlockDate(week){const d=new Date(START_DATE);d.setDate(d.getDate()+(week-1)*7);return d}
+function dateText(d){return d.toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"})}
+function isUnlocked(week){return previewMode || new Date()>=unlockDate(week)}
+function packFor(week){return PACKS.find(p=>week>=p.first&&week<=p.last)}
+function render(){
+ const state=readState(),grid=$("storyGrid");grid.innerHTML="";
+ let readCount=0;
+ for(let week=1;week<=50;week++){
+  if(week===5){
+   const card=document.createElement("article");card.className="story missing";
+   card.innerHTML='<h2>Week 5 story</h2><p>Week 5 was not included in the uploaded collection.</p><p class="muted">No replacement has been created. Add the approved original PDF when available.</p>';
+   grid.appendChild(card);continue;
+  }
+  const key=String(week),isRead=!!state[key];if(isRead)readCount++;
+  const unlocked=isUnlocked(week),card=document.createElement("article");card.className="story";
+  const title=document.createElement("h2");title.textContent="Week "+week+" story";card.appendChild(title);
+  const desc=document.createElement("p");desc.textContent=unlocked?"Open and read the original PDF without changes.":"Unlocks "+dateText(unlockDate(week))+".";card.appendChild(desc);
+  const stateLine=document.createElement("div");stateLine.className=unlocked?"status":"locked-label";stateLine.textContent=isRead?"✓ Read on this device":(unlocked?"Available":"🔒 Locked");card.appendChild(stateLine);
+  const actions=document.createElement("div");actions.className="actions";
+  const view=document.createElement("button");view.className=unlocked?"read":"disabled";view.textContent=unlocked?"Read story":"Locked";view.disabled=!unlocked;view.addEventListener("click",()=>openStory(week));actions.appendChild(view);
+  const mark=document.createElement("button");mark.className="mark"+(isRead?" done":"");mark.textContent=isRead?"✓ Marked read":"Mark as read";mark.disabled=!unlocked;mark.addEventListener("click",()=>{const s=readState();s[key]=true;saveState(s);render()});actions.appendChild(mark);
+  card.appendChild(actions);grid.appendChild(card);
+ }
+ $("progressCount").textContent=readCount+" / "+TOTAL_STORIES+" read";
+ $("progressBar").style.width=(readCount/TOTAL_STORIES*100)+"%";
+ $("unlockInfo").textContent="Week 1 unlocks "+dateText(unlockDate(1))+". One numbered week unlocks every 7 days.";
+}
+async function getZip(pack){
+ if(!window.JSZip)throw new Error("The ZIP reader could not load. Check your internet connection and try again.");
+ if(!zipPromises[pack.file]){
+  zipPromises[pack.file]=(async()=>{
+   const response=await fetch(pack.file);
+   if(!response.ok)throw new Error("Could not find "+pack.file+". Please make sure all five story ZIP packs have been uploaded to the repository root.");
+   return JSZip.loadAsync(await response.arrayBuffer());
+  })();
+ }
+ return zipPromises[pack.file];
+}
+async function openStory(week){
+ const pack=packFor(week);if(!pack)return;
+ $("viewerTitle").textContent="Week "+week+" story";
+ $("viewerError").hidden=true;$("viewerError").textContent="";
+ $("pdfFrame").src="about:blank";$("openTab").href="#";$("viewer").classList.add("open");
+ try{
+  const zip=await getZip(pack),entry=zip.file("week-"+String(week).padStart(2,"0")+".pdf");
+  if(!entry)throw new Error("The original PDF for Week "+week+" was not found in "+pack.file+".");
+  const blob=await entry.async("blob");
+  activeUrl=URL.createObjectURL(new Blob([blob],{type:"application/pdf"}));
+  $("pdfFrame").src=activeUrl;$("openTab").href=activeUrl;
+ }catch(err){
+  $("viewerError").textContent=err.message||"Unable to open this story. Please try again.";
+  $("viewerError").hidden=false;
+ }
+}
+function closeViewer(){
+ $("viewer").classList.remove("open");$("pdfFrame").src="about:blank";$("openTab").href="#";
+ if(activeUrl){URL.revokeObjectURL(activeUrl);activeUrl=null}
+}
+$("closeViewer").addEventListener("click",closeViewer);
+$("viewer").addEventListener("click",e=>{if(e.target===$("viewer"))closeViewer()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeViewer()});
+render();
+})();
+</script>
+</body>
+</html>
