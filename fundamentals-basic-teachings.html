@@ -15,7 +15,7 @@ a.back,.homebtn{display:inline-block;text-decoration:none;background:#fff;color:
 .topic{border:2px solid #d3e7d8;background:white;border-radius:18px;padding:16px;text-align:left;color:var(--ink);cursor:pointer;min-height:116px;box-shadow:0 4px 12px #164b2b0c}
 .topic:hover,.topic:focus{border-color:var(--green);transform:translateY(-1px)}.emoji{font-size:26px}.topic strong{display:block;font-size:17px;margin:5px 0}.topic small{color:#52715f;line-height:1.4}
 #lesson{display:none;background:white;border:2px solid #d3e7d8;border-radius:18px;padding:20px;margin-top:18px;line-height:1.7}
-#lesson h2{margin-top:0;color:var(--deep)}.kalima-list{display:grid;gap:14px;margin-top:16px}.kalima{border:1px solid #d7e7da;background:#fbfefb;border-radius:16px;padding:16px}.kalima h3{margin:0 0 10px;color:var(--deep);font-size:18px}.kalima h4{margin:12px 0 4px;color:var(--green)}.arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:clamp(25px,4.5vw,34px);line-height:2;text-align:center;color:#176b48;margin:12px 0;overflow-wrap:anywhere}#lesson .source{font-size:13px;color:#557362;border-top:1px solid #e0ece2;padding-top:10px;margin-top:18px}
+#lesson h2{margin-top:0;color:var(--deep)}.lesson-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:16px 0}.lesson-card{background:#fbfefb;border:1px solid #d7e7da;border-radius:15px;padding:14px}.lesson-card h3{margin:0 0 8px;color:var(--deep);font-size:17px}.lesson-card p{margin:8px 0;line-height:1.65}.lesson-card .arabic{font-size:clamp(24px,4vw,32px);line-height:2;text-align:center;color:var(--green);font-family:"Noto Naskh Arabic","Amiri",serif;overflow-wrap:anywhere}.kalima-list{display:grid;gap:14px;margin-top:16px}.kalima{border:1px solid #d7e7da;background:#fbfefb;border-radius:16px;padding:16px}.kalima h3{margin:0 0 10px;color:var(--deep);font-size:18px}.kalima h4{margin:12px 0 4px;color:var(--green)}.arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:clamp(25px,4.5vw,34px);line-height:2;text-align:center;color:#176b48;margin:12px 0;overflow-wrap:anywhere}#lesson .source{font-size:13px;color:#557362;border-top:1px solid #e0ece2;padding-top:10px;margin-top:18px}
 .lesson-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.lesson-actions button{border:0;border-radius:12px;padding:11px 15px;font-weight:750;cursor:pointer;background:var(--green);color:white}.lesson-actions .secondary{background:#e9f4ec;color:var(--deep)}
 footer{text-align:center;color:#557362;font-size:13px;padding:10px 15px 28px}
 </style></head>
@@ -55,6 +55,75 @@ function openTopic(i){
  ];
  content='<p>Read each Kalimah in Arabic and its English meaning. The translations below are provided to help learning; practise the Arabic wording with your teacher and compare it with the source book.</p><div class="kalima-list">'+kalimas.map((k,n)=>'<article class="kalima"><h3>'+(n+1)+'. '+k.name+'</h3><p class="arabic" lang="ar" dir="rtl">'+k.arabic+'</p><h4>English translation</h4><p>'+k.meaning+'</p></article>').join('')+'</div>';
  }
+
+ const sections={
+ 1:{intro:'Choose a du’a to learn. Arabic and the English meaning are shown together; practise pronunciation with your teacher.',items:[
+  {title:'Du’a for increasing knowledge',ar:'اللّٰهُمَّ رَبِّ زِدْنِي عِلْمًا',en:'O Allah, my Lord! Increase my knowledge.'},
+  {title:'Before drinking water',ar:'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ',en:'Allah’s name I begin with, the Most Kind, the Most Merciful.'},
+  {title:'After exiting the toilet',ar:'الْحَمْدُ لِلّٰهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَى وَعَافَانِي',en:'All praise is for Allah, Who has removed suffering from me and given me comfort.'},
+  {title:'When looking in the mirror',ar:'اللّٰهُمَّ أَنْتَ حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي',en:'O Allah! You have made my physical appearance beautiful, also make my character beautiful.'},
+  {title:'Entering a masjid',ar:'اللّٰهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',en:'O Allah! Open the doors of Your mercy for me.'},
+  {title:'When sneezing',ar:'الْحَمْدُ لِلّٰهِ',en:'All praise is for Allah in every circumstance.'},
+  {title:'Before eating',ar:'بِسْمِ اللّٰهِ وَبَرَكَةِ اللّٰهِ',en:'Allah’s name I begin with, and with the bounty of Allah I eat.'},
+  {title:'Before sleeping',ar:'بِاسْمِكَ اللّٰهُمَّ أَمُوتُ وَأَحْيَا',en:'O Allah! With Your name I die and become alive (sleep and wake up).'}
+ ]},
+ 2:{intro:'These question-and-answer lessons follow the “Iman and beliefs” section of the source books.',items:[
+  {title:'What is faith?',en:'To believe in all commandments and teachings the Prophet Muhammad ﷺ brought from Allah and to accept them wholeheartedly is called faith.'},
+  {title:'What are the two descriptions of faith?',en:'Iman-e-Mujmal (a brief description of faith) and Iman-e-Mufassal (a detailed description of faith).'},
+  {title:'Who created us?',en:'Allah has created us.'},
+  {title:'Who created the earth, sky, sun, moon and stars?',en:'The earth, sky, sun, moon and stars have all been created by Allah.'},
+  {title:'Who do we worship?',en:'We worship Allah.'},
+  {title:'Can anything be hidden from Allah?',en:'No. Nothing can be hidden from Allah; He knows everything.'},
+  {title:'Will any prophet come after our beloved Prophet Muhammad ﷺ?',en:'The book teaches that no prophet will come after Sayyiduna Muhammad ﷺ, who is Khatam-un-Nabiyyin (the Final Prophet).'},
+  {title:'What does Khatam-un-Nabiyyin mean?',en:'It means the Last Prophet.'}
+ ]},
+ 3:{intro:'Study the Prophets topic through the source book’s question-and-answer format.',items:[
+  {title:'The final Prophet',en:'The source book teaches that no prophet will come after the beloved Prophet Muhammad ﷺ.'},
+  {title:'The meaning of Khatam-un-Nabiyyin',en:'The book explains this as “the Last Prophet”.'},
+  {title:'The Prophet’s declaration of prophethood',en:'The book states that the Holy Prophet ﷺ declared his prophethood at the age of 40.'},
+  {title:'Learning about other Prophets',en:'Use the Beliefs section of Part I and the Prophets section of Part II with a teacher. Keep each Prophet’s name, story and any miracle mentioned in the source together.'}
+ ]},
+ 4:{intro:'The source book groups teachings about angels and revealed books in its Iman and beliefs section.',items:[
+  {title:'Belief in angels',en:'Iman-e-Mufassal includes belief in Allah, His angels, His revealed books, His Prophets, the Last Day, divine decree (good and bad), and resurrection after death.'},
+  {title:'Belief in revealed books',en:'The source lists belief in Allah’s revealed books as part of the detailed description of faith.'},
+  {title:'Learn the names and duties',en:'Work through the names and duties exactly as printed in the book with your teacher; this overview does not replace the full source lesson.'}
+ ]},
+ 5:{intro:'Learn the prayer recitations shown in Part II. Practise the Arabic with a qualified teacher.',items:[
+  {title:'Surah Fatihah — opening phrase',ar:'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ',en:'In the name of Allah, the Most Gracious, the Most Merciful.'},
+  {title:'Surah Ikhlas — meaning',ar:'قُلْ هُوَ اللّٰهُ أَحَدٌ ۝ اللّٰهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',en:'Say: He is Allah, the One. Allah is the Independent. He has no offspring, nor was He born, and there is none equal to Him.'},
+  {title:'Tasbih of ruku',ar:'سُبْحَانَ رَبِّيَ الْعَظِيمِ',en:'Glory to my Lord, the Most High.'},
+  {title:'Tasmi’ after ruku',ar:'سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ',en:'Allah has listened to the one who has praised Him.'},
+  {title:'Tahmid',ar:'اللّٰهُمَّ رَبَّنَا وَلَكَ الْحَمْدُ',en:'O Allah! Our Lord! All praise is for You alone.'},
+  {title:'Tasbih of sajdah',ar:'سُبْحَانَ رَبِّيَ الْأَعْلَى',en:'Glory to my Lord, the Most Supreme.'},
+  {title:'Du’a masurah',ar:'اللّٰهُمَّ رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',en:'O Allah, our Lord! Grant us good in this world and good in the Hereafter, and protect us from the torment of Hell.'}
+ ]},
+ 6:{intro:'This overview brings together acts of worship discussed in the books. Each lesson should be read alongside the original source pages.',items:[
+  {title:'Salah (prayer)',en:'The source book describes salah as a pillar of Islam and lists virtues of offering salah.'},
+  {title:'Fasting and other worship',en:'Use the Acts of Worship chapters in Part I and Part II for the source’s full explanations and practical details.'},
+  {title:'Learn with a teacher',en:'For questions about how to perform worship or its rulings, study the book with a qualified teacher.'}
+ ]},
+ 7:{intro:'Choose a practical character lesson and discuss how to apply it in everyday life.',items:[
+  {title:'Madani pearls',en:'Both books include Madani pearls and advice for daily conduct.'},
+  {title:'Good and bad deeds',en:'Part II includes a section titled “Good and bad deeds”. Read each item from the source and discuss an example of putting it into practice.'},
+  {title:'Ethics and manners',en:'Part I includes an Ethics section. Use it to discuss respectful behaviour at home, in the masjid and with other people.'}
+ ]},
+ 8:{intro:'Learn the Islamic months in order using the source book.',items:[
+  {title:'Islamic months',en:'The books include a section on the Holy Islamic months. Read the names in the order printed in the source and practise recalling them.'},
+  {title:'Special dates',en:'For the significance or practices connected with a date, follow the exact source text and ask your teacher if anything is unclear.'}
+ ]},
+ 9:{intro:'This section introduces Qur’an-related material mentioned in the source books.',items:[
+  {title:'Before Qur’an recitation',ar:'أَعُوذُ بِاللّٰهِ مِنَ الشَّيْطَانِ الرَّجِيمِ',en:'I seek refuge by Allah from Satan, the accursed.'},
+  {title:'Surah Ikhlas',ar:'قُلْ هُوَ اللّٰهُ أَحَدٌ ۝ اللّٰهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',en:'Say: He is Allah, the One. Allah is the Independent. He has no offspring, nor was He born, and there is none equal to Him.'},
+  {title:'Learning respectfully',en:'Practise recitation from the printed source and ask your teacher for help with pronunciation and tajwid.'}
+ ]},
+ 10:{intro:'The books also contain additional sections, including invocations, devotional material and other Madani pearls.',items:[
+  {title:'Invocations and du’as',en:'Use the dedicated Du’as and Invocations sections in the source books to learn each wording and meaning.'},
+  {title:'Dawat-e-Islami',en:'Both books contain a section about Dawat-e-Islami. Read the source section for its own explanation.'},
+  {title:'Revision challenge',en:'Choose one topic you have learned, explain its main point in your own words, then review the original page with your teacher.'}
+ ]}
+ };
+ const section=sections[i];
+ if(section){content='<p>'+section.intro+'</p><div class="lesson-cards">'+section.items.map((it,n)=>'<article class="lesson-card"><h3>'+it.title+'</h3>'+(it.ar?'<p class="arabic" lang="ar" dir="rtl">'+it.ar+'</p>':'')+'<p><strong>Meaning / lesson:</strong> '+it.en+'</p></article>').join('')+'</div>';}
  lesson.innerHTML='<h2>'+t.icon+' '+t.title+'</h2>'+content+'<div class="source"><strong>Find it in the books:</strong> '+t.source+' (Part II, printed pages 7–9)</div><div class="lesson-actions"><button onclick="window.scrollTo({top:0,behavior:\'smooth\'})">Back to top</button><button class="secondary" onclick="document.getElementById(\'lesson\').style.display=\'none\';document.getElementById(\'topics\').scrollIntoView({behavior:\'smooth\'})">Back to Topics</button></div>';
  lesson.scrollIntoView({behavior:'smooth',block:'start'})
 }
