@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eaf5ff"><title>Madani Qaida Quest — Rewards &amp; Progress</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:system-ui,sans-serif;background:linear-gradient(#bce8ff,#f7fbff)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#fff;border-bottom:2px solid #d6e6f5;position:sticky;top:0;z-index:3}
+.topbar strong{color:#123b70;font-size:clamp(15px,3vw,20px)}.topbar a{display:inline-block;background:#1769aa;color:white;text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:850}
+#rewardsFrame{display:block;width:100%;border:0;min-height:1200px;background:transparent}
+.note{padding:9px 16px;text-align:center;color:#48627a;font-size:12px;background:#ffffffc9}
+</style></head><body>
+<div class="topbar"><strong>🏆 Madani Qaida Quest — Rewards &amp; Progress</strong><a href="https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-blue-turban-theme-v13-progress-fix-updated-character-test.html">← Back to Game</a></div>
+<div class="note">Your chosen character appears here when you select one in the game.</div>
+<iframe id="rewardsFrame" title="Rewards and progress dashboard" src="https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-rewards-progress-v3.html"></iframe>
+<script>
+(function(){
+ const frame=document.getElementById('rewardsFrame');
+ function read(keys){for(const k of keys){try{const v=localStorage.getItem(k);if(v)return v}catch(e){}}return ''}
+ function sync(){
+  try{
+   const d=frame.contentDocument;if(!d||!d.body)return;
+   const name=read(['madaniQaidaQuestCharacter','mqq_selected_character_name'])||'Choose a character';
+   const look=read(['madaniQaidaQuestCharacterLook','mqq_selected_character_look']);
+   const art=read(['madaniQaidaQuestCharacterArt','mqq_selected_character_art']);
+   const box=d.getElementById('studentCharacter');
+   if(box){
+    let edit=box.querySelector('a');
+    if(!edit){edit=d.createElement('a');edit.textContent='✏️ Edit character';}
+    edit.href='madani-qaida-quest-character-select-8-characters-3d-connected.html';
+    edit.textContent='✏️ Change character';
+    edit.style.cssText='position:relative;z-index:5;margin:5px 0;background:#fff;color:#123b70;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;text-decoration:none';
+    box.innerHTML='';
+    if(art){const img=d.createElement('img');img.src=art;img.alt=name+' character';img.style.cssText='display:block;width:100%;height:150px;object-fit:contain;object-position:center bottom';box.appendChild(img)}else{const fallback=d.createElement('div');fallback.textContent='🌟';fallback.style.cssText='font-size:56px;padding:22px';box.appendChild(fallback)}
+    const label=d.createElement('div');label.textContent=name;label.style.cssText='position:relative;z-index:2;color:#123b70;font-weight:900;text-align:center;padding:3px 6px';box.appendChild(label);
+    if(look){const desc=d.createElement('div');desc.textContent=look;desc.style.cssText='font-size:11px;color:#60758b;text-align:center;margin-bottom:4px';box.appendChild(desc)}
+    box.appendChild(edit);
+   }
+   const title=d.getElementById('progressCharacterName');if(title)title.textContent=name;
+   const oldEdit=d.querySelector('.student-character a');if(oldEdit)oldEdit.href='madani-qaida-quest-character-select-8-characters-3d-connected.html';
+   frame.style.height=Math.max(1200,d.documentElement.scrollHeight+20)+'px';
+  }catch(e){/* If embedded-page access is unavailable, the original Rewards page still remains usable. */}
+ }
+ frame.addEventListener('load',function(){sync();try{const d=frame.contentDocument;d.addEventListener('click',function(){setTimeout(sync,120)});}catch(e){}});
+ window.addEventListener('pageshow',sync);window.addEventListener('storage',sync);
+})();
+</script></body></html>
