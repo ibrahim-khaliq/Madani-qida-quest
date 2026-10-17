@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fundamentals & Basic Teachings of Islam | Madani Qaida Quest</title>
+<style>
+:root{--green:#176b48;--deep:#104632;--mint:#e8f5ec;--gold:#e4bd68;--ink:#17372b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(180deg,#e8f6ec,#f8fbf7);color:var(--ink)}
+header{background:linear-gradient(135deg,#0d5138,#238258);color:white;padding:26px 16px 30px;text-align:center;border-bottom:5px solid var(--gold)}
+header .mark{font-size:28px}h1{margin:8px 0;font-size:clamp(24px,5vw,36px)}header p{margin:6px auto;max-width:650px;line-height:1.5}
+main{max-width:1000px;margin:auto;padding:18px 14px 40px}.top{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:16px}
+a.back,.homebtn{display:inline-block;text-decoration:none;background:#fff;color:var(--deep);border:2px solid #c8dfce;padding:10px 14px;border-radius:14px;font-weight:750}
+.note{background:#fff7df;border:1px solid #edd38e;border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.5;margin:14px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.topic{border:2px solid #d3e7d8;background:white;border-radius:18px;padding:16px;text-align:left;color:var(--ink);cursor:pointer;min-height:116px;box-shadow:0 4px 12px #164b2b0c}
+.topic:hover,.topic:focus{border-color:var(--green);transform:translateY(-1px)}.emoji{font-size:26px}.topic strong{display:block;font-size:17px;margin:5px 0}.topic small{color:#52715f;line-height:1.4}
+#lesson{display:none;background:white;border:2px solid #d3e7d8;border-radius:18px;padding:20px;margin-top:18px;line-height:1.7}
+#lesson h2{margin-top:0;color:var(--deep)}#lesson .source{font-size:13px;color:#557362;border-top:1px solid #e0ece2;padding-top:10px;margin-top:18px}
+.lesson-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.lesson-actions button{border:0;border-radius:12px;padding:11px 15px;font-weight:750;cursor:pointer;background:var(--green);color:white}.lesson-actions .secondary{background:#e9f4ec;color:var(--deep)}
+footer{text-align:center;color:#557362;font-size:13px;padding:10px 15px 28px}
+</style></head>
+<body>
+<header><div class="mark">☾ ✦ ☽</div><h1>Fundamentals & Basic Teachings of Islam</h1><p>Learn step by step with topics from <em>Fundamental Teachings of Islam</em>, Parts I and II.</p></header>
+<main><div class="top"><a class="back" href="madani-qaida-quest-blue-turban-theme-v13-progress-fix.html">← Return to Main Menu</a><span>Choose a topic to begin</span></div>
+<div class="note"><strong>Learning note:</strong> This section groups topics from both books. The page references point to the source PDFs; use a qualified teacher for help with detailed rulings or questions.</div>
+<div class="grid" id="topics"></div><section id="lesson" aria-live="polite"></section></main>
+<footer>Sources: Fundamental Teachings of Islam (Part I), Dawat-e-Islami; Fundamental Teachings of Islam (Part II), Maktaba-tul-Madinah.</footer>
+<script>
+const topics=[
+{icon:"📿",title:"The Six Kalimas",desc:"Statements of faith and their meanings",source:"Part I, printed pages 7–8; Part II, printed pages 7–9",body:"Explore the six Kalimas together: Kalima Tayyibah, Kalima Shahadat, Kalima Tamjid, Kalima Tawhid, Kalima Istighfar and Kalima Radd-e-Kufr. Read each Arabic text and its translation in the source book, and practise with your teacher."},
+{icon:"🤲",title:"Du’as & Daily Azkār",desc:"Supplications for everyday moments",source:"Part I, printed pages 9–11; Part II, printed pages 10–13",body:"This group brings together the daily supplications and remembrances included in the books, such as before eating, after eating, before sleeping, after waking, and when entering or leaving places. Learn the wording and translation from the source pages."},
+{icon:"💚",title:"Iman & Beliefs",desc:"Foundational beliefs about Allah and faith",source:"Part I, printed pages 12–26; Part II, printed pages 14 onward",body:"Study the belief questions and answers in the books, including belief in Allah, the beloved Prophet ﷺ, the pillars of Islam, angels, and revealed books. Work through one question at a time and ask a qualified teacher whenever you need clarification."},
+{icon:"🌙",title:"The Prophets",desc:"Prophets, their stories and miracles",source:"Part I: Beliefs section; Part II, printed pages 21–23",body:"Learn from the source section about the Prophets, including what the terms nabi and rasul mean and the examples of prophetic miracles mentioned in the book. The book also includes information about Prophet Adam, Nuh, Ibrahim, Isma'il, Musa and Muhammad ﷺ."},
+{icon:"🪽",title:"Angels & Revealed Books",desc:"Names, duties and revealed scriptures",source:"Part II, printed pages 20 and 24–25",body:"This topic groups the book’s teaching about the prominent angels and their duties, followed by the revealed books and the Prophets to whom they were revealed. Use the source text for the exact names and details."},
+{icon:"🕌",title:"Namaz (Salah)",desc:"Prayer recitations and related teachings",source:"Part I: Acts of Worship, printed pages 28–33; Part II, printed pages 4–9 and beliefs section",body:"Explore the prayer-related recitations and teachings grouped in the books. Part II includes Surah Fatihah, Surah Ikhlas, tasbih of ruku and sajdah, tashahhud, Salat Ibrahimiyyah and Du’a masurah. Practise pronunciation and prayer method with your teacher."},
+{icon:"🌱",title:"Acts of Worship",desc:"Islamic worship and its virtues",source:"Part I, printed pages 28–33; Part II, printed pages 40 onward",body:"This category collects the books’ sections about acts of worship and the virtues and basic rulings discussed there. Choose a topic and learn it from the original pages, with guidance from a qualified teacher for practical rulings."},
+{icon:"⭐",title:"Good Deeds & Manners",desc:"Character, ethics and daily conduct",source:"Part I, printed pages 34–38; Part II, printed pages 54 and 69 onward",body:"Explore the Madani pearls, good deeds, ethics and manners covered in both books. Think about how each lesson can be practised at home, in the masjid, at school and when dealing with other people."},
+{icon:"📅",title:"Islamic Months",desc:"The names and importance of the months",source:"Part I, printed page 39; Part II, printed page 87",body:"Learn the Islamic months from the relevant section of the books. Review their names in order and ask your teacher about any special days or practices mentioned in the source."},
+{icon:"📖",title:"The Holy Qur’an",desc:"Basic information about the Qur’an",source:"Part II, printed pages 24–25 and later Qur’an section",body:"This topic groups the introductory information about the Holy Qur’an found in Part II. Read the source pages to learn what the book teaches about revelation, the first revealed verses, and the language of the Qur’an."},
+{icon:"🌼",title:"Other Teachings",desc:"Additional sections from both books",source:"Part I, contents pages 6–50; Part II, contents at a glance",body:"The books also contain additional supplications, invocations, devotional poems and sections specific to their original editions. These will be organised here so children can find them without mixing them into unrelated topics."}
+];
+const grid=document.getElementById('topics'), lesson=document.getElementById('lesson');
+topics.forEach((t,i)=>{const b=document.createElement('button');b.className='topic';b.innerHTML='<span class="emoji">'+t.icon+'</span><strong>'+t.title+'</strong><small>'+t.desc+'</small>';b.onclick=()=>openTopic(i);grid.appendChild(b)});
+function openTopic(i){const t=topics[i];lesson.style.display='block';lesson.innerHTML='<h2>'+t.icon+' '+t.title+'</h2><p>'+t.body+'</p><div class="source"><strong>Find it in the books:</strong> '+t.source+'</div><div class="lesson-actions"><button onclick="window.scrollTo({top:0,behavior:\'smooth\'})">Back to top</button><button class="secondary" onclick="document.getElementById(\'lesson\').style.display=\'none\';document.getElementById(\'topics\').scrollIntoView({behavior:\'smooth\'})">Back to Topics</button></div>';lesson.scrollIntoView({behavior:'smooth',block:'start'})}
+</script></body></html>
