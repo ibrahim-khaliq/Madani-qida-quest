@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Madani Qaida Quest — Compact Lesson Selection Test</title>
+<style>
+:root{--green:#07865e;--deep:#07543f}
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;background:#e6fbff;color:#173b32}
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:9px 13px;background:#fffef2;border-bottom:3px solid #b6e8bd;box-shadow:0 4px 0 #4fbd7840}
+.brand{font-weight:1000;font-size:clamp(14px,3vw,20px);color:var(--deep)}.home{border:0;border-radius:13px;padding:10px 14px;background:var(--green);color:#fff;font:inherit;font-weight:900;cursor:pointer;box-shadow:0 3px 0 var(--deep)}
+main{height:calc(100% - 62px)}iframe{width:100%;height:100%;border:0;background:#fff}@media(max-width:480px){.topbar{padding:8px}.home{padding:9px 11px}main{height:calc(100% - 70px)}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand">📚 Compact Lesson Selection — Test</div><button class="home" onclick="window.location.href='https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-blue-turban-theme-v13-progress-fix.html'">← Return to Home Menu</button></header>
+<main><iframe id="lessonFrame" src="https://ibrahim-khaliq.github.io/Madani-qida-quest/madani-qaida-quest-21-lessons-v12-progress.html" title="Madani Qaida Quest lessons" allow="fullscreen"></iframe></main>
+<script>
+(function(){
+ const frame=document.getElementById('lessonFrame');
+ const compactCSS=`
+ /* Compact lesson selection test: keep every lesson available, minimise non-selected cards. */
+ #lessonGrid{grid-template-columns:repeat(auto-fit,minmax(112px,1fr))!important;gap:7px!important;align-items:start}
+ #lessonGrid .lesson{min-height:0!important;padding:8px 10px!important;border-radius:12px!important;line-height:1.2}
+ #lessonGrid .lesson:not(.active){display:flex!important;align-items:center;gap:7px;text-align:left;min-height:38px!important}
+ #lessonGrid .lesson:not(.active) strong{display:inline-block!important;flex:0 0 auto;font-size:13px!important;margin:0}
+ #lessonGrid .lesson:not(.active) small,#lessonGrid .lesson:not(.active) .tag{display:none!important}
+ #lessonGrid .lesson.active{min-height:70px!important;padding:10px 12px!important;box-shadow:0 2px 0 #07865e22}
+ #lessonGrid .lesson.active strong{font-size:15px!important}
+ #lessonGrid .lesson.active small{display:block!important;font-size:12px!important;margin-top:4px}
+ #lessonGrid .lesson.active .tag{display:inline-block!important;font-size:10px!important;margin-top:5px}
+ @media(max-width:500px){#lessonGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}#lessonGrid .lesson:not(.active){padding:8px 6px!important;justify-content:center}#lessonGrid .lesson:not(.active) strong{font-size:12px!important}}
+ `;
+ function apply(){try{const doc=frame.contentDocument;if(!doc||!doc.head||!doc.getElementById('lessonGrid'))return false;let style=doc.getElementById('mqqCompactLessonSelectionStyle');if(!style){style=doc.createElement('style');style.id='mqqCompactLessonSelectionStyle';style.textContent=compactCSS;doc.head.appendChild(style)}return true}catch(e){return false}}
+ frame.addEventListener('load',()=>{apply();try{const doc=frame.contentDocument;const grid=doc&&doc.getElementById('lessonGrid');if(grid){new MutationObserver(()=>apply()).observe(grid,{subtree:true,childList:true,attributes:true,attributeFilter:['class']})}}catch(e){}});
+})();
+</script>
+</body>
+</html>
