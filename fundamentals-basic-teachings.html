@@ -58,15 +58,21 @@ function openTopic(i){
  const sections={
  1:{intro:'These Arabic wordings and English translations are taken from the uploaded Fundamental Teachings PDFs. Please practise pronunciation with your teacher.',items:[
   {title:'Du’a before Qur’anic recitation',ar:'أَعُوذُ بِاللّٰهِ مِنَ الشَّيْطَانِ الرَّجِيمِ',en:'I seek refuge by Allah from Satan, the accursed.'},
+  {title:'Du’a when moving to a higher place',ar:'اللّٰهُ أَكْبَرُ',en:'Allah is the Greatest.'},
+  {title:'Du’a when moving to a lower place',ar:'سُبْحَانَ اللّٰهِ',en:'Glory be to Allah.'},
   {title:'Du’a before drinking water',ar:'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ',en:'Allah’s name I begin with, the Most Kind, the Most Merciful.'},
-  {title:'Du’a after drinking water',ar:'الْحَمْدُ لِلّٰهِ رَبِّ الْعَالَمِينَ',en:'All praise to Allah, the Lord of the worlds.'},
-  {title:'Du’a before eating food',ar:'بِسْمِ اللّٰهِ وَبَرَكَةِ اللّٰهِ',en:'Allah’s name I begin with, and with the bounty of Allah I eat.'},
-  {title:'Du’a after eating food',ar:'الْحَمْدُ لِلّٰهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ',en:'Gratitude to Almighty Allah Who has given us food and drink and has made us Muslims.'},
-  {title:'Du’a before sleeping',ar:'بِاسْمِكَ اللّٰهُمَّ أَمُوتُ وَأَحْيَا',en:'O Allah! With Your name I die and become alive (i.e. sleep and wake up).'},
-  {title:'Du’a after waking up',ar:'الْحَمْدُ لِلّٰهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ',en:'All praise to Allah who has revived (awakened) us after sleep, and we are to return towards Him.'},
-  {title:'Du’a on entering a masjid',ar:'اللّٰهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',en:'O Allah! Open the doors of Your mercy for me.'},
-  {title:'Du’a on exiting a masjid',ar:'اللّٰهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ',en:'O Allah! I ask You for Your bounty.'},
-  {title:'Du’a when looking in the mirror',ar:'اللّٰهُمَّ أَنْتَ حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي',en:'O Allah! You have made my physical appearance beautiful, also make my character beautiful.'}
+  {title:'Du’a for increasing knowledge',ar:'اللّٰهُمَّ رَبِّ زِدْنِي عِلْمًا',en:'O Allah, my Lord! Increase my knowledge.'},
+  {title:'Du’a for drinking milk',ar:'اللّٰهُمَّ بَارِكْ لَنَا فِيهِ وَزِدْنَا مِنْهُ',en:'O Allah, grant blessings in it for us, and grant us more than this.'},
+  {title:'Before entering the toilet',ar:'اللّٰهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ',en:'O Allah, I seek refuge with You from wicked male and female jinn.'},
+  {title:'After exiting the toilet',ar:'الْحَمْدُ لِلّٰهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَى وَعَافَانِي',en:'All praise is for Allah, Who has removed suffering from me and has given me comfort.'},
+  {title:'When looking in the mirror',ar:'اللّٰهُمَّ أَنْتَ حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي',en:'O Allah! You have made my physical appearance beautiful, also make my character beautiful.'},
+  {title:'When applying kohl',ar:'اللّٰهُمَّ مَتِّعْنِي بِالسَّمْعِ وَالْبَصَرِ',en:'O Allah! Make me benefit from seeing and hearing.'},
+  {title:'On entering a masjid',ar:'اللّٰهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',en:'O Allah! Open the door of Your mercy for me.'},
+  {title:'On exiting a masjid',ar:'اللّٰهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ',en:'O Allah! I ask You for Your munificence.'},
+  {title:'When sneezing',ar:'الْحَمْدُ لِلّٰهِ عَلَى كُلِّ حَالٍ',en:'All praise is for Allah in every circumstance.'},
+  {title:'In response to someone sneezing',ar:'يَرْحَمُكَ اللّٰهُ',en:'May Allah have mercy on you.'},
+  {title:'When leaving home',ar:'بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ',en:'I exit my home with the name of Allah, and I have trust in Allah. The capability to refrain from sins and the ability to do good deeds are from Allah only.'},
+  {title:'When entering home',ar:'اللّٰهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلَجِ وَخَيْرَ الْمَخْرَجِ',en:'O Allah! I ask You for the goodness of the places of entering and exiting.'}
  ]},
  2:{intro:'These question-and-answer lessons follow the “Iman and beliefs” section of the source books.',items:[
   {title:'What is faith?',en:'To believe in all commandments and teachings the Prophet Muhammad ﷺ brought from Allah and to accept them wholeheartedly is called faith.'},
@@ -86,17 +92,19 @@ function openTopic(i){
   {title:'The final Prophet',en:'The source book teaches that no prophet will come after the beloved Prophet Muhammad ﷺ.'},
   {title:'The meaning of Khatam-un-Nabiyyin',en:'The book explains this as “the Last Prophet”.'},
   {title:'The Prophet’s declaration of prophethood',en:'The book states that the Holy Prophet ﷺ declared his prophethood at the age of 40.'},
-  {title:'Prophet Adam عليه السلام',en:'Part I identifies Sayyiduna Adam عليه السلام as the first Prophet created by Allah.'},
-  {title:'Prophet Ibrahim عليه السلام',en:'Use the Prophets section in Part I and the related pages in Part II to study Prophet Ibrahim عليه السلام and the events described in the source.'},
-  {title:'Prophetic miracles',en:'Part I contains a Prophets section and examples of miracles. We should add each miracle only with its exact source wording and page reference; no unsourced stories are being invented here.'},
+  {title:'Who is a Prophet?',en:'Part I, printed page 20: “The human to whom Allah has sent revelation for guidance is called a Prophet.”'},
+  {title:'First and final Prophets',en:'Part I, printed page 20 identifies Sayyiduna Adam عليه السلام as the first Prophet and the Beloved Prophet Muhammad Mustafa ﷺ as the last Prophet. It states no Prophet will come after him.'},
+  {title:'Names of Prophets listed in Part I',en:'Part I, printed page 21 lists Sayyiduna Adam, Musa, Dawud, Nuh, Hud, Isa and the Beloved Prophet Muhammad Mustafa ﷺ.'},
+  {title:'Prophet Muhammad ﷺ',en:'Part I, printed pages 15–16: born in Makkah on 12 Rabi-ul-Awwal; born on a Monday; father Sayyiduna Abdullah; mother Sayyidatuna Aminah; blessed tomb in Madinah; lived 63 years. The book says he declared prophethood at age 40.'},
+  {title:'Prophetic miracles',en:'The source includes a detailed Prophets section. To avoid assigning a miracle to the wrong Prophet, each miracle should be added only after checking the exact page text and illustration.'},
   {title:'Learning about other Prophets',en:'Use the Beliefs section of Part I and the Prophets section of Part II with a teacher. Keep each Prophet’s name, story and any miracle mentioned in the book together.'}
  ]},
  4:{intro:'The source book groups teachings about angels and revealed books in its Iman and beliefs section.',items:[
   {title:'Belief in angels',en:'Iman-e-Mufassal includes belief in Allah, His angels, His revealed books, His Prophets, the Last Day, divine decree (good and bad), and resurrection after death.'},
   {title:'Belief in revealed books',en:'The source lists belief in Allah’s revealed books as part of the detailed description of faith.'},
-  {title:'Angel Jibril عليه السلام',en:'The source section teaches belief in angels and their duties. Add the exact duty and wording from the relevant source page during guided study.'},
-  {title:'Other angels and their duties',en:'Part I and Part II include belief teachings about angels. Use the original pages to learn the names and duties without relying on an abbreviated summary.'},
-  {title:'Revealed books',en:'Iman-e-Mufassal includes belief in Allah’s revealed books. Learn the names of the books and the Prophets to whom they were revealed from the source section.'},
+  {title:'Belief in angels',en:'Iman-e-Mufassal, printed in Part II, includes belief in Allah’s angels.'},
+  {title:'Names and duties of angels',en:'Study the names and duties in the Beliefs section of Part I (printed pages 12–26). This page will not guess a duty if the wording cannot be confirmed from the PDF.'},
+  {title:'Revealed books',en:'Both books include belief in Allah’s revealed books. Study the named books and recipients from the Beliefs section in Part I and the corresponding section in Part II.'},
   {title:'Learn with the source open',en:'Read each answer alongside the book and ask your teacher to explain any unfamiliar term.'}
  ]},
  5:{intro:'Learn the prayer recitations shown in Part II. Practise the Arabic with a qualified teacher.',items:[
@@ -107,9 +115,9 @@ function openTopic(i){
   {title:'Tahmid',ar:'اللّٰهُمَّ رَبَّنَا وَلَكَ الْحَمْدُ',en:'O Allah! Our Lord! All praise is for You alone.'},
   {title:'Tasbih of sajdah',ar:'سُبْحَانَ رَبِّيَ الْأَعْلَى',en:'Glory to my Lord, the Most Supreme.'},
   {title:'Sajdah posture visual guide',en:'A labelled visual guide for boys and girls should be added here after checking the exact posture taught in the source and by a qualified teacher. Do not rely on an unverified diagram for prayer positions.'},
-  {title:'Surah Fatihah',en:'Add the complete Arabic text and translation directly from the Salah lesson in the source PDF before teaching recitation; do not use a shortened substitute.'},
-  {title:'Tashahhud (Attahiyyat)',en:'The source contents include tashahhud among the prayer recitations. Practise the complete wording with a teacher.'},
-  {title:'Salat Ibrahimiyyah',en:'The source contents include Salat Ibrahimiyyah. Learn its full Arabic wording and translation from the book.'},
+  {title:'Surah Fatihah',en:'Part II, printed pages 48–49, instructs students to recite the whole Surah Fatihah after Tasmiyya. Use the printed book for the complete Arabic and translation.'},
+  {title:'Tashahhud (Attahiyyat)',en:'Part II, printed page 50 gives the Tashahhud Arabic and translation. Learn the complete text from the source book.'},
+  {title:'Salat Ibrahimiyyah',en:'Part II, printed page 51 gives Salat Ibrahimiyyah with its English translation. Learn the complete text from the source book.'},
   {title:'Du’a masurah',ar:'اللّٰهُمَّ رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',en:'O Allah, our Lord! Grant us good in this world and good in the Hereafter, and protect us from the torment of Hell.'}
  ]},
  6:{intro:'This overview brings together acts of worship discussed in the books. Each lesson should be read alongside the original source pages.',items:[
@@ -127,7 +135,7 @@ function openTopic(i){
   {title:'Revision questions',en:'Ask a teacher to quiz you on the Madani pearls and good and bad deeds you have studied.'}
  ]},
  8:{intro:'Learn the Islamic months in order using the source book.',items:[
-  {title:'The 12 Islamic months',en:'1. Muharram  2. Safar  3. Rabi-ul-Awwal  4. Rabi-ul-Akhir  5. Jumada-ul-Ula  6. Jumada-ul-Akhirah  7. Rajab  8. Sha’ban  9. Ramadan  10. Shawwal  11. Dhu-ul-Qa’dah  12. Dhu-ul-Hijjah. Check transliterations against the names used in your edition of the source book.'},
+  {title:'The 12 Islamic months',en:'1. Muharram  2. Safar  3. Rabi-ul-Awwal  4. Rabi-ul-Akhir  5. Jumada-ul-Ula  6. Jumada-ul-Akhirah  7. Rajab  8. Sha’ban  9. Ramadan  10. Shawwal  11. Dhu-ul-Qa’dah  12. Dhu-ul-Hijjah. Part I includes “Madani Months” on printed page 39; Part II includes “Holy Islamic months” on printed page 87.'},
   {title:'Practise the order',en:'Say the twelve names in order, then try writing them from memory.'},
   {title:'Special dates',en:'For the significance or practices connected with a date, follow the exact source text and ask your teacher if anything is unclear.'}
  ]},
