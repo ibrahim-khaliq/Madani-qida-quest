@@ -147,5 +147,7 @@ $('navStories').onclick=()=>{renderStories();show('stories')};
 $('storyBack').onclick=()=>{renderStories();$('storyReader').classList.add('hidden');$('storyList').classList.remove('hidden')};
 $('markStoryRead').onclick=()=>{if(!activeStoryId)return;if(!storyProgress.read.includes(activeStoryId))storyProgress.read.push(activeStoryId);saveStoryProgress();renderStories();$('storyReadStatus').textContent='✓ This story is marked as read.';$('markStoryRead').textContent='✓ Story marked as read'};
 renderGameCards();show("home");
+// Ensure the story cards are populated whenever this page loads directly or inside the homepage overlay.
+try { renderStories(); } catch (err) { console.error('Weekly Stories could not render:', err); const root=document.getElementById('storyList'); if(root){ root.innerHTML='<div class="story-card"><h3>Stories are loading</h3><p>Please refresh the page. If this message remains, the story script needs further debugging.</p></div>'; } }
 
 </script></body></html>
