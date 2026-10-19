@@ -92,6 +92,7 @@ function drawLessons(){
 }
 function toggleLessonPicker(){
  const collapsed=document.body.classList.toggle("lesson-selected");
+ grid.style.display=collapsed?"none":"grid";
  const btn=document.getElementById("toggleLessonPicker");
  if(btn){btn.textContent=collapsed?"Change lesson":"Hide lesson list";btn.setAttribute("aria-expanded",String(!collapsed));}
  const title=document.getElementById("chooserTitle");
@@ -100,6 +101,7 @@ function toggleLessonPicker(){
 function selectLesson(n){
  selectedLesson=n;drawLessons();
  document.body.classList.add("lesson-selected");
+ grid.style.display="none";
  const pickerBtn=document.getElementById("toggleLessonPicker");
  if(pickerBtn){pickerBtn.textContent="Change lesson";pickerBtn.setAttribute("aria-expanded","false");}
  const chooserTitle=document.getElementById("chooserTitle");
