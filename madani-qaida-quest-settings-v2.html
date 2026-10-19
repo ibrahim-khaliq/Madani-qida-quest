@@ -61,20 +61,9 @@ body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{an
 <footer style="text-align:center;padding:0 10px 24px;color:var(--muted);font-size:.9em">Madani Qaida Quest • Ibrahim Talks</footer>
 <script>
 function returnToWelcome(){
- // Reset only a saved Fundamentals unlock flag before leaving Settings.
- // Keep sound, accessibility preferences, and lesson progress untouched.
- try{
-  const stores=[window.localStorage,window.sessionStorage];
-  stores.forEach(store=>{
-   const keys=[];
-   for(let i=0;i<store.length;i++){
-    const key=store.key(i)||'';
-    if(/fundamental/i.test(key)&&/(unlock|unlocked|access|open)/i.test(key))keys.push(key);
-   }
-   keys.forEach(key=>{try{store.setItem(key,'false')}catch(e){try{store.removeItem(key)}catch(e2){}}});
-  });
- }catch(e){}
- window.location.replace('madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019f');
+ // Navigation must never change the Fundamentals lock state.
+ // Leave all local/session storage untouched and return to the welcome screen.
+ window.location.replace('madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019g');
 }
 (function(){
  const status=document.getElementById('status');
