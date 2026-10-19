@@ -115,4 +115,38 @@ let timer;function notify(t){const m=document.getElementById('msg');m.textConten
  window.addEventListener('storage',function(e){if(prefs.some(([key])=>key===e.key))apply();});
 })();
 </script>
+
+<script id="mqq-mystery-lock-guard">
+(function(){
+  function lockMystery(){
+    document.querySelectorAll('.mystery-locked').forEach(function(card){
+      card.setAttribute('aria-disabled','true');
+      card.querySelectorAll('a').forEach(function(link){
+        link.removeAttribute('href');
+        link.removeAttribute('onclick');
+        link.setAttribute('aria-disabled','true');
+        link.setAttribute('tabindex','-1');
+      });
+      card.querySelectorAll('button').forEach(function(button){
+        button.disabled=true;
+        button.removeAttribute('onclick');
+        button.setAttribute('aria-disabled','true');
+        button.setAttribute('tabindex','-1');
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded',lockMystery);
+  window.addEventListener('pageshow',lockMystery);
+  document.addEventListener('click',function(event){
+    var card=event.target.closest&&event.target.closest('.mystery-locked');
+    if(card){event.preventDefault();event.stopPropagation();if(event.stopImmediatePropagation)event.stopImmediatePropagation();lockMystery();}
+  },true);
+  document.addEventListener('keydown',function(event){
+    var card=event.target.closest&&event.target.closest('.mystery-locked');
+    if(card&&(event.key==='Enter'||event.key===' ')){event.preventDefault();event.stopPropagation();}
+  },true);
+  lockMystery();
+})();
+</script>
+
 </body></html>
