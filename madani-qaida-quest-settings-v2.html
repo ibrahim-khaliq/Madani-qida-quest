@@ -37,7 +37,7 @@ body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{an
 </style>
 </head>
 <body>
-<header><div class="topbar"><div class="brand">📘 Madani Qaida Quest</div><a class="button secondary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019e" onclick="event.preventDefault();window.location.replace(this.href)">← Main Menu</a></div></header>
+<header><div class="topbar"><div class="brand">📘 Madani Qaida Quest</div><a class="button secondary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019f" onclick="event.preventDefault();returnToWelcome()">← Main Menu</a></div></header>
 <main>
 <section class="guide">
 <img src="a_clean_studio_like_3d_cgi_character_portrait_in_a.png" alt="Brother Ibrahim">
@@ -54,12 +54,28 @@ body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{an
 </section>
 <section class="panel">
 <h2>Navigation</h2><p>Return to the welcome screen or go back to the previous page.</p>
-<div class="actions"><a class="button primary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019e" onclick="event.preventDefault();window.location.replace(this.href)">🏠 Back to Main Menu</a><button id="backButton" class="secondary" type="button">↩ Back</button></div>
+<div class="actions"><a class="button primary" href="madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019f" onclick="event.preventDefault();returnToWelcome()">🏠 Back to Main Menu</a><button id="backButton" class="secondary" type="button">↩ Back</button></div>
 </section>
 <p class="muted">Settings are saved on this device and applied to the main game when you open or return to it. They do not change lesson content or lesson progress.</p>
 </main>
 <footer style="text-align:center;padding:0 10px 24px;color:var(--muted);font-size:.9em">Madani Qaida Quest • Ibrahim Talks</footer>
 <script>
+function returnToWelcome(){
+ // Reset only a saved Fundamentals unlock flag before leaving Settings.
+ // Keep sound, accessibility preferences, and lesson progress untouched.
+ try{
+  const stores=[window.localStorage,window.sessionStorage];
+  stores.forEach(store=>{
+   const keys=[];
+   for(let i=0;i<store.length;i++){
+    const key=store.key(i)||'';
+    if(/fundamental/i.test(key)&&/(unlock|unlocked|access|open)/i.test(key))keys.push(key);
+   }
+   keys.forEach(key=>{try{store.setItem(key,'false')}catch(e){try{store.removeItem(key)}catch(e2){}}});
+  });
+ }catch(e){}
+ window.location.replace('madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019f');
+}
 (function(){
  const status=document.getElementById('status');
  let audioContext=null;
@@ -112,7 +128,7 @@ body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{an
  });
  document.getElementById('testSound').addEventListener('click',playSample);
  document.getElementById('backButton').addEventListener('click',function(){
-  window.location.replace('madani-qaida-quest-welcome-v6-brother-ibrahim-blue-character.html?welcome=20261019e');
+  returnToWelcome();
  });
 })();
 </script>
