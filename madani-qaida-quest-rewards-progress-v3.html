@@ -145,7 +145,35 @@ function refreshProgress(){
  document.getElementById("starCollectorStatus").className=stars>=50?"success":"muted";
 }
 
-function loadSavedCharacter(){try{const c=JSON.parse(localStorage.getItem("mqq_character_creator_v1")||"null");if(!c)return;const $=id=>document.getElementById(id);if(c.gender==="girl")$("studentCharacter").classList.add("girl");if(c.gender==="boy")$("studentCharacter").classList.remove("girl");if(c.turban)$("progressTurban").style.background=c.turban;if(c.skin){$("progressFace").style.background=c.skin;}const colors={coat:"#55515a",blue:"#2463a8",green:"#23734e",simple:"transparent"};if(c.outfit&&colors[c.outfit]){$("progressCoat").style.background=colors[c.outfit];$("progressCoat").style.display=c.outfit==="simple"?"none":"block";}if(c.beard==="no")$("progressBeard").style.display="none";if(c.name)$("progressCharacterName").textContent=c.name;}catch(e){}}
+function loadSavedCharacter(){
+ try{
+  const $=id=>document.getElementById(id);
+  const box=$("studentCharacter"), title=$("progressCharacterName");
+  // Prefer the character chosen in the current 8-character selector.
+  const selectedName=localStorage.getItem("madaniQaidaQuestCharacter")||localStorage.getItem("mqq_selected_character_name");
+  const selectedArt=localStorage.getItem("madaniQaidaQuestCharacterArt")||localStorage.getItem("mqq_selected_character_art");
+  const selectedLook=localStorage.getItem("madaniQaidaQuestCharacterLook")||localStorage.getItem("mqq_selected_character_look");
+  if(selectedName&&title)title.textContent=selectedName;
+  if(selectedArt&&box){
+   let img=$("progressSelectedCharacterArt");
+   if(!img){img=document.createElement("img");img.id="progressSelectedCharacterArt";img.alt=(selectedName||"Selected")+" character";img.style.cssText="position:absolute;inset:0 0 18px;width:100%;height:calc(100% - 18px);object-fit:contain;object-position:center bottom;z-index:2";box.insertBefore(img,title||box.firstChild);}
+   img.src=selectedArt;img.alt=(selectedName||"Selected")+" character";
+   ["progressTurban","progressFace"].forEach(id=>{const el=$(id);if(el)el.style.display="none"});
+   const shirt=box.querySelector(".char-shirt");if(shirt)shirt.style.display="none";
+   const coat=$("progressCoat");if(coat)coat.style.display="none";
+   box.classList.remove("girl");
+   if(selectedLook)box.setAttribute("title",selectedLook);
+   return;
+  }
+  // Backwards-compatible fallback for the older character creator.
+  const c=JSON.parse(localStorage.getItem("mqq_character_creator_v1")||"null");if(!c)return;
+  if(c.gender==="girl")box.classList.add("girl");if(c.gender==="boy")box.classList.remove("girl");
+  if(c.turban)$("progressTurban").style.background=c.turban;if(c.skin)$("progressFace").style.background=c.skin;
+  const colors={coat:"#55515a",blue:"#2463a8",green:"#23734e",simple:"transparent"};
+  if(c.outfit&&colors[c.outfit]){$("progressCoat").style.background=colors[c.outfit];$("progressCoat").style.display=c.outfit==="simple"?"none":"block";}
+  if(c.beard==="no")$("progressBeard").style.display="none";if(c.name)title.textContent=c.name;
+ }catch(e){}
+}
 loadSavedCharacter();
 refreshProgress();
 renderStudentFeedback();
