@@ -65,6 +65,12 @@ body.lesson-selected #lessonChooser .pill{font-size:11px;padding:4px 8px}
   <div class="actions"><button class="secondary" id="backToOne">Try Lesson 1</button></div>
  </div>
 </section>
+<section class="panel" id="lessonRulesPanel">
+ <h2>📘 Rules for this lesson</h2>
+ <p class="muted" id="lessonRulesIntro">These notes follow the lesson topics in the Madani Qa’idah. Practise pronunciation with your qualified Qaida teacher.</p>
+ <ul id="lessonRulesList"></ul>
+ <p class="muted" style="font-size:12px">Study guide: Dawat-e-Islami / Maktaba-tul-Madinah, <em>Madani Qa’idah</em>. The lesson topics are summarised in original wording; use the printed book and your teacher for exact examples and recitation.</p>
+</section>
 <section class="panel">
  <h2>Identify the Rules — starter activity</h2>
  <p class="muted">Choose every group that applies to the letter. If none of the listed groups applies, choose “None of these groups”. This activity covers only the groups shown here, not every possible Tajweed characteristic.</p>
@@ -78,6 +84,43 @@ body.lesson-selected #lessonChooser .pill{font-size:11px;padding:4px 8px}
 <script>
 "use strict";
 const lessonNames=["Huroof Mufridat (Individual Letters)","Huroof Murakkabat (Compound Letters)","Harakaat (Short Vowels)","Rawan Reading Practice","Tanween (Double Vowels)","Words with Harakaat and Tanween","Huroof-e-Maddah (Letters of Maddah)","Khari Harakaat (Vertical Vowels)","Huroof-e-Leen (Soft Letters)","Revision of Previous Rules","Sukoon (Jazm) and Qalqalah","Noon Saakinah and Tanween: Izhar and Ikhfa","Tashdeed (Doubled Letters)","Noon Saakinah and Tanween: Idgham and Iqlab","Meem Saakinah Rules","Tafkheem and Tarqeeq (Thick and Thin)","Maddaat (Types of Madd)","Huroof Muqatta’at (Disjointed Letters)","Za’id (Additional Alif)","Miscellaneous Rules","Waqf (Pausing and Its Signs)"];
+
+// Lesson-specific learning notes based on the lesson headings and guidance in the official Madani Qa'idah.
+// Keep these as short summaries; use the book and a qualified teacher for exact recitation examples.
+const lessonRuleNotes = [
+ ["Recognise the individual Arabic letters and distinguish letters by their shape and dots.","Learn to pronounce each letter from its correct articulation point (makhraj)."],
+ ["Recognise compound/joined letters and read the letter sequence from right to left.","Notice how a letter’s written shape can change when it joins another letter."],
+ ["Fathah, Kasrah and Dammah are short-vowel marks.","Read each marked letter with its correct short vowel; do not stretch a short vowel into a long one."],
+ ["Practise fluent (rawan) reading without spelling each letter separately.","Keep the short-vowel sounds and the pronunciation of each letter correct while reading smoothly."],
+ ["Tanween uses the double-vowel marks: Fathatain, Kasratain and Dammatain.","Read the sound shown by the mark and practise the examples in the book."],
+ ["Combine fluent reading with recognition of Harakaat and Tanween.","Give special care to the correct pronunciation of letters, including the Musta'liyah (heavy) letters, as directed in the lesson."],
+ ["The letters of Maddah are Alif, Waaw and Yaa when they meet the conditions shown in the book.","Recognise when a sound is lengthened and follow the book’s examples for the correct amount of Madd."],
+ ["Recognise the vertical (Khari) vowel marks and the inverted Dammah shown in this lesson.","Read them according to the sound taught in the book, rather than treating them as ordinary short-vowel marks."],
+ ["The two letters of Leen are Waaw Saakinah and Yaa Saakinah when preceded by Fathah.","Practise the soft sound using the examples in the Madani Qa'idah."],
+ ["Revision: review the rules already studied, especially Harakaat, Tanween, Maddah and Leen.","Use the earlier lesson examples to check that you can recognise each mark and read it correctly."],
+ ["Sukoon (Jazm) marks a letter without a short vowel; connect it correctly to the preceding sound.","Practise the lesson’s sukoon examples slowly and avoid adding an extra vowel."],
+ ["Noon Saakinah and Tanween: this lesson focuses on Izhar and Ikhfa.","Izhar is read clearly; Ikhfa is read with the concealment/nasal quality taught in the book. Apply only to the cases shown in the lesson."],
+ ["Tashdeed (Shaddah) indicates a doubled letter in recitation.","Give the doubled letter its due emphasis and follow the vowel on the letter; practise the book’s examples."],
+ ["Noon Saakinah and Tanween: this lesson focuses on Idgham and Iqlab.","Learn the conditions and letter groups given in the book; practise each rule with the printed examples."],
+ ["Meem Saakinah has specific cases depending on the following letter.","Study the cases and their letter conditions as shown in the book, and practise the examples with your teacher."],
+ ["Tafkheem means a heavier/thicker sound; Tarqeeq means a lighter/thinner sound.","Practise the letters and cases identified in the lesson, following the book’s guidance for correct pronunciation."],
+ ["Maddaat covers the types/cases of lengthening taught in this lesson.","Identify the sign or letter combination that calls for Madd and follow the duration demonstrated by your teacher."],
+ ["Huroof Muqatta’at are the separate letters found at the beginnings of certain Surahs.","Read these letter names as taught in the book; do not read them as an ordinary joined word."],
+ ["Za’id (additional) Alif: recognise the extra Alif forms shown in the lesson.","Follow the reading guidance in the book for whether the written Alif affects pronunciation in each example."],
+ ["Review the miscellaneous/special reading cases specifically presented in this lesson.","Use the printed examples and teacher explanation for each special case; do not generalise beyond the examples."],
+ ["Waqf means pausing/stopping during recitation.","Learn the pause signs and where the book instructs you to stop, continue, or avoid stopping; ask your teacher about any sign you are unsure of."]
+];
+function renderLessonRules(n){
+ const list=document.getElementById("lessonRulesList");
+ if(!list)return;
+ list.innerHTML="";
+ (lessonRuleNotes[n-1]||["Review this lesson with the printed Madani Qa'idah and your teacher."]).forEach(note=>{
+  const li=document.createElement("li");li.textContent=note;list.appendChild(li);
+ });
+ const intro=document.getElementById("lessonRulesIntro");
+ if(intro)intro.textContent="Lesson "+n+" — "+(lessonNames[n-1]||"Madani Qa'idah")+". These are short topic notes, not a substitute for teacher-led recitation.";
+}
+
 const lessons = Array.from({length:21},(_,i)=>({n:i+1,title:lessonNames[i]||("Lesson "+(i+1)),ready:i<21}));
 const grid=document.getElementById("lessonGrid");
 const lessonTitle=document.getElementById("lessonTitle"), lessonSubtitle=document.getElementById("lessonSubtitle");
@@ -107,6 +150,7 @@ function selectLesson(n){
  const chooserTitle=document.getElementById("chooserTitle");
  if(chooserTitle)chooserTitle.textContent=`Selected: Lesson ${n}`;
  const ready=lessons[n-1].ready;
+ renderLessonRules(n);
  lessonTitle.textContent=ready?`Lesson ${n} — ${lessons[n-1].title}`:`Lesson ${n} — Content review`;
  lessonSubtitle.textContent=ready?"Starter question bank — verify examples with the official book before teaching":"Question bank not yet verified";
  document.getElementById("quiz").classList.toggle("hidden",!ready);

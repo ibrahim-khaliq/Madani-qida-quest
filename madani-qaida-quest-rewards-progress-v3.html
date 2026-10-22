@@ -19,6 +19,8 @@ h1{margin:0 0 5px;font-size:clamp(24px,4vw,34px);color:#123b70}h2{font-size:19px
 .field{display:grid;gap:6px;margin:10px 0}.field label{font-weight:900;font-size:14px}input,select,textarea{width:100%;border:1px solid #c6d9eb;border-radius:11px;padding:11px;background:white;color:var(--ink)}textarea{min-height:86px;resize:vertical}.primary{background:#1769aa;color:white}.green{background:#16804a;color:white}.gold{background:#f5c451;color:#4a3700}.danger{background:#fee2e2;color:#9b1c1c}
 .student-list{display:grid;gap:9px}.student{padding:13px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;text-align:left;width:100%;color:var(--ink)}.student.selected{outline:3px solid #1769aa}.student small{display:block;color:var(--muted);margin-top:3px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.note{background:#fff8e6;border:1px solid #f4d98a;border-radius:13px;padding:12px;font-size:13px;line-height:1.45}.success{color:#146c43;font-weight:900}.hidden{display:none!important}footer{text-align:center;color:#426482;font-size:12px;padding:10px 16px 25px}
 @media(max-width:700px){.hero{padding:14px;gap:10px}.student-character{width:112px;min-width:112px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.achievements{grid-template-columns:1fr}.hero{align-items:flex-start;padding:16px}.avatar{width:62px;height:62px;font-size:34px}.wrap{width:calc(100% - 16px);margin-top:12px}.panel{padding:14px}}
+/* Keep the public student progress screen student-only until real staff authentication exists. */
+#staffTab{display:none!important}
 </style>
 </head>
 <body>
@@ -43,7 +45,7 @@ h1{margin:0 0 5px;font-size:clamp(24px,4vw,34px);color:#123b70}h2{font-size:19px
       <div class="achievement locked"><div class="medal">🏆</div><div><strong>Qaida Champion</strong><p class="muted">Complete all 21 lessons</p><span id="championStatus" class="muted">Locked</span></div></div>
       <div class="achievement locked"><div class="medal">💫</div><div><strong>Star Collector</strong><p class="muted">Earn 50 stars</p><span id="starCollectorStatus" class="muted">Locked</span></div></div>
     </div></section>
-    <section class="panel"><h2>💌 A message from your teacher</h2><div id="studentFeedback" class="feedback"><strong>🌟 Well done!</strong><p>You're making good progress. Keep practising Lesson 4 this week, especially the letters we've been working on. Keep going — you're doing great!</p><p class="muted">From your Madrasah teacher · Example message</p></div><div class="note">This prototype saves lesson progress only in the same browser/device. It is not a secure login, and it does not sync between devices or share real student data with staff.</div></section>
+    <section class="panel"><h2>💌 A message from your teacher</h2><div id="studentFeedback" class="feedback"><strong>🌟 Well done!</strong><p>You're making good progress. Keep practising Lesson 4 this week, especially the letters we've been working on. Keep going — you're doing great!</p><p class="muted">From your Madrasah teacher · Example message</p></div><div class="note"><strong>Prototype notice:</strong> Progress is saved only in this browser/device. This page has no secure student or staff login and does not sync with teachers. The staff dashboard is hidden from the student view; do not enter real student records until secure authentication and a protected database are connected.</div></section>
   </section>
   <section id="staffView" class="hidden">
     <div class="note"><strong>Staff dashboard preview.</strong> These are fictional sample students. This page does not authenticate staff or securely store student records. Real staff access will require a secure login and database before use with children.</div>
@@ -70,12 +72,24 @@ const demoKey="mqq_rewards_demo_feedback_v1";
 function getFeedback(){try{return JSON.parse(localStorage.getItem(demoKey)||"{}")}catch(e){return {}}}
 function setFeedback(data){try{localStorage.setItem(demoKey,JSON.stringify(data));return true}catch(e){return false}}
 function showMode(mode){
- document.getElementById("studentView").classList.toggle("hidden",mode!=="student");
- document.getElementById("staffView").classList.toggle("hidden",mode!=="staff");
- document.getElementById("studentTab").classList.toggle("active",mode==="student");
- document.getElementById("staffTab").classList.toggle("active",mode==="staff");
- if(mode==="staff")renderStudents();
- else renderStudentFeedback();
+ // This is a static public prototype, not an authenticated staff system.
+ // Do not expose the sample staff dashboard through the student-facing progress screen.
+ if(mode!=="student"){
+  mode="student";
+  const notice=document.getElementById("studentFeedback");
+  if(notice){
+   notice.innerHTML="";
+   const strong=document.createElement("strong");strong.textContent="Teacher dashboard unavailable here";
+   const msg=document.createElement("p");msg.textContent="This public prototype has no secure staff login. The teacher dashboard must be connected to proper authentication and a protected database before it is used with real student records.";
+   notice.append(strong,msg);
+  }
+ }
+ document.getElementById("studentView").classList.remove("hidden");
+ document.getElementById("staffView").classList.add("hidden");
+ document.getElementById("studentTab").classList.add("active");
+ const staffTab=document.getElementById("staffTab");
+ if(staffTab)staffTab.classList.remove("active");
+ if(mode==="student")renderStudentFeedback();
 }
 function renderStudents(){
  const list=document.getElementById("studentList");list.innerHTML="";
